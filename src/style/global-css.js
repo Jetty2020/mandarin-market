@@ -12,7 +12,6 @@ export const theme = {
 
 export const GlobalStyles = createGlobalStyle`
   ${normalize}
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
   input {
     all:unset;
   }
