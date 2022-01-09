@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { loginUser } from '../action/user';
 
 const init = {
-  // userInfo: {},
+  loading: 'idle',
+  isLoggedIn: false,
+  user: {},
 };
 
 const userSlice = createSlice({
@@ -14,19 +16,23 @@ const userSlice = createSlice({
     },
     [loginUser.fulfilled]: (state, action) => {
       state.loading = 'idle';
-      // state.user.id = action.user.id;
-      // state.user.token = action.payload.data.jwt;
-      // state.user.userID = action.payload.data.userId;
-      state.error = null;
-      console.log(1, action);
+      if (action.payload.user) {
+        state.isLoggedIn = true;
+        state.user = action.payload.user;
+        state.error = null;
+      } else if (action.payload) {
+        state.error = action.payload.message;
+      } else {
+        state.error = action.error.message;
+      }
     },
     [loginUser.rejected]: (state, action) => {
       state.loading = 'idle';
-      // if (action.payload) {
-      //   state.error = action.payload.message;
-      // } else {
-      //   state.error = action.error.message;
-      // }
+      if (action.payload) {
+        state.error = action.payload.message;
+      } else {
+        state.error = action.error.message;
+      }
     },
 
     // [registerUser.pending]: (state) => {
