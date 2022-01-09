@@ -14,7 +14,7 @@ function Login() {
 
     const dataToSubmit = {
       user: {
-        email: 'sample@sample.coam',
+        email: 'sample@sample.com',
         password: '123456',
       },
     };
@@ -22,10 +22,10 @@ function Login() {
       if (response.payload) {
         if (response.payload.user) {
           // setCookie('token', response.payload.data.jwt);
-          console.log(response.payload);
+          console.log('login1', response.payload);
           navigate('/');
         } else {
-          console.log(response.payload);
+          console.log('login2', response.payload);
         }
       } else {
         // alert('연결 오류');
