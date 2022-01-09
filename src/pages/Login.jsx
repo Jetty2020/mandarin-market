@@ -1,26 +1,29 @@
-import axios from 'axios';
 import React from 'react';
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import { loginUser } from '../redux/action/user';
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onSubmit = (event) => {
     event.preventDefault();
 
     const dataToSubmit = {
       user: {
-        email: 'id',
-        password: 'password',
+        email: 'sample@sample.coam',
+        password: '123456',
       },
     };
     dispatch(loginUser(dataToSubmit)).then((response) => {
       if (response.payload) {
-        if (response.payload.success) {
+        if (response.payload.user) {
           // setCookie('token', response.payload.data.jwt);
-          // router.push(`/`);
           console.log(response.payload);
+          navigate('/');
         } else {
           console.log(response.payload);
         }
