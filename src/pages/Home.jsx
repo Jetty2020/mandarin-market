@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PageTitle from '../components/PageTitle';
+import PageTitle from '../components/common/PageTitle';
 import { loginUser } from '../redux/action/user';
 
 function Home() {
