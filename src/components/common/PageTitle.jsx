@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 function PageTitle({ title }) {
   return (
     <Helmet>
-      <title>{title} | World Art Works</title>
+      <title>{title} | Mandarin Market</title>
     </Helmet>
   );
 }
