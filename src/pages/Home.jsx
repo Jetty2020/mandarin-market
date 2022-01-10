@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/common/Navbar';
 import PageTitle from '../components/common/PageTitle';
 import { loginUser } from '../redux/action/user';
 
@@ -14,6 +15,7 @@ function Home() {
       <Link to="/login">to Login</Link>
       <div>Home</div>
       <Link to="/profile">to profile</Link>
+      <Navbar />
     </div>
   );
 }
