@@ -14,6 +14,7 @@ function Home() {
       <PageTitle title="Home" />
       <Link to="/login">to Login</Link>
       <div>Home</div>
+      <Link to="/profile">to profile</Link>
       <Navbar />
     </div>
   );
