@@ -7,6 +7,7 @@ import { routes } from './constants';
 import { theme, GlobalStyles } from './style/global-css';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Chat from './pages/Chat';
 import NotFound from './pages/NotFound';
 import store from './redux/store';
 
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path={routes.home} element={<Home />} />
               <Route path={routes.login} element={<Login />} />
+              <Route path={routes.chat} element={<Chat />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
