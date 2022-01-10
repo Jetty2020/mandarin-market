@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ProfileCard from '../components/profile/ProfileCard';
 import SellingContainer from '../components/profile/SellingContainer';
 import FeedContainer from '../components/profile/FeedContainer';
+import Navbar from '../components/common/Navbar';
 
 function Profile() {
   return (
@@ -10,6 +11,7 @@ function Profile() {
       <ProfileCard />
       <SellingContainer />
       <FeedContainer />
+      <Navbar />
     </YourProfile>
   );
 }
