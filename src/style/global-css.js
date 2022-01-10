@@ -2,12 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
 export const theme = {
-  accent: '#0095f6',
+  accent: '#f26e22',
   green: '#079768',
   deepBlue: 'rgb(29, 78, 216)',
   blue: 'rgb(59, 130, 246)',
   red: '#d63031',
-  gray: '#b2bec3',
+  gray: '#767676',
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -17,8 +17,8 @@ export const GlobalStyles = createGlobalStyle`
   }
   * {
     box-sizing:border-box;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
   }
   body {
     background-color: #FAFAFA;
@@ -29,4 +29,7 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color:inherit;
   }
- `;
+  li {
+    list-style: none;
+  }
+`;
