@@ -5,12 +5,22 @@ import { Link } from 'react-router-dom';
 function ProfileCard() {
   const [followers, setFollowers] = useState(2950);
   const [followings, setFollowings] = useState(128);
+  const [followState, setFollowState] = useState(false);
   const [name, setName] = useState('대한민국 챙고 감귤농장');
   const [id, setIdName] = useState('@chango.kr');
   const [info, setInfo] = useState(
     '대한민국 감귤 전국 배송, 귤따기 체험, 감귤 농장',
   );
   const [follow, setFollow] = useState(false);
+
+  const followOrUn = () => {
+    if (followState) {
+      setFollowers((current) => current + 1);
+    } else {
+      setFollowers((current) => current - 1);
+    }
+  };
+
   return (
     <ProfileContainer>
       <ProfileHeader>
@@ -120,7 +130,7 @@ const MessageBtn = styled.button`
   border-radius: 30px;
   border: 1px solid #dbdbdb;
   background-color: white;
-  background-image: url('img/icon/icon-message-circle.png');
+  background-image: url('img/icon/icon-message-circle.svg');
   background-repeat: no-repeat;
   background-position: center;
 `;

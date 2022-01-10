@@ -29,7 +29,7 @@ function FeedCard(img = '') {
         <FeedIcon>
           <ImgHeart src="img/icon/icon-heart.png" alt="" />
           <NumOf>58</NumOf>
-          <ImgMessage src="img/icon/icon-message-circle.png" alt="" />
+          <ImgMessage src="img/icon/icon-message-circle.svg" alt="" />
           <NumOf>12</NumOf>
         </FeedIcon>
         <FeedDate>2020년 10월 21일</FeedDate>
