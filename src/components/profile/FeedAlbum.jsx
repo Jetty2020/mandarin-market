@@ -21,13 +21,14 @@ export default FeedAlbum;
 
 const AlbumContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(114px, 146px));
   gap: 8px;
   padding: 16px;
   background-color: white;
+  border: 1px solid salmon;
 `;
 
 const Img = styled.img`
-  width: 114px;
-  height: 114px;
+  width: 100%;
+  height: 100%;
 `;
