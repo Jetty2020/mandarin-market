@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import PageTitle from '../components/common/PageTitle';
 
 function NotFound() {
+  const navigate = useNavigate();
   return (
     <Container>
       <PageTitle title="404" />
       <Img404 src="/img/icon-404.png" alt="404페이지 이미지" />
       <Text404>페이지를 찾을 수 없습니다. :(</Text404>
-      <PrevBtn type="button">이전 페이지</PrevBtn>
+      <PrevBtn type="button" onClick={() => navigate(-1)}>
+        이전 페이지
+      </PrevBtn>
     </Container>
   );
 }
