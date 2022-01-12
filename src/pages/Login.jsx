@@ -2,7 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import PageTitle from '../components/PageTitle';
+=======
+import PageTitle from '../components/common/PageTitle';
+>>>>>>> 7649b1832a5b25729f104f6296e1f069bbcaa5b5
 import { loginUser } from '../redux/action/user';
 
 function Login() {
