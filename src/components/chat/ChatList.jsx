@@ -30,7 +30,7 @@ function ChatList() {
   return (
     <ChatListContainer>
       {chatSummary.map((chat) => (
-        <ChatListItem key={chat.id} to="/chatroom">
+        <ChatListItem key={chat.id} to={`/chat/${chat.id}`}>
           <ChatColumn>
             <ProfileImage src={chat.profileImage} alt="" />
             <div>
