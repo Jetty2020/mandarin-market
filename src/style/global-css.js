@@ -2,12 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
 export const theme = {
-  accent: '#0095f6',
+  accent: '#f26e22',
   green: '#079768',
   deepBlue: 'rgb(29, 78, 216)',
   blue: 'rgb(59, 130, 246)',
   red: '#d63031',
-  gray: '#b2bec3',
+  gray: '#767676',
 };
 
 export const GlobalStyles = createGlobalStyle`
