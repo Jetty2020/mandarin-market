@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import store from './redux/store';
+import LoginEmail from './pages/LoginEmail';
+import Join from './pages/Join';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Routes>
               <Route path={routes.home} element={<Home />} />
               <Route path={routes.login} element={<Login />} />
+              <Route path={routes.loginEmail} element={<LoginEmail />} />
+              <Route path={routes.join} element={<Join />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
