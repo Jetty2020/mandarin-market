@@ -5,6 +5,7 @@ export const routes = {
   login: '/login',
   profile: '/profile',
   chat: '/chat',
+  chatRoom: '/chat/:id',
   loginEmail: '/login/email',
   join: '/join',
 };

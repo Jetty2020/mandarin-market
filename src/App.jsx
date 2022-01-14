@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Chat from './pages/Chat';
+import ChatRoom from './pages/ChatRoom';
 import NotFound from './pages/NotFound';
 import store from './redux/store';
 import LoginEmail from './pages/LoginEmail';
@@ -26,6 +27,7 @@ function App() {
               <Route path={routes.login} element={<Login />} />
               <Route path={routes.profile} element={<Profile />} />
               <Route path={routes.chat} element={<Chat />} />
+              <Route path={routes.chatRoom} element={<ChatRoom />} />
               <Route path={routes.loginEmail} element={<LoginEmail />} />
               <Route path={routes.join} element={<Join />} />
               <Route path="/*" element={<NotFound />} />
