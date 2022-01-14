@@ -45,6 +45,7 @@ const Contents = styled.div`
   display: flex;
   padding: 16px 21px;
   justify-content: center;
+  margin-bottom: 59px;
 `;
 
 const LinkWrapper = styled.div`

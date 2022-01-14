@@ -26,6 +26,7 @@ const AlbumContainer = styled.div`
   padding: 16px;
   background-color: white;
   border: 1px solid salmon;
+  margin-bottom: 59px;
 `;
 
 const Img = styled.img`
