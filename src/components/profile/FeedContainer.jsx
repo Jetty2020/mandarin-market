@@ -11,9 +11,6 @@ function FeedContainer({ feedHeaderMarginTop, feedState }) {
     setFeedStyle((current) => !current);
   };
 
-  console.log(feedState);
-  console.log(feedHeaderMarginTop);
-
   return (
     <div>
       {feedState ? (
