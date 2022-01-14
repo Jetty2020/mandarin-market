@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { routes } from '../../constants';
 
 export default function LoginPage() {
   return (
     <div>
       <Container>
-        <img src="img/symbol-logo-W.png" alt="감귤마켓 로고" />
+        <img src="/img/symbol-logo-W.png" alt="감귤마켓 로고" />
         <LoginBox>
           <AccountList>
             <Account>카카오톡 계정으로 로그인</Account>
@@ -13,8 +15,12 @@ export default function LoginPage() {
             <Account>페이스북 계정으로 로그인</Account>
           </AccountList>
           <UserSet>
-            <UserSetItem>이메일로 로그인</UserSetItem>
-            <UserSetItem>회원가입</UserSetItem>
+            <UserSetItem>
+              <Link to={routes.loginEmail}>이메일로 로그인</Link>
+            </UserSetItem>
+            <UserSetItem>
+              <Link to={routes.join}>회원가입</Link>
+            </UserSetItem>
           </UserSet>
         </LoginBox>
       </Container>
@@ -23,24 +29,26 @@ export default function LoginPage() {
 }
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
   position: relative;
-  max-width: 500px;
+  /* max-width: 500px; */
   min-width: 370px;
   height: 100vh;
-  background-color: #ea7f42;
-  /* background-color: red; */
-  /* scroll 생기는 것 해결 필요  */
-  /* overflow: hidden; */
+  /* theme accent 컬러 적용  */
+  /* background-color: ${(props) => props.theme.accent}; */
+  background-color: #f26e22;
 
   > img {
-    /* center 이동시키기 */
-    margin: 204px 123px 502px;
+    width: 144px;
+    height: 144px;
+    margin-top: 204px;
   }
 `;
 
 const LoginBox = styled.div`
   position: absolute;
-  top: 525px;
+  bottom: 0;
   width: 100%;
   height: 300px;
   background-color: #fff;
@@ -118,14 +126,15 @@ const UserSet = styled.ul`
 `;
 const UserSetItem = styled.li`
   :first-child {
+    position: relative;
     margin-right: 12px;
   }
   :first-child&:after {
     display: block;
     content: '|';
     position: absolute;
-    left: 205px;
-    bottom: 65px;
+    bottom: 1px;
+    left: 84px;
     line-height: 15px;
     color: #c4c4c4;
   }
