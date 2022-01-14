@@ -66,9 +66,9 @@ const ChatColumn = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  margin-right: 12px;
   width: 42px;
   height: 42px;
+  margin-right: 12px;
 `;
 
 const Name = styled.h4`
@@ -90,19 +90,19 @@ const Name = styled.h4`
 `;
 
 const Message = styled.p`
-  width: calc(100vw - 155px);
-  font-size: 12px;
-  color: ${(props) => props.theme.gray};
-  white-space: nowrap;
   overflow: hidden;
+  width: calc(100vw - 155px);
+  color: ${(props) => props.theme.gray};
+  font-size: 12px;
+  white-space: nowrap;
   text-overflow: ellipsis;
 `;
 
 const Date = styled.span`
-  margin-bottom: 5px;
   width: 53px;
-  font-size: 10px;
+  margin-bottom: 5px;
   color: #dbdbdb;
+  font-size: 10px;
 `;
 
 export default ChatList;

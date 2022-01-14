@@ -44,14 +44,14 @@ const ChatDetailContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding: 20px 16px;
   height: calc(100vh - 60px);
+  padding: 20px 16px;
   background-color: #f2f2f2;
 `;
 
 const Message = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
   &.own {
     justify-content: flex-end;
     div {
@@ -68,9 +68,9 @@ const Message = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  margin-right: 12px;
   width: 42px;
   height: 42px;
+  margin-right: 12px;
 `;
 
 const MessageInfo = styled.div`
@@ -80,11 +80,11 @@ const MessageInfo = styled.div`
 `;
 
 const Text = styled.span`
+  max-width: 240px;
   padding: 12px;
   border: 1px solid #c4c4c4;
   border-radius: 10px;
   border-top-left-radius: 0px;
-  max-width: 240px;
   background-color: #fff;
   font-size: 14px;
   line-height: 18px;
@@ -102,6 +102,6 @@ const Time = styled.span`
 const Image = styled.img`
   width: 240px;
   height: 240px;
-  object-fit: cover;
   border-radius: 10px;
+  object-fit: cover;
 `;

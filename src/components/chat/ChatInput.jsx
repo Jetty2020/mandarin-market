@@ -66,13 +66,13 @@ const ChatReplyForm = styled.form`
     }
   }
   & input[type='file'] {
-    position: absolute;
     overflow: hidden;
-    width: 1px;
+    position: absolute;
     height: 1px;
     padding: 0;
     margin: -1px;
     border: 0;
+    width: 1px;
     clip: rect(0, 0, 0, 0);
   }
 `;
@@ -81,16 +81,16 @@ const InputMessage = styled.input`
   width: calc(100vw - 140px);
   font-size: 14px;
   &::placeholder {
-    font-size: 14px;
     color: #c4c4c4;
+    font-size: 14px;
   }
 `;
 
 const SubmitButton = styled.button`
-  border: none;
-  background: none;
   width: 70px;
   height: 100%;
+  border: none;
+  background: none;
   color: ${(props) => props.color};
   font-size: 14px;
   font-weight: 500;
