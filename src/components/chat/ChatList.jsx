@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 function ChatList() {
   const chatSummary = [
@@ -12,14 +13,14 @@ function ChatList() {
     },
     {
       name: '제주감귤마을',
-      message: '깊은 어둠의 존재감, 롤스로이스 뉴 블랙 배지 어쩌고',
+      message: '깊은 어둠의 존재감, 롤스로이스 뉴 블랙 배지 어쩌고 저쩌고.',
       date: '2022.01.10',
       profileImage: 'img/Ellipse-1.png',
       id: 1,
     },
     {
       name: '누구네 농장 친환경 한라봉',
-      message: '내 차는 내가 평가한다. 오픈 이벤트에 참여하실라우?',
+      message: '내 차는 내가 평가한다. 오픈 이벤트에 참여하실라우? 깐부자너!',
       date: '2022.01.09',
       profileImage: 'img/Ellipse-1.png',
       id: 0,
@@ -27,23 +28,81 @@ function ChatList() {
   ];
 
   return (
-    <div>
+    <ChatListContainer>
       {chatSummary.map((chat) => (
-        <Link key={chat.id} to="/chat:id">
-          <div>
-            <img src="{chat.profileImage}" alt="" />
+        <ChatListItem key={chat.id} to="/chatroom">
+          <ChatColumn>
+            <ProfileImage src={chat.profileImage} alt="" />
             <div>
-              <h4>{chat.name}</h4>
-              <p>{chat.message}</p>
+              <Name>{chat.name}</Name>
+              <Message>{chat.message}</Message>
             </div>
-          </div>
-          <div>
-            <span>{chat.date}</span>
-          </div>
-        </Link>
+          </ChatColumn>
+          <ChatColumn>
+            <Date>{chat.date}</Date>
+          </ChatColumn>
+        </ChatListItem>
       ))}
-    </div>
+    </ChatListContainer>
   );
 }
+
+const ChatListContainer = styled.div`
+  margin: 24px 16px 0;
+`;
+
+const ChatListItem = styled(Link)`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+
+const ChatColumn = styled.div`
+  display: flex;
+  align-items: center;
+  &:nth-child(2n) {
+    align-items: flex-end;
+  }
+`;
+
+const ProfileImage = styled.img`
+  margin-right: 12px;
+  width: 42px;
+  height: 42px;
+`;
+
+const Name = styled.h4`
+  position: relative;
+  margin-bottom: 4px;
+  font-size: 14px;
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -4px;
+    left: -55px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: ${(props) => props.theme.accent};
+    z-index: 10;
+  }
+`;
+
+const Message = styled.p`
+  width: calc(100vw - 155px);
+  font-size: 12px;
+  color: ${(props) => props.theme.gray};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const Date = styled.span`
+  margin-bottom: 5px;
+  width: 53px;
+  font-size: 10px;
+  color: #dbdbdb;
+`;
 
 export default ChatList;
