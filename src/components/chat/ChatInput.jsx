@@ -10,7 +10,7 @@ export default function ChatInput() {
   };
   const onClick = (event) => {
     event.preventDefault();
-    if (typed === '') {
+    if (typed === '' && uploaded === '') {
       return;
     }
     setUploaded('');
@@ -43,7 +43,7 @@ export default function ChatInput() {
       <SubmitButton
         type="submit"
         onClick={onClick}
-        color={typed ? '#F26E22' : '#C4C4C4'}
+        color={typed || uploaded ? '#F26E22' : '#C4C4C4'}
       >
         전송
       </SubmitButton>
