@@ -11,6 +11,8 @@ import Profile from './pages/Profile';
 import Chat from './pages/Chat';
 import NotFound from './pages/NotFound';
 import store from './redux/store';
+import LoginEmail from './pages/LoginEmail';
+import Join from './pages/Join';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
               <Route path={routes.login} element={<Login />} />
               <Route path={routes.profile} element={<Profile />} />
               <Route path={routes.chat} element={<Chat />} />
+              <Route path={routes.loginEmail} element={<LoginEmail />} />
+              <Route path={routes.join} element={<Join />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
