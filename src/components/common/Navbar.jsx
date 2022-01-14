@@ -40,6 +40,7 @@ const Lists = styled.ul`
   right: 0;
   padding: 0 7vw;
   border-top: 1px solid #dbdbdb;
+  background-color: #fff;
 `;
 
 const List = styled.li`
