@@ -48,8 +48,8 @@ const List = styled.li`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 84px;
   height: 59px;
+  max-width: 84px;
 `;
 
 const Menu = styled.span`
