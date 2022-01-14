@@ -1,12 +1,13 @@
 import React from 'react';
 import PageTitle from '../components/common/PageTitle';
+import ChatList from '../components/chat/ChatList';
 import Navbar from '../components/common/Navbar';
 
 function Chat() {
   return (
     <div>
       <PageTitle title="Chat" />
-      <div>chat</div>
+      <ChatList />
       <Navbar />
     </div>
   );
