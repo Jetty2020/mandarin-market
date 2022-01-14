@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function ProfileCard() {
+  const account = 'hey_binky';
   const [followers, setFollowers] = useState(2950);
   const [followings, setFollowings] = useState(128);
+  const [imgUrl, setImgUrl] = useState('img/basic-profile-img.png');
   const [followState, setFollowState] = useState(false);
   const [name, setName] = useState('대한민국 챙고 감귤농장');
   const [id, setIdName] = useState('@chango.kr');
@@ -14,13 +16,41 @@ function ProfileCard() {
   );
   const [follow, setFollow] = useState(false);
 
-  const followOrUn = () => {
-    if (followState) {
-      setFollowers((current) => current + 1);
-    } else {
-      setFollowers((current) => current - 1);
-    }
-  };
+  async function getProfileInfo() {
+    const token = localStorage.getItem('token');
+    const url = 'http://146.56.183.55:5050';
+    const response = await axios(`${url}/profile/${account}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setFollowers(response.data.profile.followerCount);
+    setFollowings(response.data.profile.followingCount);
+    setName(response.data.profile.accountname);
+    setIdName(response.data.profile.username);
+    setInfo(response.data.profile.intro);
+    setImgUrl(response.data.profile.image);
+  }
+
+  async function addFollow() {
+    const token = localStorage.getItem('token');
+    const url = 'http://146.56.183.55:5050';
+    const response = await axios(`${url}/profile/${account}/follow`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setFollowings((current) => current + 1);
+  }
+
+  useEffect(() => {
+    getProfileInfo();
+    addFollow();
+  }, []);
 
   return (
     <ProfileContainer>
@@ -30,7 +60,7 @@ function ProfileCard() {
           <p>{followers}</p>
           <p>followers</p>
         </div>
-        <img src="img/basic-profile-img.png" alt="" />
+        <Img src={imgUrl} alt="" />
         <div>
           <p>{followings}</p>
           <p>followings</p>
@@ -60,6 +90,13 @@ const ProfileContainer = styled.div`
   top: 0px;
   width: 100%;
   z-index: 10;
+`;
+
+const Img = styled.img`
+  width: 110px;
+  height: 110px;
+  border-radius: 55px;
+  border: 1px solid #dbdbdb;
 `;
 
 const SrOnlyHeader = styled.h4`
@@ -138,6 +175,7 @@ const MessageBtn = styled.button`
   background-image: url('img/icon/icon-message-circle.svg');
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 `;
 
 const FollowBtn = styled.button`
@@ -149,6 +187,7 @@ const FollowBtn = styled.button`
   background-color: #f26e22;
   border: none;
   border-radius: 30px;
+  cursor: pointer;
 `;
 const ShareBtn = styled.button`
   width: 34px;
@@ -159,4 +198,5 @@ const ShareBtn = styled.button`
   background-image: url('img/icon/icon-share.png');
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 `;
