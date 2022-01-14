@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function ProfileCard() {
   const [followers, setFollowers] = useState(2950);
@@ -55,6 +56,10 @@ const ProfileContainer = styled.div`
   align-items: center;
   margin-bottom: 6px;
   background-color: white;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 10;
 `;
 
 const SrOnlyHeader = styled.h4`

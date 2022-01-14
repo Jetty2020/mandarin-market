@@ -4,43 +4,55 @@ import PropTypes from 'prop-types';
 import FeedCard from './FeedCard';
 import FeedAlbum from './FeedAlbum';
 
-function FeedContainer() {
+function FeedContainer({ feedHeaderMarginTop, feedState }) {
   const [feedStyle, setFeedStyle] = useState(true);
 
   const ChangeFeedStyle = () => {
     setFeedStyle((current) => !current);
   };
 
+  console.log(feedState);
+  console.log(feedHeaderMarginTop);
+
   return (
     <div>
-      <FeedHeader>
-        <ButtonCard
-          onClick={ChangeFeedStyle}
-          type="button"
-          disabled={feedStyle}
-        >
-          {feedStyle ? (
-            <ImgList src="img/icon/icon-post-list-on.png" alt="" />
-          ) : (
-            <ImgList src="img/icon/icon-post-list-off.png" alt="" />
-          )}
-        </ButtonCard>
-        <ButtonAlbum
-          onClick={ChangeFeedStyle}
-          type="button"
-          disabled={!feedStyle}
-        >
-          {feedStyle ? (
-            <ImgAlbum src="img/icon/icon-post-album-off.png" alt="" />
-          ) : (
-            <ImgAlbum src="img/icon/icon-post-album-on.png" alt="" />
-          )}
-        </ButtonAlbum>
-      </FeedHeader>
-      {feedStyle ? <FeedCard /> : <FeedAlbum />}
+      {feedState ? (
+        <div>
+          <FeedHeader marginTop={feedHeaderMarginTop}>
+            <ButtonCard
+              onClick={ChangeFeedStyle}
+              type="button"
+              disabled={feedStyle}
+            >
+              {feedStyle ? (
+                <ImgList src="img/icon/icon-post-list-on.png" alt="" />
+              ) : (
+                <ImgList src="img/icon/icon-post-list-off.png" alt="" />
+              )}
+            </ButtonCard>
+            <ButtonAlbum
+              onClick={ChangeFeedStyle}
+              type="button"
+              disabled={!feedStyle}
+            >
+              {feedStyle ? (
+                <ImgAlbum src="img/icon/icon-post-album-off.png" alt="" />
+              ) : (
+                <ImgAlbum src="img/icon/icon-post-album-on.png" alt="" />
+              )}
+            </ButtonAlbum>
+          </FeedHeader>
+          {feedStyle ? <FeedCard /> : <FeedAlbum />}
+        </div>
+      ) : null}
     </div>
   );
 }
+
+FeedContainer.propTypes = {
+  feedState: PropTypes.bool.isRequired,
+  feedHeaderMarginTop: PropTypes.string.isRequired,
+};
 
 export default FeedContainer;
 
@@ -50,6 +62,8 @@ const FeedHeader = styled.div`
   border-bottom: 0.5px solid #dbdbdb;
   background-color: white;
   padding: 9px 15px;
+  margin-top: 0px;
+  margin-top: ${(props) => props.marginTop || '316px'};
 `;
 
 const ImgList = styled.img`
