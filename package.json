@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -20,8 +18,7 @@
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.3",
     "styled-normalize": "^8.0.7",
-    "web-vitals": "^2.1.0",
-    "yarn": "^1.22.17"
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "lsof -P -i :3000 |grep LISTEN |awk '{print $2}' |xargs kill -9 & react-scripts start",
