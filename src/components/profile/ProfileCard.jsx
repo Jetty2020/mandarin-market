@@ -4,8 +4,10 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 function ProfileCard({ loginUser }) {
+  const myAccount = localStorage.getItem('account');
   const [followers, setFollowers] = useState(2950);
   const [followings, setFollowings] = useState(128);
+  const [followingsList, setFollowingsList] = useState([]);
   const [imgUrl, setImgUrl] = useState('img/basic-profile-img.png');
   const [followState, setFollowState] = useState(false);
   const [name, setName] = useState('대한민국 챙고 감귤농장');
@@ -43,11 +45,45 @@ function ProfileCard({ loginUser }) {
         'Content-type': 'application/json',
       },
     });
-    console.log(response);
+    setFollowState(true);
+    setFollowers((current) => current + 1);
+  }
+
+  async function removeFollow() {
+    const token = localStorage.getItem('token');
+    const url = 'http://146.56.183.55:5050';
+    const response = await axios(`${url}/profile/${loginUser}/unfollow`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setFollowState(false);
+    setFollowers((current) => current - 1);
+  }
+
+  async function getFollowing() {
+    const token = localStorage.getItem('token');
+    const url = 'http://146.56.183.55:5050';
+    const response = await axios(`${url}/profile/${myAccount}/following`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setFollowingsList(response.data);
+    response.data.forEach((followingUser) => {
+      if (followingUser.accountname === loginUser) {
+        setFollowState(true);
+      }
+    });
   }
 
   useEffect(() => {
     getProfileInfo();
+    getFollowing();
   }, []);
 
   return (
@@ -75,13 +111,23 @@ function ProfileCard({ loginUser }) {
       ) : (
         <Action>
           <MessageBtn />
-          <FollowBtn
-            onClick={() => {
-              addFollow();
-            }}
-          >
-            팔로우
-          </FollowBtn>
+          {followState ? (
+            <UnFollowBtn
+              onClick={() => {
+                removeFollow();
+              }}
+            >
+              언팔로우
+            </UnFollowBtn>
+          ) : (
+            <FollowBtn
+              onClick={() => {
+                addFollow();
+              }}
+            >
+              팔로우
+            </FollowBtn>
+          )}
           <ShareBtn />
         </Action>
       )}
@@ -94,6 +140,19 @@ export default ProfileCard;
 ProfileCard.propTypes = {
   loginUser: PropTypes.string.isRequired,
 };
+
+const UnFollowBtn = styled.button`
+  width: 120px;
+  height: 34px;
+  margin: 0px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #767676;
+  background-color: white;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 30px;
+  cursor: pointer;
+`;
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -194,6 +253,8 @@ const MessageBtn = styled.button`
 `;
 
 const FollowBtn = styled.button`
+  width: 120px;
+  height: 34px;
   margin: 0px 10px;
   padding: 8px 40px 8px 41px;
   font-size: 14px;
