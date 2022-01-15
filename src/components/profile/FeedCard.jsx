@@ -1,38 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-function FeedCard(img = '') {
-  const imgExist = 'img/post-img-example.png';
-  // imgExist = img;
+function FeedCard({
+  authorImage,
+  userName,
+  accountName,
+  content,
+  contentimage,
+  heartCount,
+  comment,
+  updatedAt,
+}) {
+  const updatedDate = `${updatedAt.slice(0, 10).split('-')[0]}년${
+    updatedAt.slice(0, 10).split('-')[1]
+  }월${updatedAt.slice(0, 10).split('-')[2]}일`;
+
+  const [sepImage, setSepImage] = useState([]);
+
+  useEffect(() => {
+    setSepImage(contentimage.split(','));
+  }, []);
+
   return (
     <Contents>
       <GotoProfile to="/none">
-        <LinkWrapper> </LinkWrapper>
+        <LinkWrapper src={`${authorImage}`} />
       </GotoProfile>
       <FeedContents>
         <FeedMenu>
-          <ImgMore src="img/icon/icon-more-vertical.png" alt="" />
+          <ImgMore
+            src={`${process.env.PUBLIC_URL}/img/icon/icon-more-vertical.png`}
+            alt=""
+          />
         </FeedMenu>
-        <FeedTitle>애월읍 위니브 감귤농장</FeedTitle>
-        <FeedId>@chango.kr</FeedId>
-        <FeedContent>
-          오늘 하루는 일어나면서부터 그리고 잠자리에 들기까지 하루종일 힘이
-          없었다. 무슨 이유에서인지는 알 수 없었다. 예전에는 왜 그럴까 무슨
-          이유에서 이럴까 원인을 파악하고 해결하려는 직업병아닌 직업병이
-          있었는데 세월이 흐르고 이런 시간들이 잦다보니 그냥 인생을 살다보면
-          그런 날도 있기마련인가보다 생각한다. 그래서 이제는 그런 날을 마주할
-          때면 내가 그동안 고생 많이했구나 하며 휴식을 취한다.
-        </FeedContent>
-        {imgExist !== '' ? <ImgPost src={imgExist} alt="" /> : null}
+        <FeedTitle>{userName}</FeedTitle>
+        <FeedId>{`@ ${accountName}`}</FeedId>
+        <FeedContent>{content}</FeedContent>
+        {contentimage !== '' ? (
+          <ImgContainer>
+            {sepImage.map((image) => (
+              <ImgWrapper key={Math.random() * 100}>
+                <ImgPost src={image} alt="" />
+              </ImgWrapper>
+            ))}
+          </ImgContainer>
+        ) : null}
         <FeedIcon>
-          <ImgHeart src="img/icon/icon-heart.png" alt="" />
-          <NumOf>58</NumOf>
-          <ImgMessage src="img/icon/icon-message-circle.svg" alt="" />
-          <NumOf>12</NumOf>
+          <ImgHeart
+            src={`${process.env.PUBLIC_URL}/img/icon/icon-heart.png`}
+            alt=""
+          />
+          <NumOf>{heartCount}</NumOf>
+          <ImgMessage
+            src={`${process.env.PUBLIC_URL}/img/icon/icon-message-circle.svg`}
+            alt=""
+          />
+          <NumOf>{comment.length}</NumOf>
         </FeedIcon>
-        <FeedDate>2020년 10월 21일</FeedDate>
+        <FeedDate>{updatedDate}</FeedDate>
       </FeedContents>
     </Contents>
   );
@@ -40,17 +67,47 @@ function FeedCard(img = '') {
 
 export default FeedCard;
 
+FeedCard.propTypes = {
+  authorImage: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
+  accountName: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  contentimage: PropTypes.string.isRequired,
+  heartCount: PropTypes.number.isRequired,
+  comment: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updatedAt: PropTypes.string.isRequired,
+};
+
+const ImgContainer = styled.div`
+  display: flex;
+  width: 304px;
+  height: 228px;
+  overflow: scroll;
+  border-radius: 10px;
+  border: 0.5px solid #dbdbdb;
+`;
+
+const ImgWrapper = styled.div``;
+
+const ImgPost = styled.img`
+  display: block;
+  width: 302px;
+  height: 226px;
+  object-fit: fill;
+`;
+
 const Contents = styled.div`
   background-color: white;
   display: flex;
   padding: 16px 21px;
-  justify-content: center;
-  margin-bottom: 59px;
+  margin-bottom: 6px;
+
+  &:last-child {
+    margin-bottom: 65px;
+  }
 `;
 
-const LinkWrapper = styled.div`
-  background-image: url('img/basic-profile-img.png');
-  background-size: cover;
+const LinkWrapper = styled.img`
   width: 42px;
   height: 42px;
 `;
@@ -80,6 +137,7 @@ const FeedId = styled.p`
 const FeedContent = styled.p`
   font-size: 14px;
   font-weight: 400;
+  margin-bottom: 16px;
 `;
 
 const FeedIcon = styled.div`
@@ -123,13 +181,4 @@ const FeedMenu = styled.div`
 const ImgMore = styled.img`
   width: 18px;
   height: 18px;
-`;
-
-const ImgPost = styled.img`
-  min-width: 304px;
-  max-width: 389px;
-  min-height: 228px;
-  max-height: 291px;
-  border-radius: 10px;
-  margin-top: 16px;
 `;

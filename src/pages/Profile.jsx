@@ -8,24 +8,22 @@ import Navbar from '../components/common/Navbar';
 
 function Profile(defaultProfile) {
   const account = localStorage.getItem('account');
-  const accountname = useParams();
+  const { accountname } = useParams();
   const [sellingStatement, setSellingState] = useState(true);
   const [feedStatement, setFeedState] = useState(true);
   const [loginUser, setLoginUser] = useState(
-    accountname === undefined ? account : accountname,
+    typeof accountname === 'undefined' ? account : accountname,
   );
   const feedHeaderMarginTop = sellingStatement ? '0px' : '316px';
-  console.log(`${loginUser.accountname}1`);
-  if (loginUser.accountname === undefined) {
-    setLoginUser({ accountname: account });
-  }
+
   return (
     <YourProfile>
-      <ProfileCard loginUser={loginUser.accountname} />
-      <SellingContainer sellingState={sellingStatement} />
+      <ProfileCard loginUser={loginUser} />
+      <SellingContainer sellingState={sellingStatement} whichUser={loginUser} />
       <FeedContainer
         feedHeaderMarginTop={feedHeaderMarginTop}
         feedState={feedStatement}
+        whichUser={loginUser}
       />
       <Navbar />
     </YourProfile>

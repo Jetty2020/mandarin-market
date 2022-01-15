@@ -43,14 +43,11 @@ function ProfileCard({ loginUser }) {
         'Content-type': 'application/json',
       },
     });
-    console.log(token);
-    console.log(url);
     console.log(response);
   }
 
   useEffect(() => {
     getProfileInfo();
-    console.log(`${loginUser}2`);
   }, []);
 
   return (
@@ -190,7 +187,7 @@ const MessageBtn = styled.button`
   border-radius: 30px;
   border: 1px solid #dbdbdb;
   background-color: white;
-  background-image: url('img/icon/icon-message-circle.svg');
+  background-image: url('/img/icon/icon-message-circle.svg');
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
@@ -213,7 +210,7 @@ const ShareBtn = styled.button`
   border-radius: 30px;
   border: 1px solid #dbdbdb;
   background-color: white;
-  background-image: url('img/icon/icon-share.png');
+  background-image: url('/img/icon/icon-share.png');
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;

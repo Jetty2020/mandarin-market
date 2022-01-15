@@ -1,11 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import FeedCard from './FeedCard';
 import FeedAlbum from './FeedAlbum';
 
-function FeedContainer({ feedHeaderMarginTop, feedState }) {
+function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
   const [feedStyle, setFeedStyle] = useState(true);
+  const [feedList, setFeedList] = useState([
+    {
+      author: {
+        image: '',
+        username: '',
+        accountname: '',
+      },
+      content: '',
+      image: '',
+      heartCount: 0,
+      comments: [],
+      updatedAt: '',
+    },
+  ]);
+  async function getFeedInfo() {
+    const token = localStorage.getItem('token');
+    const url = 'http://146.56.183.55:5050';
+    const response = await axios(`${url}/post/${whichUser}/userpost`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setFeedList(response.data.post);
+  }
+
+  useEffect(() => {
+    getFeedInfo();
+  }, []);
 
   const ChangeFeedStyle = () => {
     setFeedStyle((current) => !current);
@@ -22,9 +53,15 @@ function FeedContainer({ feedHeaderMarginTop, feedState }) {
               disabled={feedStyle}
             >
               {feedStyle ? (
-                <ImgList src="img/icon/icon-post-list-on.png" alt="" />
+                <ImgList
+                  src={`${process.env.PUBLIC_URL}/img/icon/icon-post-list-on.png`}
+                  alt=""
+                />
               ) : (
-                <ImgList src="img/icon/icon-post-list-off.png" alt="" />
+                <ImgList
+                  src={`${process.env.PUBLIC_URL}/img/icon/icon-post-list-off.png`}
+                  alt=""
+                />
               )}
             </ButtonCard>
             <ButtonAlbum
@@ -33,25 +70,67 @@ function FeedContainer({ feedHeaderMarginTop, feedState }) {
               disabled={!feedStyle}
             >
               {feedStyle ? (
-                <ImgAlbum src="img/icon/icon-post-album-off.png" alt="" />
+                <ImgAlbum
+                  src={`${process.env.PUBLIC_URL}/img/icon/icon-post-album-off.png`}
+                  alt=""
+                />
               ) : (
-                <ImgAlbum src="img/icon/icon-post-album-on.png" alt="" />
+                <ImgAlbum
+                  src={`${process.env.PUBLIC_URL}/img/icon/icon-post-album-on.png`}
+                  alt=""
+                />
               )}
             </ButtonAlbum>
           </FeedHeader>
-          {feedStyle ? <FeedCard /> : <FeedAlbum />}
+          <div>
+            {feedStyle ? (
+              feedList.map((feed) => (
+                <FeedCard
+                  key={`${feed.id}`}
+                  authorImage={feed.author.image}
+                  userName={feed.author.username}
+                  accountName={feed.author.accountname}
+                  content={feed.content}
+                  contentimage={feed.image}
+                  heartCount={feed.heartCount}
+                  comment={feed.comments}
+                  updatedAt={feed.updatedAt}
+                />
+              ))
+            ) : (
+              <FeedAlbumContainer>
+                {feedList.map((feed) => (
+                  <FeedAlbum
+                    key={Math.random() * 100}
+                    contentimage={feed.image}
+                  />
+                ))}
+              </FeedAlbumContainer>
+            )}
+          </div>
         </div>
       ) : null}
     </div>
   );
 }
 
+export default FeedContainer;
+
 FeedContainer.propTypes = {
   feedState: PropTypes.bool.isRequired,
   feedHeaderMarginTop: PropTypes.string.isRequired,
+  whichUser: PropTypes.string.isRequired,
 };
 
-export default FeedContainer;
+const FeedAlbumContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(114px, 146px));
+  grid-auto-rows: minmax(114px, 30vw);
+  gap: 8px;
+  padding: 16px;
+  background-color: white;
+  margin-bottom: 59px;
+`;
 
 const FeedHeader = styled.div`
   display: flex;
