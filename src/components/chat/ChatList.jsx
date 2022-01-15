@@ -28,7 +28,7 @@ function ChatList() {
 }
 
 const ChatListContainer = styled.div`
-  margin: 24px 16px 0;
+  margin: 72px 16px 0;
 `;
 
 const ChatListItem = styled(Link)`
