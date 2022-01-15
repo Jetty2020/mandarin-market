@@ -68,28 +68,28 @@ const StyledNavLink = styled(NavLink)`
       background-repeat: no-repeat;
     }
     &.home::before {
-      background-image: url('img/icon/icon-home.svg');
+      background-image: url('/img/icon/icon-home.svg');
     }
     &.chat::before {
-      background-image: url('img/icon/icon-message-circle.svg');
+      background-image: url('/img/icon/icon-message-circle.svg');
     }
     &.edit::before {
-      background-image: url('img/icon/icon-edit.svg');
+      background-image: url('/img/icon/icon-edit.svg');
     }
     &.profile::before {
-      background-image: url('img/icon/icon-user.svg');
+      background-image: url('/img/icon/icon-user.svg');
     }
   }
   &.active {
     & li {
       &.home::before {
-        background-image: url('img/icon/icon-home-fill.svg');
+        background-image: url('/img/icon/icon-home-fill.svg');
       }
       &.chat::before {
-        background-image: url('img/icon/icon-message-circle-fill.svg');
+        background-image: url('/img/icon/icon-message-circle-fill.svg');
       }
       &.profile::before {
-        background-image: url('img/icon/icon-user-fill.svg');
+        background-image: url('/img/icon/icon-user-fill.svg');
       }
     }
     & span {

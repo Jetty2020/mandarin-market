@@ -5,7 +5,7 @@ export default function ChatDetail() {
   return (
     <ChatDetailContainer>
       <Message>
-        <ProfileImage src="../img/Ellipse-1.png" />
+        <ProfileImage src="/img/Ellipse-1.png" />
         <MessageInfo>
           <Text>
             옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다.
@@ -16,7 +16,7 @@ export default function ChatDetail() {
         </MessageInfo>
       </Message>
       <Message>
-        <ProfileImage src="../img/Ellipse-1.png" />
+        <ProfileImage src="/img/Ellipse-1.png" />
         <MessageInfo>
           <Text>안녕하세요. 감귤 사고싶어요요요요</Text>
           <Time>12:41</Time>
@@ -31,7 +31,7 @@ export default function ChatDetail() {
       <Message className="own">
         <MessageInfo>
           <Text className="none" />
-          <Image src="../img/chat-exapmle.png" />
+          <Image src="/img/chat-exapmle.png" />
           <Time>12:51</Time>
         </MessageInfo>
       </Message>
@@ -44,7 +44,7 @@ const ChatDetailContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 108px);
   padding: 20px 16px;
   background-color: #f2f2f2;
 `;
