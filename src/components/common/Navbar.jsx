@@ -16,8 +16,8 @@ function Navbar() {
             <Menu>채팅</Menu>
           </List>
         </StyledNavLink>
-        <StyledNavLink to="/edit">
-          <List className="edit">
+        <StyledNavLink to="/upload">
+          <List className="upload">
             <Menu>게시물 작성</Menu>
           </List>
         </StyledNavLink>
@@ -73,7 +73,7 @@ const StyledNavLink = styled(NavLink)`
     &.chat::before {
       background-image: url('/img/icon/icon-message-circle.svg');
     }
-    &.edit::before {
+    &.upload::before {
       background-image: url('/img/icon/icon-edit.svg');
     }
     &.profile::before {
