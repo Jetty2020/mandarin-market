@@ -1,7 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { routes } from '../../constants';
 
 export default function JoinProfile() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: 'onChange',
+  });
+  const onSubmit = (data) => console.log(data);
+
   return (
     <>
       <Container>
@@ -12,30 +24,54 @@ export default function JoinProfile() {
           <UploadProfile />
         </ImgWrapper>
       </Container>
-      <Form>
-        <Label htmlFor="name">사용자 이름</Label>
-        <Input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="2-10자 이내여야 합니다."
-        />
-        <Label htmlFor="id">계정 ID</Label>
-        <Input
-          type="text"
-          id="id"
-          name="id"
-          placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
-        />
-        <Label htmlFor="intro">소개</Label>
-        <Input
-          type="text"
-          id="intro"
-          name="intro"
-          placeholder="자신과 판매할 상품에 대해 소개해 주세요!"
-        />
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputWrapper>
+          <Label htmlFor="name">사용자 이름</Label>
+          <Input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="2-10자 이내여야 합니다."
+            {...register('name', {
+              required: true,
+              maxLength: 10,
+            })}
+          />
+          {errors.name && errors.name.type === 'required' && (
+            <Error>* 필수입력 사항입니다. </Error>
+          )}
+        </InputWrapper>
+        <InputWrapper>
+          <Label htmlFor="id">계정 ID</Label>
+          <Input
+            type="text"
+            id="account"
+            name="account"
+            placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
+            {...register('account', {
+              required: true,
+              pattern: /^[-._a-z0-9]+$/gi,
+              maxLength: 20,
+            })}
+          />
+          {errors.account && errors.account.type === 'required' && (
+            <Error>* 필수 입력사항입니다.</Error>
+          )}
+        </InputWrapper>
+        <InputWrapper>
+          <Label htmlFor="intro">소개</Label>
+          <Input
+            className="intro"
+            type="text"
+            id="intro"
+            name="intro"
+            placeholder="자신과 판매할 상품에 대해 소개해 주세요!"
+          />
+        </InputWrapper>
+        <LoginBtn type="submit" disabled={!isValid}>
+          <Link to={routes.profile}>감귤마켓 시작하기</Link>
+        </LoginBtn>
       </Form>
-      <LoginBtn type="submit">감귤마켓 시작하기</LoginBtn>
     </>
   );
 }
@@ -83,29 +119,31 @@ const Form = styled.form`
   margin: 0 34px;
   position: relative;
 `;
+const InputWrapper = styled.div`
+  position: relative;
+`;
 const Label = styled.label`
   color: #797979;
   font-size: 12px;
   position: absolute;
-  :nth-of-type(2) {
-    top: 64px;
-  }
-  :last-of-type {
-    top: 128px;
-  }
+  top: 0px;
 `;
 const Input = styled.input`
   border: none;
+  width: 100%;
   height: 48px;
   border-bottom: 1px solid #dbdbdb;
   line-height: 14px;
   /* margin-bottom: 16px; */
-  :not(:last-child) {
+  /* &:not(:last-child) {
+    margin-bottom: 16px;
+  } */
+  :not(.intro) {
     margin-bottom: 16px;
   }
-  /* :last-of-type {
-    margin-top: 15px;
-  } */
+  :focus {
+    border-bottom: 1px solid ${(props) => props.theme.accent};
+  }
   ::placeholder {
     color: #dbdbdb;
     font-size: 14px;
@@ -128,4 +166,13 @@ const LoginBtn = styled.button`
   border: none;
   border-radius: 44px;
   color: #fff;
+  :disabled {
+    background: #ffc7a7;
+  }
+`;
+
+const Error = styled.p`
+  margin: -10px 0 16px;
+  font-size: 12px;
+  color: #eb5757;
 `;
