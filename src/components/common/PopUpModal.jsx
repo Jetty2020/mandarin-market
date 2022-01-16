@@ -3,15 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 export default function PopUpModal({ visible, onClose }) {
-  PopUpModal.propTypes = {
-    visible: PropTypes.bool,
-    onClose: PropTypes.func,
-  };
-  PopUpModal.defaultProps = {
-    visible: false,
-    onClose: true,
-  };
-
   const onDimedClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose(e);
@@ -37,6 +28,15 @@ export default function PopUpModal({ visible, onClose }) {
     </>
   );
 }
+
+PopUpModal.propTypes = {
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+};
+PopUpModal.defaultProps = {
+  visible: false,
+  onClose: true,
+};
 
 const PopUpModalContainer = styled.div`
   display: ${(props) => (props.visible ? 'block' : 'none')};
