@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { SERVER_BASE_URL } from '../../constants';
 
 function FeedCard({
   authorImage,
@@ -12,16 +14,64 @@ function FeedCard({
   heartCount,
   comment,
   updatedAt,
+  postid,
+  hearted,
 }) {
+  const [sepImage, setSepImage] = useState([]);
+  const [heartedState, setHeartedState] = useState(false);
+  const [heartedCount, setHeartedCount] = useState(0);
+
   const updatedDate = `${updatedAt.slice(0, 4)}년 ${updatedAt.slice(
     5,
     7,
   )}월 ${updatedAt.slice(8, 10)}일`;
 
-  const [sepImage, setSepImage] = useState([]);
+  async function addHeart() {
+    const token = localStorage.getItem('token');
+    const url = SERVER_BASE_URL;
+    const response = await axios(`${url}/post/${postid}/heart`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    console.log(response);
+    setHeartedState(true);
+    setHeartedCount((current) => current + 1);
+  }
+
+  async function removeHeart() {
+    const token = localStorage.getItem('token');
+    const url = SERVER_BASE_URL;
+    const response = await axios(`${url}/post/${postid}/unheart`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setHeartedState(false);
+    setHeartedCount((current) => current - 1);
+  }
+
+  // async function getHearted(postid) {
+  //   const token = localStorage.getItem('token');
+  //   const url = SERVER_BASE_URL;
+  //   const response = await axios(`${url}/post/${postid}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       'Content-type': 'application/json',
+  //     },
+  //   });
+  //   console.log(response);
+  // }
 
   useEffect(() => {
     setSepImage(contentimage.split(','));
+    setHeartedState(hearted);
+    setHeartedCount(heartCount);
   }, []);
 
   return (
@@ -49,11 +99,20 @@ function FeedCard({
           </ImgContainer>
         ) : null}
         <FeedIcon>
-          <ImgHeart
-            src={`${process.env.PUBLIC_URL}/img/icon/icon-heart.png`}
-            alt=""
-          />
-          <NumOf>{heartCount}</NumOf>
+          {heartedState ? (
+            <HeartBtn
+              onClick={() => {
+                removeHeart();
+              }}
+            />
+          ) : (
+            <NoHeartBtn
+              onClick={() => {
+                addHeart();
+              }}
+            />
+          )}
+          <NumOf>{heartedCount}</NumOf>
           <ImgMessage
             src={`${process.env.PUBLIC_URL}/img/icon/icon-message-circle.svg`}
             alt=""
@@ -77,6 +136,8 @@ FeedCard.propTypes = {
   heartCount: PropTypes.number.isRequired,
   comment: PropTypes.arrayOf(PropTypes.string).isRequired,
   updatedAt: PropTypes.string.isRequired,
+  postid: PropTypes.string.isRequired,
+  hearted: PropTypes.bool.isRequired,
 };
 
 const ImgContainer = styled.div`
@@ -154,10 +215,20 @@ const FeedDate = styled.p`
   color: #767676;
 `;
 
-const ImgHeart = styled.img`
+const NoHeartBtn = styled.button`
+  background: url('img/icon/icon-heart.png') no-repeat center;
   width: 20px;
   height: 20px;
   margin-right: 6px;
+  border: none;
+`;
+
+const HeartBtn = styled.button`
+  background: url('img/icon/icon-heart-active.png') no-repeat center;
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  border: none;
 `;
 
 const ImgMessage = styled.img`

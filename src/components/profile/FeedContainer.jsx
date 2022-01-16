@@ -20,6 +20,8 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
       heartCount: 0,
       comments: [],
       updatedAt: '',
+      id: '',
+      hearted: false,
     },
   ]);
   async function getFeedInfo() {
@@ -32,6 +34,7 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
         'Content-type': 'application/json',
       },
     });
+    console.log(response.data.post);
     setFeedList(response.data.post);
   }
 
@@ -96,6 +99,8 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
                   heartCount={feed.heartCount}
                   comment={feed.comments}
                   updatedAt={feed.updatedAt}
+                  postid={feed.id}
+                  hearted={feed.hearted}
                 />
               ))
             ) : (
