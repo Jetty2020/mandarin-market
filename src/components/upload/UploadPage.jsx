@@ -1,16 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 export default function UploadPage() {
   const [typed, setTyped] = useState('');
   const ref = useRef(null);
+
   useEffect(() => {
     if (ref === null || ref.current === null) {
       return;
     }
-    ref.current.style.height = 'auto';
+    ref.current.style.height = '10vh';
     ref.current.style.height = `${ref.current.scrollHeight}px`;
   }, []);
+  const resizeHeight = useCallback(() => {
+    if (ref === null || ref.current === null) {
+      return;
+    }
+    ref.current.style.height = '10vh';
+    ref.current.style.height = `${ref.current.scrollHeight}px`;
+  }, []);
+
   const onChange = (event) => {
     setTyped(event.target.value);
   };
@@ -25,6 +34,7 @@ export default function UploadPage() {
         <PostTextArea
           ref={ref}
           onChange={onChange}
+          onInput={resizeHeight}
           value={typed}
           placeholder="게시글 입력하기..."
           spellCheck="false"
