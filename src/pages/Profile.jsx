@@ -35,6 +35,6 @@ function Profile(defaultProfile) {
 export default Profile;
 
 const YourProfile = styled.div`
-  background-color: #f2f2f2;
   position: relative;
+  background-color: #f2f2f2;
 `;

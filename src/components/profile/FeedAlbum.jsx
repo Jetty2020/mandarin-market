@@ -16,9 +16,9 @@ FeedAlbum.propTypes = {
 };
 
 const Img = styled.img`
-  border: 0.5px solid #dbdbdb;
   width: 100%;
   max-width: 146px;
   height: 100%;
   max-height: 146px;
+  border: 0.5px solid #dbdbdb;
 `;

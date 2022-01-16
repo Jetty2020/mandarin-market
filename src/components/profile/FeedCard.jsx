@@ -55,19 +55,6 @@ function FeedCard({
     setHeartedCount((current) => current - 1);
   }
 
-  // async function getHearted(postid) {
-  //   const token = localStorage.getItem('token');
-  //   const url = SERVER_BASE_URL;
-  //   const response = await axios(`${url}/post/${postid}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       'Content-type': 'application/json',
-  //     },
-  //   });
-  //   console.log(response);
-  // }
-
   useEffect(() => {
     if (typeof contentimage !== 'undefined') {
       setSepImage(contentimage.split(','));
@@ -144,11 +131,11 @@ FeedCard.propTypes = {
 
 const ImgContainer = styled.div`
   display: flex;
+  overflow: scroll;
   width: 296px;
   height: 228px;
-  overflow: scroll;
-  border-radius: 10px;
   border: 0.5px solid #dbdbdb;
+  border-radius: 10px;
 `;
 
 const ImgWrapper = styled.div``;
@@ -161,11 +148,11 @@ const ImgPost = styled.img`
 `;
 
 const Contents = styled.div`
-  background-color: white;
   display: flex;
+  position: relative;
   padding: 16px 21px;
   margin-bottom: 6px;
-  position: relative;
+  background-color: white;
 
   &:last-child {
     margin-bottom: 65px;
@@ -192,16 +179,16 @@ const FeedTitle = styled.p`
   font-weight: 500;
 `;
 const FeedId = styled.p`
+  margin-top: 2px;
+  margin-bottom: 16px;
   font-size: 12px;
   font-weight: 400;
   color: #767676;
-  margin-top: 2px;
-  margin-bottom: 16px;
 `;
 const FeedContent = styled.p`
+  margin-bottom: 16px;
   font-size: 14px;
   font-weight: 400;
-  margin-bottom: 16px;
 `;
 
 const FeedIcon = styled.div`
@@ -218,19 +205,19 @@ const FeedDate = styled.p`
 `;
 
 const NoHeartBtn = styled.button`
-  background: url('img/icon/icon-heart.png') no-repeat center;
   width: 20px;
   height: 20px;
   margin-right: 6px;
   border: none;
+  background: url('img/icon/icon-heart.png') no-repeat center;
 `;
 
 const HeartBtn = styled.button`
-  background: url('img/icon/icon-heart-active.png') no-repeat center;
   width: 20px;
   height: 20px;
   margin-right: 6px;
   border: none;
+  background: url('img/icon/icon-heart-active.png') no-repeat center;
 `;
 
 const ImgMessage = styled.img`
@@ -240,10 +227,10 @@ const ImgMessage = styled.img`
 `;
 
 const NumOf = styled.p`
+  margin-right: 16px;
   font-size: 12px;
   font-weight: 400;
   color: #767676;
-  margin-right: 16px;
 `;
 
 const FeedMenu = styled.div`

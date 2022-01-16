@@ -146,12 +146,12 @@ const UnFollowBtn = styled.button`
   width: 120px;
   height: 34px;
   margin: 0px 10px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #767676;
-  background-color: white;
   border: 0.5px solid #dbdbdb;
   border-radius: 30px;
+  color: #767676;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 400;
   cursor: pointer;
 `;
 
@@ -159,24 +159,24 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: fixed;
+  width: 100%;
   margin-bottom: 6px;
   background-color: white;
-  position: fixed;
   top: 0px;
-  width: 100%;
   z-index: 10;
 `;
 
 const Img = styled.img`
   width: 110px;
   height: 110px;
-  border-radius: 55px;
   border: 1px solid #dbdbdb;
+  border-radius: 55px;
 `;
 
 const SrOnlyHeader = styled.h4`
-  position: absolute;
   overflow: hidden;
+  position: absolute;
   width: 1px;
   height: 1px;
   padding: 0;
@@ -220,17 +220,17 @@ const Name = styled.p`
 `;
 
 const Id = styled.p`
+  margin-top: 6px;
+  margin-bottom: 16px;
   font-size: 12px;
   font-weight: 400;
   color: #767676;
-  margin-top: 6px;
-  margin-bottom: 16px;
 `;
 
 const Info = styled.p`
+  color: #767676;
   font-size: 14px;
   font-weight: 400;
-  color: #767676;
 `;
 
 const Action = styled.div`
@@ -258,12 +258,12 @@ const FollowBtn = styled.button`
   height: 34px;
   margin: 0px 10px;
   padding: 8px 40px 8px 41px;
+  border: none;
+  border-radius: 30px;
+  background-color: #f26e22;
   font-size: 14px;
   font-weight: 400;
   color: white;
-  background-color: #f26e22;
-  border: none;
-  border-radius: 30px;
   cursor: pointer;
 `;
 const ShareBtn = styled.button`
@@ -287,24 +287,24 @@ const MyAction = styled.div`
 const EditProfile = styled.button`
   width: 120px;
   height: 34px;
+  margin-right: 12px;
   border: 1px solid #dbdbdb;
+  border-radius: 30px;
   background-color: white;
   font-size: 14px;
   font-weight: 500;
   color: #767676;
-  border-radius: 30px;
   cursor: pointer;
-  margin-right: 12px;
 `;
 
 const AddSelling = styled.button`
   width: 120px;
   height: 34px;
   border: 1px solid #dbdbdb;
+  border-radius: 30px;
   background-color: white;
   font-size: 14px;
   font-weight: 500;
   color: #767676;
-  border-radius: 30px;
   cursor: pointer;
 `;
