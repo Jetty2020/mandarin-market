@@ -40,13 +40,13 @@ const Img = styled.img`
   border-radius: 8px;
 `;
 const Title = styled.p`
-  font-size: 14px;
-  font-weight: 400;
   margin-top: 6px;
   margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 400;
 `;
 const Price = styled.p`
+  color: #f26e22;
   font-size: 12px;
   font-weight: 700;
-  color: #f26e22;
 `;

@@ -34,7 +34,6 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
         'Content-type': 'application/json',
       },
     });
-    console.log(response.data.post);
     setFeedList(response.data.post);
   }
 
@@ -134,18 +133,18 @@ const FeedAlbumContainer = styled.div`
   grid-auto-rows: minmax(114px, 30vw);
   gap: 8px;
   padding: 16px;
-  background-color: white;
   margin-bottom: 59px;
+  background-color: white;
 `;
 
 const FeedHeader = styled.div`
   display: flex;
   justify-content: flex-end;
-  border-bottom: 0.5px solid #dbdbdb;
-  background-color: white;
   padding: 9px 15px;
   margin-top: 0px;
   margin-top: ${(props) => props.marginTop || '316px'};
+  border-bottom: 0.5px solid #dbdbdb;
+  background-color: white;
 `;
 
 const ImgList = styled.img`
@@ -164,7 +163,7 @@ const ButtonCard = styled.button`
 `;
 
 const ButtonAlbum = styled.button`
+  margin-left: 8px;
   border: none;
   background-color: inherit;
-  margin-left: 8px;
 `;

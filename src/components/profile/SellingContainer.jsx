@@ -54,15 +54,15 @@ export default SellingContainer;
 
 const CardContainer = styled.div`
   padding: 20px 21px;
-  background-color: white;
   margin-bottom: 6px;
   margin-top: 316px;
+  background-color: white;
 `;
 
 const Title = styled.h4`
+  margin-bottom: 16px;
   font-size: 16px;
   font-weight: 700;
-  margin-bottom: 16px;
 `;
 
 const ScrolledBox = styled.div`
