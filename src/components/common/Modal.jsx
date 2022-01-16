@@ -4,14 +4,6 @@ import styled from 'styled-components';
 import PopUpModal from './PopUpModal';
 
 export default function Modal({ list, showing, showModal }) {
-  Modal.propTypes = {
-    list: PropTypes.arrayOf(PropTypes.string).isRequired,
-    showing: PropTypes.string,
-    showModal: PropTypes.func.isRequired,
-  };
-  Modal.defaultProps = {
-    showing: null,
-  };
   const [visiblePop, setVisiblePop] = useState(false);
   const openPopUp = () => {
     setVisiblePop(true);
@@ -33,6 +25,15 @@ export default function Modal({ list, showing, showModal }) {
     </ModalContainer>
   );
 }
+
+Modal.propTypes = {
+  list: PropTypes.arrayOf(PropTypes.string).isRequired,
+  showing: PropTypes.string,
+  showModal: PropTypes.func.isRequired,
+};
+Modal.defaultProps = {
+  showing: null,
+};
 
 const ModalContainer = styled.div`
   position: fixed;

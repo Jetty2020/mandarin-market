@@ -5,12 +5,6 @@ import PropTypes from 'prop-types';
 import chatSummary from './chatData.json';
 
 export default function ChatHeader({ id }) {
-  ChatHeader.propTypes = {
-    id: PropTypes.string,
-  };
-  ChatHeader.defaultProps = {
-    id: undefined,
-  };
   const navigate = useNavigate();
   const chatRoomName = chatSummary.data.filter((chat) => chat.id === +id);
   return (
@@ -28,7 +22,14 @@ export default function ChatHeader({ id }) {
   );
 }
 
-const ChatHeaderContainer = styled.div`
+ChatHeader.propTypes = {
+  id: PropTypes.string,
+};
+ChatHeader.defaultProps = {
+  id: undefined,
+};
+
+const ChatHeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
