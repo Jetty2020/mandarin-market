@@ -23,6 +23,7 @@ function App() {
           <GlobalStyles />
           <BrowserRouter>
             <Routes>
+              <Route path="/profile" element={<Profile />} />
               <Route path={routes.home} element={<Home />} />
               <Route path={routes.login} element={<Login />} />
               <Route path={routes.profile} element={<Profile />} />

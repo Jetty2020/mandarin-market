@@ -1,30 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import styled from 'styled-components';
 import SellingCard from './SellingCard';
+import { SERVER_BASE_URL } from '../../constants';
 
-function SellingContainer({ sellingState }) {
+function SellingContainer({ sellingState, whichUser }) {
+  const [sellingList, setSellingList] = useState([]);
+  async function getSellingInfo() {
+    const token = localStorage.getItem('token');
+    const url = SERVER_BASE_URL;
+    const response = await axios(`${url}/product/${whichUser}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setSellingList(response.data.product);
+  }
+
+  useEffect(() => {
+    getSellingInfo();
+  }, []);
+
   return (
     <div>
       {sellingState ? (
         <CardContainer>
           <Title>판매 중인 상품</Title>
           <ScrolledBox>
-            <SellingCard
-              img="product-img-example.png"
-              title="애월읍 노지 감귤"
-              price="35000"
-            />
-            <SellingCard
-              img="product-img-example.png"
-              title="애월읍 노지 낑깡"
-              price="6000"
-            />
-            <SellingCard
-              img="product-img-example.png"
-              title="애월읍 노지 감귤[특가]"
-              price="32000"
-            />
+            {sellingList.map((selling) => (
+              <SellingCard
+                key={selling.id}
+                img={selling.itemImage}
+                title={selling.itemName}
+                price={selling.price}
+              />
+            ))}
           </ScrolledBox>
         </CardContainer>
       ) : null}
@@ -34,6 +47,7 @@ function SellingContainer({ sellingState }) {
 
 SellingContainer.propTypes = {
   sellingState: PropTypes.bool.isRequired,
+  whichUser: PropTypes.string.isRequired,
 };
 
 export default SellingContainer;
