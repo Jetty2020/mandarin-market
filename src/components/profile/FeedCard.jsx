@@ -81,7 +81,7 @@ FeedCard.propTypes = {
 
 const ImgContainer = styled.div`
   display: flex;
-  width: 304px;
+  width: 296px;
   height: 228px;
   overflow: scroll;
   border-radius: 10px;
@@ -92,7 +92,7 @@ const ImgWrapper = styled.div``;
 
 const ImgPost = styled.img`
   display: block;
-  width: 302px;
+  width: 294px;
   height: 226px;
   object-fit: fill;
 `;
@@ -102,6 +102,7 @@ const Contents = styled.div`
   display: flex;
   padding: 16px 21px;
   margin-bottom: 6px;
+  position: relative;
 
   &:last-child {
     margin-bottom: 65px;
@@ -120,7 +121,6 @@ const GotoProfile = styled(Link)`
 const FeedContents = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
   max-width: 389px;
 `;
 
@@ -175,8 +175,8 @@ const NumOf = styled.p`
 
 const FeedMenu = styled.div`
   position: absolute;
-  top: 4px;
-  right: 0px;
+  top: 16px;
+  right: 20px;
 `;
 
 const ImgMore = styled.img`
