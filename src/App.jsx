@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound';
 import store from './redux/store';
 import LoginEmail from './pages/LoginEmail';
 import Join from './pages/Join';
+import Upload from './pages/Upload';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path={routes.chatRoom} element={<ChatRoom />} />
               <Route path={routes.loginEmail} element={<LoginEmail />} />
               <Route path={routes.join} element={<Join />} />
+              <Route path={routes.upload} element={<Upload />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
