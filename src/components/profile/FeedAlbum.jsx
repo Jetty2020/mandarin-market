@@ -2,34 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-function FeedAlbum() {
+function FeedAlbum({ contentimage }) {
+  const newArr = contentimage.split(',');
   return (
-    <AlbumContainer>
-      <Img src="img/post-img-example.png" alt="" />
-      <Img src="img/post-img-example.png" alt="" />
-      <Img src="img/post-img-example.png" alt="" />
-      <Img src="img/post-img-example.png" alt="" />
-      <Img src="img/post-img-example.png" alt="" />
-      <Img src="img/post-img-example.png" alt="" />
-      <Img src="img/post-img-example.png" alt="" />
-      <Img src="img/post-img-example.png" alt="" />
-    </AlbumContainer>
+    <div>{contentimage !== '' ? <Img src={newArr[0]} alt="" /> : null}</div>
   );
 }
 
 export default FeedAlbum;
 
-const AlbumContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(114px, 146px));
-  gap: 8px;
-  padding: 16px;
-  background-color: white;
-  border: 1px solid salmon;
-  margin-bottom: 59px;
-`;
+FeedAlbum.propTypes = {
+  contentimage: PropTypes.string.isRequired,
+};
 
 const Img = styled.img`
+  border: 0.5px solid #dbdbdb;
   width: 100%;
+  max-width: 146px;
   height: 100%;
+  max-height: 146px;
 `;
