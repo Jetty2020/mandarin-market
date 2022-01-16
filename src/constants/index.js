@@ -8,4 +8,5 @@ export const routes = {
   chatRoom: '/chat/:id',
   loginEmail: '/login/email',
   join: '/join',
+  upload: '/upload',
 };
