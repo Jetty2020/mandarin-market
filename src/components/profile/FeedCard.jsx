@@ -69,7 +69,9 @@ function FeedCard({
   // }
 
   useEffect(() => {
-    setSepImage(contentimage.split(','));
+    if (typeof contentimage !== 'undefined') {
+      setSepImage(contentimage.split(','));
+    }
     setHeartedState(hearted);
     setHeartedCount(heartCount);
   }, []);
