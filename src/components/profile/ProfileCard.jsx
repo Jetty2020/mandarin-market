@@ -30,8 +30,8 @@ function ProfileCard({ loginUser }) {
     });
     setFollowers(response.data.profile.followerCount);
     setFollowings(response.data.profile.followingCount);
-    setName(response.data.profile.accountname);
-    setId(response.data.profile.username);
+    setName(response.data.profile.username);
+    setId(response.data.profile.accountname);
     setInfo(response.data.profile.intro);
     setImgUrl(response.data.profile.image);
   }

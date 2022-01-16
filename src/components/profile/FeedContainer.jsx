@@ -95,7 +95,7 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
                   userName={feed.author.username}
                   accountName={feed.author.accountname}
                   content={feed.content}
-                  contentimage={feed.image}
+                  contentimage={feed.image !== undefined ? feed.image : ''}
                   heartCount={feed.heartCount}
                   comment={feed.comments}
                   updatedAt={feed.updatedAt}
