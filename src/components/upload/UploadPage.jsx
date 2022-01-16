@@ -1,17 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { SERVER_BASE_URL } from '../../constants';
 
 export default function UploadPage() {
+  const navigate = useNavigate();
+  const loginUser = localStorage.getItem('account');
+  const token = localStorage.getItem('token');
   const [typed, setTyped] = useState('');
   const ref = useRef(null);
 
-  useEffect(() => {
-    if (ref === null || ref.current === null) {
-      return;
-    }
-    ref.current.style.height = '10vh';
-    ref.current.style.height = `${ref.current.scrollHeight}px`;
-  }, []);
+  const onChange = (event) => {
+    setTyped(event.target.value);
+  };
   const resizeHeight = useCallback(() => {
     if (ref === null || ref.current === null) {
       return;
@@ -19,17 +21,65 @@ export default function UploadPage() {
     ref.current.style.height = '10vh';
     ref.current.style.height = `${ref.current.scrollHeight}px`;
   }, []);
+  useEffect(() => {
+    if (ref === null || ref.current === null) {
+      return;
+    }
+    ref.current.style.height = '10vh';
+    ref.current.style.height = `${ref.current.scrollHeight}px`;
+  }, []);
 
-  const onChange = (event) => {
-    setTyped(event.target.value);
+  const [profileImg, setProfileImg] = useState('/img/Ellipse 6.png');
+  const getProfile = () => {
+    axios
+      .get(`${SERVER_BASE_URL}/profile/${loginUser}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      })
+      .then((res) => {
+        setProfileImg(res.data.profile.image);
+      });
   };
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  const [imageArr, setImageArr] = useState([]);
+  const imageUrls = imageArr.toString();
+  const uploadPost = () => {
+    const postData = {
+      post: {
+        content: typed,
+        image: imageUrls,
+      },
+    };
+    axios
+      .post(`${SERVER_BASE_URL}/post`, postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        navigate('/profile');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // console.log(`입력한 게시글: ${typed}`);
+  // console.log(`이미지 주소: ${imageUrls}`);
   const onClickUpload = (event) => {
     event.preventDefault();
+    uploadPost();
   };
 
   return (
     <UploadContainer>
-      <ProfileImage src="/img/Ellipse 6.png" alt="프로필 사진" />
+      <ProfileImage src={profileImg} alt="프로필 사진" />
       <PostForm>
         <PostTextArea
           ref={ref}
@@ -43,6 +93,7 @@ export default function UploadPage() {
           type="submit"
           onClick={onClickUpload}
           color={typed ? '#F26E22' : '#FFC7A7'}
+          disabled={!typed}
         >
           업로드
         </UploadBtn>
@@ -106,6 +157,7 @@ const UploadBtn = styled.button`
   font-weight: 500;
   transition: all 0.4s ease;
   z-index: 150;
+  cursor: ${(props) => (props.disabled === true ? 'none' : 'pointer')};
 `;
 
 const UploadImgBtn = styled.label`
