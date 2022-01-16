@@ -30,17 +30,16 @@ export default function UploadPage() {
   }, []);
 
   const [profileImg, setProfileImg] = useState('/img/Ellipse 6.png');
-  const getProfile = () => {
-    axios
-      .get(`${SERVER_BASE_URL}/profile/${loginUser}`, {
+  const getProfile = async () => {
+    const data = await (
+      await axios.get(`${SERVER_BASE_URL}/profile/${loginUser}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
       })
-      .then((res) => {
-        setProfileImg(res.data.profile.image);
-      });
+    ).data;
+    setProfileImg(data.profile.image);
   };
   useEffect(() => {
     getProfile();
@@ -48,30 +47,26 @@ export default function UploadPage() {
 
   const [imageArr, setImageArr] = useState([]);
   const imageUrls = imageArr.toString();
-  const uploadPost = () => {
+  const uploadPost = async () => {
     const postData = {
       post: {
         content: typed,
         image: imageUrls,
       },
     };
-    axios
-      .post(`${SERVER_BASE_URL}/post`, postData, {
+    try {
+      const res = await axios.post(`${SERVER_BASE_URL}/post`, postData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      })
-      .then((res) => {
-        console.log(res);
-        navigate('/profile');
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      console.log(res);
+      navigate('/profile');
+    } catch (err) {
+      console.log(err);
+    }
   };
-  // console.log(`입력한 게시글: ${typed}`);
-  // console.log(`이미지 주소: ${imageUrls}`);
   const onClickUpload = (event) => {
     event.preventDefault();
     uploadPost();
