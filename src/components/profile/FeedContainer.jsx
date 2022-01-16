@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import FeedCard from './FeedCard';
 import FeedAlbum from './FeedAlbum';
+import { SERVER_BASE_URL } from '../../constants';
 
 function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
   const [feedStyle, setFeedStyle] = useState(true);
@@ -23,7 +24,7 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
   ]);
   async function getFeedInfo() {
     const token = localStorage.getItem('token');
-    const url = 'http://146.56.183.55:5050';
+    const url = SERVER_BASE_URL;
     const response = await axios(`${url}/post/${whichUser}/userpost`, {
       method: 'GET',
       headers: {

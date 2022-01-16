@@ -5,6 +5,7 @@ import ProfileCard from '../components/profile/ProfileCard';
 import SellingContainer from '../components/profile/SellingContainer';
 import FeedContainer from '../components/profile/FeedContainer';
 import Navbar from '../components/common/Navbar';
+import PageTitle from '../components/common/PageTitle';
 
 function Profile(defaultProfile) {
   const account = localStorage.getItem('account');
@@ -18,6 +19,7 @@ function Profile(defaultProfile) {
 
   return (
     <YourProfile>
+      <PageTitle title="Profile" />
       <ProfileCard loginUser={loginUser} />
       <SellingContainer sellingState={sellingStatement} whichUser={loginUser} />
       <FeedContainer

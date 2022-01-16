@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { SERVER_BASE_URL } from '../../constants';
 
 function ProfileCard({ loginUser }) {
   const myAccount = localStorage.getItem('account');
@@ -19,7 +20,7 @@ function ProfileCard({ loginUser }) {
 
   async function getProfileInfo() {
     const token = localStorage.getItem('token');
-    const url = 'http://146.56.183.55:5050';
+    const url = SERVER_BASE_URL;
     const response = await axios(`${url}/profile/${loginUser}`, {
       method: 'GET',
       headers: {
@@ -37,7 +38,7 @@ function ProfileCard({ loginUser }) {
 
   async function addFollow() {
     const token = localStorage.getItem('token');
-    const url = 'http://146.56.183.55:5050';
+    const url = SERVER_BASE_URL;
     const response = await axios(`${url}/profile/${loginUser}/follow`, {
       method: 'POST',
       headers: {
@@ -51,7 +52,7 @@ function ProfileCard({ loginUser }) {
 
   async function removeFollow() {
     const token = localStorage.getItem('token');
-    const url = 'http://146.56.183.55:5050';
+    const url = SERVER_BASE_URL;
     const response = await axios(`${url}/profile/${loginUser}/unfollow`, {
       method: 'DELETE',
       headers: {
@@ -65,7 +66,7 @@ function ProfileCard({ loginUser }) {
 
   async function getFollowing() {
     const token = localStorage.getItem('token');
-    const url = 'http://146.56.183.55:5050';
+    const url = SERVER_BASE_URL;
     const response = await axios(`${url}/profile/${myAccount}/following`, {
       method: 'GET',
       headers: {

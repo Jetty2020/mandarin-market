@@ -13,9 +13,10 @@ function FeedCard({
   comment,
   updatedAt,
 }) {
-  const updatedDate = `${updatedAt.slice(0, 10).split('-')[0]}년${
-    updatedAt.slice(0, 10).split('-')[1]
-  }월${updatedAt.slice(0, 10).split('-')[2]}일`;
+  const updatedDate = `${updatedAt.slice(0, 4)}년 ${updatedAt.slice(
+    5,
+    7,
+  )}월 ${updatedAt.slice(8, 10)}일`;
 
   const [sepImage, setSepImage] = useState([]);
 

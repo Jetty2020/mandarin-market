@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
 import SellingCard from './SellingCard';
+import { SERVER_BASE_URL } from '../../constants';
 
 function SellingContainer({ sellingState, whichUser }) {
   const [sellingList, setSellingList] = useState([]);
   async function getSellingInfo() {
     const token = localStorage.getItem('token');
-    const url = 'http://146.56.183.55:5050';
+    const url = SERVER_BASE_URL;
     const response = await axios(`${url}/product/${whichUser}`, {
       method: 'GET',
       headers: {
