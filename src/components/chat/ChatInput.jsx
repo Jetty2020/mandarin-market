@@ -44,6 +44,7 @@ export default function ChatInput() {
         type="submit"
         onClick={onClick}
         color={typed || uploaded ? '#F26E22' : '#C4C4C4'}
+        disabled={!typed && !uploaded}
       >
         전송
       </SubmitButton>
@@ -95,5 +96,5 @@ const SubmitButton = styled.button`
   font-size: 14px;
   font-weight: 500;
   transition: all 0.4s ease;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled === true ? 'default' : 'pointer')};
 `;

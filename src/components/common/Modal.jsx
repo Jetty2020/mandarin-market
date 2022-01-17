@@ -61,6 +61,7 @@ const CloseBar = styled.button`
   border-radius: 5px;
   background-color: #dbdbdb;
   transform: translateX(-50%);
+  cursor: pointer;
 `;
 
 const MenuItem = styled.li`
@@ -70,4 +71,5 @@ const MenuItem = styled.li`
   height: 46px;
   padding: 0 26px;
   font-size: 14px;
+  cursor: pointer;
 `;

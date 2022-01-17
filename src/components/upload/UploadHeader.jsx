@@ -35,4 +35,5 @@ const PrevBtn = styled.button`
   margin-right: 10px;
   border: none;
   background: none;
+  cursor: pointer;
 `;
