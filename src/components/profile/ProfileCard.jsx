@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -9,6 +10,7 @@ function ProfileCard({ loginUser }) {
   const [followers, setFollowers] = useState(2950);
   const [followings, setFollowings] = useState(128);
   const [followingsList, setFollowingsList] = useState([]);
+  const [followersList, setFollowersList] = useState([]);
   const [imgUrl, setImgUrl] = useState('img/basic-profile-img.png');
   const [followState, setFollowState] = useState(false);
   const [name, setName] = useState('대한민국 챙고 감귤농장');
@@ -92,7 +94,7 @@ function ProfileCard({ loginUser }) {
       <ProfileHeader>
         <SrOnlyHeader>{name}의 프로필</SrOnlyHeader>
         <div>
-          <p>{followers}</p>
+          <Link to={`/follow/${loginUser}/following`}>123</Link>
           <p>followers</p>
         </div>
         <Img src={imgUrl} alt="" />

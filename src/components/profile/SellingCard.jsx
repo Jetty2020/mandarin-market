@@ -38,6 +38,7 @@ const Img = styled.img`
   width: 140px;
   height: 90px;
   border-radius: 8px;
+  object-fit: cover;
 `;
 const Title = styled.p`
   margin-top: 6px;
