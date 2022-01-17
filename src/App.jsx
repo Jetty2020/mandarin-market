@@ -15,7 +15,7 @@ import store from './redux/store';
 import LoginEmail from './pages/LoginEmail';
 import Join from './pages/Join';
 import Upload from './pages/Upload';
-import Follow from './pages/Follow';
+import Following from './pages/Following';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
           <GlobalStyles />
           <BrowserRouter>
             <Routes>
-              <Route path={routes.follow} element={<Follow />} />
+              <Route path={routes.following} element={<Following />} />
               <Route path="/profile" element={<Profile />} />
               <Route path={routes.home} element={<Home />} />
               <Route path={routes.login} element={<Login />} />

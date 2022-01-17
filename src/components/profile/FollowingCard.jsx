@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { SERVER_BASE_URL } from '../../constants';
 
-function FollowingCard({ profileImage, userName, accountName, loginUser }) {
+function FollowingCard({ profileImage, userName, accountName }) {
   const [followed, setFollowed] = useState(false);
   const [ownFollowingList, setOwnFollowingList] = useState([]);
   const account = localStorage.getItem('account');
@@ -20,6 +20,11 @@ function FollowingCard({ profileImage, userName, accountName, loginUser }) {
       },
     });
     setOwnFollowingList(response.data);
+    response.data.forEach((follow) => {
+      if (follow.accountname === accountName) {
+        setFollowed(true);
+      }
+    });
   }
 
   async function addFollow() {
@@ -48,17 +53,8 @@ function FollowingCard({ profileImage, userName, accountName, loginUser }) {
     setFollowed((current) => !current);
   }
 
-  function checkFollowed() {
-    ownFollowingList.forEach((follow) => {
-      if (follow.accountname === accountName) {
-        setFollowed(true);
-      }
-    });
-  }
-
   useEffect(() => {
     getOwnFollowing();
-    checkFollowed();
   }, []);
 
   return (
@@ -95,7 +91,6 @@ FollowingCard.propTypes = {
   profileImage: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
   accountName: PropTypes.string.isRequired,
-  loginUser: PropTypes.string.isRequired,
 };
 
 const CardContainer = styled.div`
@@ -103,7 +98,6 @@ const CardContainer = styled.div`
   position: relative;
   height: 50px;
   margin: 8px 16px;
-  border: 1px solid plum;
 
   &:first-child {
     margin-top: 24px;

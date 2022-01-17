@@ -33,7 +33,6 @@ function FollowingContainer({ loginUser }) {
           profileImage={follow.image}
           userName={follow.username}
           accountName={follow.accountname}
-          loginUser={loginUser}
         />
       ))}
     </FollowingWrapper>
