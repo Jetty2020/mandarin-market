@@ -209,7 +209,7 @@ const NoHeartBtn = styled.button`
   height: 20px;
   margin-right: 6px;
   border: none;
-  background: url('img/icon/icon-heart.png') no-repeat center;
+  background: url('/img/icon/icon-heart.png') no-repeat center;
 `;
 
 const HeartBtn = styled.button`
@@ -217,7 +217,7 @@ const HeartBtn = styled.button`
   height: 20px;
   margin-right: 6px;
   border: none;
-  background: url('img/icon/icon-heart-active.png') no-repeat center;
+  background: url('/img/icon/icon-heart-active.png') no-repeat center;
 `;
 
 const ImgMessage = styled.img`
