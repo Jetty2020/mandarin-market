@@ -15,6 +15,7 @@ import store from './redux/store';
 import LoginEmail from './pages/LoginEmail';
 import Join from './pages/Join';
 import Upload from './pages/Upload';
+import UploadEdit from './pages/UploadEdit';
 import Following from './pages/Following';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
               <Route path={routes.loginEmail} element={<LoginEmail />} />
               <Route path={routes.join} element={<Join />} />
               <Route path={routes.upload} element={<Upload />} />
+              <Route path={routes.uploadEdit} element={<UploadEdit />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
