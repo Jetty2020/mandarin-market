@@ -50,6 +50,7 @@ const PrevBtn = styled.button`
   margin-right: 10px;
   border: none;
   background: none;
+  cursor: pointer;
 `;
 
 const RoomName = styled.h3`
@@ -63,4 +64,5 @@ const MoreBtn = styled.button`
   height: 24px;
   border: none;
   background: none;
+  cursor: pointer;
 `;

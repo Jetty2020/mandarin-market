@@ -78,10 +78,18 @@ const Button = styled.button`
   height: calc(100% - 64px);
   border: none;
   border-top: 1px solid rgba(219, 219, 219, 0.5);
+  border-bottom-left-radius: 10px;
   background: none;
   font-size: 14px;
+  transition: 0.2s all ease;
+  cursor: pointer;
+  &:hover {
+    background: #efefef;
+  }
   &:last-child {
     border-left: 1px solid rgba(219, 219, 219, 0.5);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 10px;
     color: ${(props) => props.theme.accent};
     font-weight: 500;
   }

@@ -49,6 +49,7 @@ const PrevBtn = styled.button`
   margin-right: 10px;
   border: none;
   background: none;
+  cursor: pointer;
 `;
 
 const MoreBtn = styled.button`
@@ -56,4 +57,5 @@ const MoreBtn = styled.button`
   height: 24px;
   border: none;
   background: none;
+  cursor: pointer;
 `;
