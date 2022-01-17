@@ -144,7 +144,7 @@ const ImgPost = styled.img`
   display: block;
   width: 294px;
   height: 226px;
-  object-fit: fill;
+  object-fit: cover;
 `;
 
 const Contents = styled.div`
