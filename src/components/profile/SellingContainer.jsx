@@ -68,6 +68,7 @@ const Title = styled.h4`
 const ScrolledBox = styled.div`
   display: flex;
   overflow: scroll;
+  overflow-y: hidden;
 
   &::-webkit-scrollbar {
     display: none;
