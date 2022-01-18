@@ -21,4 +21,5 @@ const Img = styled.img`
   height: 100%;
   max-height: 146px;
   border: 0.5px solid #dbdbdb;
+  object-fit: cover;
 `;

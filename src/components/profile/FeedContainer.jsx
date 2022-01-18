@@ -8,6 +8,7 @@ import { SERVER_BASE_URL } from '../../constants';
 
 function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
   const [feedStyle, setFeedStyle] = useState(true);
+  const [noImageFeedList, setNoImageFeedList] = useState([]);
   const [feedList, setFeedList] = useState([
     {
       author: {
@@ -35,6 +36,12 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
       },
     });
     setFeedList(response.data.post);
+    console.log(response.data.post);
+    response.data.post.forEach((post) => {
+      if (post.image !== '') {
+        setNoImageFeedList((current) => [...current, post.image]);
+      }
+    });
   }
 
   useEffect(() => {
@@ -104,10 +111,10 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
               ))
             ) : (
               <FeedAlbumContainer>
-                {feedList.map((feed) => (
+                {noImageFeedList.map((feedImage) => (
                   <FeedAlbum
                     key={Math.random() * 100}
-                    contentimage={feed.image}
+                    contentimage={feedImage}
                   />
                 ))}
               </FeedAlbumContainer>
