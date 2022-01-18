@@ -22,7 +22,7 @@ function SellingContainer({ sellingState, whichUser }) {
 
   useEffect(() => {
     getSellingInfo();
-  }, []);
+  }, [whichUser]);
 
   return (
     <div>

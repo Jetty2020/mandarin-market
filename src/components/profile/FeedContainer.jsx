@@ -39,7 +39,7 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
 
   useEffect(() => {
     getFeedInfo();
-  }, []);
+  }, [whichUser]);
 
   const ChangeFeedStyle = () => {
     setFeedStyle((current) => !current);

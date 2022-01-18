@@ -28,10 +28,10 @@ function App() {
             <Routes>
               <Route path={routes.following} element={<Following />} />
               <Route path={routes.follower} element={<Follower />} />
-              <Route path={routes.ownProfile} element={<Profile />} />
               <Route path={routes.home} element={<Home />} />
               <Route path={routes.login} element={<Login />} />
               <Route path={routes.profile} element={<Profile />} />
+              <Route path={routes.ownProfile} element={<Profile />} />
               <Route path={routes.chat} element={<Chat />} />
               <Route path={routes.chatRoom} element={<ChatRoom />} />
               <Route path={routes.loginEmail} element={<LoginEmail />} />
