@@ -36,7 +36,6 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
       },
     });
     setFeedList(response.data.post);
-    console.log(response.data.post);
     response.data.post.forEach((post) => {
       if (post.image !== '') {
         setNoImageFeedList((current) => [...current, post.image]);
