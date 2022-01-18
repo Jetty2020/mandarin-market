@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -89,6 +89,11 @@ function ProfileCard({ loginUser }) {
     getFollowing();
   }, [loginUser]);
 
+  const navigate = useNavigate();
+  const addProduct = () => {
+    navigate('/product');
+  };
+
   return (
     <ProfileContainer>
       <ProfileHeader>
@@ -109,7 +114,7 @@ function ProfileCard({ loginUser }) {
       {loginUser === myAccount ? (
         <MyAction>
           <EditProfile>프로필 수정</EditProfile>
-          <AddSelling>상품 등록</AddSelling>
+          <AddSelling onClick={addProduct}>상품 등록</AddSelling>
         </MyAction>
       ) : (
         <Action>

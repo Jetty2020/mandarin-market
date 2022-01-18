@@ -18,6 +18,7 @@ import Upload from './pages/Upload';
 import UploadEdit from './pages/UploadEdit';
 import Following from './pages/Following';
 import Follower from './pages/Follower';
+import Product from './pages/Product';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
               <Route path={routes.join} element={<Join />} />
               <Route path={routes.upload} element={<Upload />} />
               <Route path={routes.uploadEdit} element={<UploadEdit />} />
+              <Route path={routes.product} element={<Product />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

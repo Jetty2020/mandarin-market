@@ -13,4 +13,5 @@ export const routes = {
   uploadEdit: '/upload/:postid',
   following: '/follow/:accountname/following',
   follower: '/follow/:accountname/follower',
+  product: '/product',
 };
