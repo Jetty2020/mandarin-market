@@ -16,6 +16,7 @@ import LoginEmail from './pages/LoginEmail';
 import Join from './pages/Join';
 import Upload from './pages/Upload';
 import Following from './pages/Following';
+import Follower from './pages/Follower';
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path={routes.following} element={<Following />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path={routes.follower} element={<Follower />} />
+              <Route path={routes.ownProfile} element={<Profile />} />
               <Route path={routes.home} element={<Home />} />
               <Route path={routes.login} element={<Login />} />
               <Route path={routes.profile} element={<Profile />} />
