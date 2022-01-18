@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -57,7 +58,7 @@ function FollowerCard({ profileImage, userName, accountName }) {
     getOwnFollowing();
   }, []);
   return (
-    <CardContainer>
+    <CardContainer to={`/profile/${accountName}`}>
       <ProfileImg src={profileImage} alt="" />
       <NameContainer>
         <User>{userName}</User>
@@ -92,7 +93,7 @@ FollowerCard.propTypes = {
   accountName: PropTypes.string.isRequired,
 };
 
-const CardContainer = styled.div`
+const CardContainer = styled(Link)`
   display: flex;
   position: relative;
   height: 50px;
