@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import FeedModal from '../modal/FeedModal';
 import { SERVER_BASE_URL } from '../../constants';
 
 function FeedCard({
@@ -20,7 +21,10 @@ function FeedCard({
   const [sepImage, setSepImage] = useState([]);
   const [heartedState, setHeartedState] = useState(false);
   const [heartedCount, setHeartedCount] = useState(0);
-
+  const [showing, setShowing] = useState(false);
+  const showModal = () => {
+    setShowing(!showing);
+  };
   const updatedDate = `${updatedAt.slice(0, 4)}년 ${updatedAt.slice(
     5,
     7,
@@ -69,12 +73,6 @@ function FeedCard({
         <LinkWrapper src={`${authorImage}`} />
       </GotoProfile>
       <FeedContents>
-        <FeedMenu>
-          <ImgMore
-            src={`${process.env.PUBLIC_URL}/img/icon/icon-more-vertical.png`}
-            alt=""
-          />
-        </FeedMenu>
         <FeedTitle>{userName}</FeedTitle>
         <FeedId>{`@ ${accountName}`}</FeedId>
         <FeedContent>{content}</FeedContent>
@@ -109,6 +107,20 @@ function FeedCard({
           <NumOf>{comment.length}</NumOf>
         </FeedIcon>
         <FeedDate>{updatedDate}</FeedDate>
+        <FeedMenu>
+          <MoreBtn onClick={showModal}>
+            <img
+              src={`${process.env.PUBLIC_URL}/img/icon/s-icon-more-vertical.png`}
+              alt="게시물 수정/삭제 버튼"
+            />
+          </MoreBtn>
+          <FeedModal
+            showing={showing ? 'active' : null}
+            showModal={showModal}
+            list={['삭제', '수정']}
+            postid={postid}
+          />
+        </FeedMenu>
       </FeedContents>
     </Contents>
   );
@@ -131,7 +143,7 @@ FeedCard.propTypes = {
 
 const ImgContainer = styled.div`
   display: flex;
-  overflow: scroll;
+  overflow-y: hidden;
   width: 296px;
   height: 228px;
   border: 0.5px solid #dbdbdb;
@@ -239,8 +251,10 @@ const FeedMenu = styled.div`
   right: 20px;
 `;
 
-const ImgMore = styled.img`
+const MoreBtn = styled.button`
   width: 18px;
   height: 18px;
+  border: none;
+  background: none;
   cursor: pointer;
 `;

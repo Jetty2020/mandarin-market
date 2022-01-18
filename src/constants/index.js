@@ -10,6 +10,7 @@ export const routes = {
   loginEmail: '/login/email',
   join: '/join',
   upload: '/upload',
+  uploadEdit: '/upload/:postid',
   following: '/follow/:accountname/following',
   follower: '/follow/:accountname/follower',
 };

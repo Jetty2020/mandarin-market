@@ -15,6 +15,7 @@ import store from './redux/store';
 import LoginEmail from './pages/LoginEmail';
 import Join from './pages/Join';
 import Upload from './pages/Upload';
+import UploadEdit from './pages/UploadEdit';
 import Following from './pages/Following';
 import Follower from './pages/Follower';
 
@@ -28,6 +29,7 @@ function App() {
             <Routes>
               <Route path={routes.following} element={<Following />} />
               <Route path={routes.follower} element={<Follower />} />
+              <Route path={routes.ownProfile} element={<Profile />} />
               <Route path={routes.home} element={<Home />} />
               <Route path={routes.login} element={<Login />} />
               <Route path={routes.profile} element={<Profile />} />
@@ -37,6 +39,7 @@ function App() {
               <Route path={routes.loginEmail} element={<LoginEmail />} />
               <Route path={routes.join} element={<Join />} />
               <Route path={routes.upload} element={<Upload />} />
+              <Route path={routes.uploadEdit} element={<UploadEdit />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
