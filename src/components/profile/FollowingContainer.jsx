@@ -48,4 +48,5 @@ FollowingContainer.propTypes = {
 const FollowingWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 59px;
 `;

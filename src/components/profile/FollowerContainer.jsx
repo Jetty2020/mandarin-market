@@ -26,7 +26,7 @@ function FollowerContainer({ whichUser }) {
     getFollower();
   }, []);
   return (
-    <div>
+    <FollowerWrapper>
       {followerList.map((follower) => (
         <FollowerCard
           key={Math.random() * 100}
@@ -35,7 +35,7 @@ function FollowerContainer({ whichUser }) {
           accountName={follower.accountname}
         />
       ))}
-    </div>
+    </FollowerWrapper>
   );
 }
 
@@ -44,3 +44,7 @@ export default FollowerContainer;
 FollowerContainer.propTypes = {
   whichUser: PropTypes.string.isRequired,
 };
+
+const FollowerWrapper = styled.div`
+  margin-bottom: 59px;
+`;
