@@ -14,7 +14,7 @@ function ProfileCard({ loginUser }) {
   const [imgUrl, setImgUrl] = useState('img/basic-profile-img.png');
   const [followState, setFollowState] = useState(false);
   const [name, setName] = useState('대한민국 챙고 감귤농장');
-  const [id, setId] = useState('@chango.kr');
+  const [id, setId] = useState(myAccount);
   const [info, setInfo] = useState(
     '대한민국 감귤 전국 배송, 귤따기 체험, 감귤 농장',
   );
@@ -87,7 +87,7 @@ function ProfileCard({ loginUser }) {
   useEffect(() => {
     getProfileInfo();
     getFollowing();
-  }, []);
+  }, [loginUser]);
 
   return (
     <ProfileContainer>
@@ -106,7 +106,7 @@ function ProfileCard({ loginUser }) {
       <Name>{name}</Name>
       <Id>{`@ ${id}`}</Id>
       <Info>{info}</Info>
-      {loginUser === id ? (
+      {loginUser === myAccount ? (
         <MyAction>
           <EditProfile>프로필 수정</EditProfile>
           <AddSelling>상품 등록</AddSelling>

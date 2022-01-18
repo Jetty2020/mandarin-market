@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ProfileCard from '../components/profile/ProfileCard';
@@ -16,6 +16,10 @@ function Profile(defaultProfile) {
     typeof accountname === 'undefined' ? account : accountname,
   );
   const feedHeaderMarginTop = sellingStatement ? '0px' : '316px';
+
+  useEffect(() => {
+    setLoginUser(typeof accountname === 'undefined' ? account : accountname);
+  }, [accountname]);
 
   return (
     <YourProfile>
