@@ -59,7 +59,6 @@ function FeedCard({
         'Content-type': 'application/json',
       },
     });
-    console.log(response);
     setHeartedState(true);
     setHeartedCount((current) => current + 1);
   }
@@ -225,10 +224,10 @@ FeedCard.propTypes = {
 const CarouselWrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 62px;
   position: absolute;
   bottom: 10px;
   left: 50%;
+  width: 62px;
   z-index: 5;
   transform: translateX(-50%);
 `;
