@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import FeedModal from '../modal/FeedModal';
@@ -22,8 +22,27 @@ function FeedCard({
   const [heartedState, setHeartedState] = useState(false);
   const [heartedCount, setHeartedCount] = useState(0);
   const [showing, setShowing] = useState(false);
+  const [imageNum, setImageNum] = useState(0);
+  const [carouselMove, setCarouselMove] = useState(0);
+  const [activedImg, setActivedImg] = useState([true, false, false]);
+  const activeImg = (which) => {
+    const tempArr = activedImg;
+    for (let i = 0; i < activedImg.length; i += 1) {
+      tempArr[i] = false;
+      if (i === which) {
+        tempArr[i] = true;
+      }
+    }
+    setActivedImg(tempArr);
+  };
   const showModal = () => {
     setShowing(!showing);
+  };
+  const countImageNum = () => {
+    setImageNum(sepImage.length);
+  };
+  const moveCarousel = (move) => {
+    setCarouselMove(move);
   };
   const updatedDate = `${updatedAt.slice(0, 4)}년 ${updatedAt.slice(
     5,
@@ -67,6 +86,10 @@ function FeedCard({
     setHeartedCount(heartCount);
   }, []);
 
+  useEffect(() => {
+    countImageNum();
+  }, [sepImage]);
+
   return (
     <Contents>
       <GotoProfile to="/none">
@@ -78,9 +101,67 @@ function FeedCard({
         <FeedContent>{content}</FeedContent>
         {contentimage !== '' ? (
           <ImgContainer>
+            {imageNum === 2 ? (
+              <CarouselWrapper>
+                <CarouselBtn1
+                  onClick={() => {
+                    moveCarousel(0);
+                    activeImg(0);
+                  }}
+                  type="button"
+                  active={activedImg[0]}
+                >
+                  {' '}
+                </CarouselBtn1>
+                <CarouselBtn2
+                  onClick={() => {
+                    moveCarousel(-294);
+                    activeImg(1);
+                  }}
+                  type="button"
+                  active={activedImg[1]}
+                >
+                  {' '}
+                </CarouselBtn2>
+              </CarouselWrapper>
+            ) : null}
+            {imageNum === 3 ? (
+              <CarouselWrapper>
+                <CarouselBtn1
+                  onClick={() => {
+                    moveCarousel(0);
+                    activeImg(0);
+                  }}
+                  type="button"
+                  active={activedImg[0]}
+                >
+                  {' '}
+                </CarouselBtn1>
+                <CarouselBtn2
+                  onClick={() => {
+                    moveCarousel(-294);
+                    activeImg(1);
+                  }}
+                  type="button"
+                  active={activedImg[1]}
+                >
+                  {' '}
+                </CarouselBtn2>
+                <CarouselBtn3
+                  onClick={() => {
+                    moveCarousel(-588);
+                    activeImg(2);
+                  }}
+                  type="button"
+                  active={activedImg[2]}
+                >
+                  {' '}
+                </CarouselBtn3>
+              </CarouselWrapper>
+            ) : null}
             {sepImage.map((image) => (
               <ImgWrapper key={Math.random() * 100}>
-                <ImgPost src={image} alt="" />
+                <ImgPost src={image} alt="" moveImage={carouselMove} />
               </ImgWrapper>
             ))}
           </ImgContainer>
@@ -102,7 +183,7 @@ function FeedCard({
           <NumOf>{heartedCount}</NumOf>
           <ImgMessage
             src={`${process.env.PUBLIC_URL}/img/icon/icon-message-circle.svg`}
-            alt=""
+            alt="댓글 보기"
           />
           <NumOf>{comment.length}</NumOf>
         </FeedIcon>
@@ -141,9 +222,47 @@ FeedCard.propTypes = {
   hearted: PropTypes.bool.isRequired,
 };
 
+const CarouselWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 62px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  z-index: 5;
+  transform: translateX(-50%);
+`;
+
+const CarouselBtn1 = styled.button`
+  width: 6px;
+  height: 6px;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 3px;
+  background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+`;
+
+const CarouselBtn2 = styled.button`
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 3px;
+  background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+`;
+
+const CarouselBtn3 = styled.button`
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 10px;
+  background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+`;
+
 const ImgContainer = styled.div`
   display: flex;
-  overflow-y: hidden;
+  position: relative;
+  overflow: hidden;
   width: 296px;
   height: 228px;
   border: 0.5px solid #dbdbdb;
@@ -157,6 +276,9 @@ const ImgPost = styled.img`
   width: 294px;
   height: 226px;
   object-fit: cover;
+  transition: transform 0.5s;
+  transform: ${(props) =>
+    `translateX(${props.moveImage}px)` || 'translateX(0px)'};
 `;
 
 const Contents = styled.div`
