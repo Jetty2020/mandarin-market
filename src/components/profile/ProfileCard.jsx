@@ -94,12 +94,12 @@ function ProfileCard({ loginUser }) {
       <ProfileHeader>
         <SrOnlyHeader>{name}의 프로필</SrOnlyHeader>
         <div>
-          <Link to={`/follow/${loginUser}/following`}>123</Link>
+          <Link to={`/follow/${loginUser}/follower`}>{followers}</Link>
           <p>followers</p>
         </div>
         <Img src={imgUrl} alt="" />
         <div>
-          <p>{followings}</p>
+          <Link to={`/follow/${loginUser}/following`}>{followings}</Link>
           <p>followings</p>
         </div>
       </ProfileHeader>

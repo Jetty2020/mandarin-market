@@ -1,19 +1,19 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import FollowingContainer from '../components/profile/FollowingContainer';
+import FollowerContainer from '../components/profile/FollowerContainer';
 import Navbar from '../components/common/Navbar';
 import PageTitle from '../components/common/PageTitle';
 
-function Following() {
+function Follower() {
   const params = useParams().accountname;
 
   return (
     <div>
-      <PageTitle title="Follow" />
-      <FollowingContainer loginUser={params} />
+      <PageTitle title="follower" />
+      <FollowerContainer whichUser={params} />
       <Navbar />
     </div>
   );
 }
 
-export default Following;
+export default Follower;
