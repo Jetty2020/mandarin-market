@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
@@ -25,6 +25,7 @@ function FeedCard({
   const [imageNum, setImageNum] = useState(0);
   const [carouselMove, setCarouselMove] = useState(0);
   const [activedImg, setActivedImg] = useState([true, false, false]);
+
   const activeImg = (which) => {
     const tempArr = activedImg;
     for (let i = 0; i < activedImg.length; i += 1) {
@@ -99,7 +100,7 @@ function FeedCard({
         <FeedId>{`@ ${accountName}`}</FeedId>
         <FeedContent>{content}</FeedContent>
         {contentimage !== '' ? (
-          <ImgContainer>
+          <SliderContainer>
             {imageNum === 2 ? (
               <CarouselWrapper>
                 <CarouselBtn1
@@ -109,6 +110,7 @@ function FeedCard({
                   }}
                   type="button"
                   active={activedImg[0]}
+                  anime="ImgSlide1 1s linear"
                 >
                   {' '}
                 </CarouselBtn1>
@@ -119,6 +121,7 @@ function FeedCard({
                   }}
                   type="button"
                   active={activedImg[1]}
+                  anime="ImgSlide2 1s linear"
                 >
                   {' '}
                 </CarouselBtn2>
@@ -158,13 +161,16 @@ function FeedCard({
                 </CarouselBtn3>
               </CarouselWrapper>
             ) : null}
-            {sepImage.map((image) => (
-              <ImgWrapper key={Math.random() * 100}>
-                <ImgPost src={image} alt="" moveImage={carouselMove} />
-              </ImgWrapper>
-            ))}
-          </ImgContainer>
+            <ImgContainer moveImage={carouselMove}>
+              {sepImage.map((image) => (
+                <ImgWrapper key={Math.random() * 100}>
+                  <ImgPost src={image} alt="" />
+                </ImgWrapper>
+              ))}
+            </ImgContainer>
+          </SliderContainer>
         ) : null}
+
         <FeedIcon>
           {heartedState ? (
             <HeartBtn
@@ -221,12 +227,22 @@ FeedCard.propTypes = {
   hearted: PropTypes.bool.isRequired,
 };
 
+const SliderContainer = styled.div`
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  width: 296px;
+  height: 228px;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 10px;
+`;
+
 const CarouselWrapper = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
   bottom: 10px;
-  left: 50%;
+  left: calc(50%);
   width: 62px;
   z-index: 5;
   transform: translateX(-50%);
@@ -258,14 +274,29 @@ const CarouselBtn3 = styled.button`
   background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
 `;
 
+const ImgSlide1 = keyframes`
+  100%{
+    transform: translateX(0px);
+  }
+`;
+
+const ImgSlide2 = keyframes`
+  100%{
+    transform: translateX(-294px);
+  }
+`;
+
+const ImgSlide3 = keyframes`
+  100%{
+    transform: translateX(-588px);
+  }
+`;
+
 const ImgContainer = styled.div`
   display: flex;
-  position: relative;
-  overflow: hidden;
-  width: 296px;
-  height: 228px;
-  border: 0.5px solid #dbdbdb;
-  border-radius: 10px;
+  transition: all 0.3s linear;
+  transform: ${(props) =>
+    `translateX(${props.moveImage}px)` || 'translateX(0px)'};
 `;
 
 const ImgWrapper = styled.div``;
@@ -275,9 +306,7 @@ const ImgPost = styled.img`
   width: 294px;
   height: 226px;
   object-fit: cover;
-  transition: transform 0.5s;
-  transform: ${(props) =>
-    `translateX(${props.moveImage}px)` || 'translateX(0px)'};
+  transition: all 1s ease-in-out;
 `;
 
 const Contents = styled.div`
