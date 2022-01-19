@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { SERVER_BASE_URL } from '../../constants';
 
 export default function ProductPage() {
+  const navigate = useNavigate();
+  const loginUser = localStorage.getItem('account');
+  const token = localStorage.getItem('token');
   const {
     register,
     getValues,
@@ -12,6 +18,7 @@ export default function ProductPage() {
   } = useForm({
     mode: 'onTouched',
   });
+
   const noString = (event) => {
     const { value } = event.target;
     return value.replace(/[^0-9]/g, '');
@@ -21,13 +28,35 @@ export default function ProductPage() {
     const { value } = event.target;
     return value.toString().replace(regexp, ',');
   };
+
   const addProduct = async (data) => {
-    // console.log(data);
-    const str = await getValues('price');
-    setValue('price', parseInt(str.replace(/[^0-9]/g, ''), 10));
-    const priceNum = getValues('price');
-    // console.log(priceNum);
-    // console.log(typeof priceNum);
+    const str = await getValues('productPrice');
+    setValue('productPrice', parseInt(str.replace(/[^0-9]/g, ''), 10));
+    const itemName = data.productName;
+    const price = getValues('productPrice');
+    const link = data.productUrl;
+    const itemImage = 'https://url.kr/2vheyq';
+    const uploadProduct = async () => {
+      const productData = {
+        product: { itemName, price, link, itemImage },
+      };
+      try {
+        const res = await axios.post(
+          `${SERVER_BASE_URL}/product`,
+          productData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-type': 'application/json',
+            },
+          },
+        );
+        navigate('/profile');
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    uploadProduct();
   };
 
   return (
@@ -60,16 +89,33 @@ export default function ProductPage() {
             spellCheck="false"
             autoComplete="off"
             placeholder="숫자만 입력 가능합니다."
-            {...register('price', {
+            {...register('productPrice', {
               required: true,
               onChange: (e) => {
-                setValue('price', noString(e));
+                setValue('productPrice', noString(e));
               },
               onBlur: (e) => {
-                setValue('price', addComma(e));
+                setValue('productPrice', addComma(e));
               },
             })}
           />
+        </InputWrapper>
+        <InputWrapper>
+          <Label htmlFor="productUrl">판매 링크</Label>
+          <Input
+            type="url"
+            spellCheck="false"
+            autoComplete="off"
+            placeholder="URL을 입력해 주세요."
+            {...register('productUrl', {
+              required: true,
+              pattern:
+                /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
+            })}
+          />
+          {errors.productUrl && errors.productUrl.type === 'pattern' && (
+            <Error>* URL을 입력해 주세요.</Error>
+          )}
         </InputWrapper>
         <UploadBtn
           type="submit"
@@ -107,7 +153,6 @@ const UploadBtn = styled.button`
 
 const InputWrapper = styled.div`
   margin-top: 16px;
-  border: 1px solid #eee;
 `;
 
 const Label = styled.label`
