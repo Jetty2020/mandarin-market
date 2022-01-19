@@ -7,7 +7,6 @@ import { SERVER_BASE_URL } from '../../constants';
 
 export default function ProductPage() {
   const navigate = useNavigate();
-  const loginUser = localStorage.getItem('account');
   const token = localStorage.getItem('token');
   const {
     register,
@@ -68,18 +67,18 @@ export default function ProductPage() {
             type="text"
             spellCheck="false"
             autoComplete="off"
-            placeholder="2-10자 이내여야 합니다."
+            placeholder="2-15자 이내여야 합니다."
             {...register('productName', {
               required: true,
               minLength: 2,
-              maxLength: 10,
+              maxLength: 15,
             })}
           />
           {errors.productName && errors.productName.type === 'minLength' && (
             <Error>* 최소 2자 이상이어야 합니다.</Error>
           )}
           {errors.productName && errors.productName.type === 'maxLength' && (
-            <Error>* 최대 10자 이하여야 합니다.</Error>
+            <Error>* 최대 15자 이하여야 합니다.</Error>
           )}
         </InputWrapper>
         <InputWrapper>
