@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import ProductModal from '../modal/ProductModal';
 
-function SellingCard({ img, title, price }) {
+function SellingCard({ productid, img, title, price }) {
+  const [showing, setShowing] = useState(false);
   const tempArr = String(price).split('').reverse();
   const commaArr = [];
 
@@ -13,19 +15,31 @@ function SellingCard({ img, title, price }) {
     }
   }
   const commaPrice = commaArr.reverse().join('');
+  const showModal = () => {
+    setShowing(!showing);
+  };
 
   return (
-    <ProductCard>
-      <Img src={`${img}`} />
-      <Title>{title}</Title>
-      <Price>{`${commaPrice}원`}</Price>
-    </ProductCard>
+    <>
+      <ProductCard onClick={showModal}>
+        <Img src={`${img}`} />
+        <Title>{title}</Title>
+        <Price>{`${commaPrice}원`}</Price>
+      </ProductCard>
+      <ProductModal
+        showing={showing ? 'active' : null}
+        showModal={showModal}
+        list={['삭제', '수정', '웹사이트에서 상품 보기']}
+        productid={productid}
+      />
+    </>
   );
 }
 
 export default SellingCard;
 
 SellingCard.propTypes = {
+  productid: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -33,6 +47,7 @@ SellingCard.propTypes = {
 
 const ProductCard = styled.div`
   margin-right: 10px;
+  cursor: pointer;
 `;
 const Img = styled.img`
   width: 140px;
