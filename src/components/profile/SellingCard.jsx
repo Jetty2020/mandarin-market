@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ProductModal from '../modal/ProductModal';
 
-function SellingCard({ productid, img, title, price }) {
+function SellingCard({ productid, img, title, price, link }) {
   const [showing, setShowing] = useState(false);
   const tempArr = String(price).split('').reverse();
   const commaArr = [];
@@ -31,6 +31,7 @@ function SellingCard({ productid, img, title, price }) {
         showModal={showModal}
         list={['삭제', '수정', '웹사이트에서 상품 보기']}
         productid={productid}
+        link={link}
       />
     </>
   );
@@ -43,6 +44,7 @@ SellingCard.propTypes = {
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 const ProductCard = styled.div`
