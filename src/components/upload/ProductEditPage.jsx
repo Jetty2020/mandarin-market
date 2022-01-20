@@ -19,12 +19,13 @@ export default function ProductEditPage({ productid }) {
     mode: 'onTouched',
   });
 
+  const regexp = /\B(?=(\d{3})+(?!\d))/g;
   const noString = (event) => {
     const { value } = event.target;
     return value.replace(/[^0-9]/g, '');
   };
+  const toString = (value) => value.toString().replace(regexp, ',');
   const addComma = (event) => {
-    const regexp = /\B(?=(\d{3})+(?!\d))/g;
     const { value } = event.target;
     return value.toString().replace(regexp, ',');
   };
@@ -39,7 +40,7 @@ export default function ProductEditPage({ productid }) {
       })
     ).data;
     setValue('productName', productData.product.itemName);
-    setValue('productPrice', productData.product.price);
+    setValue('productPrice', toString(productData.product.price));
     setValue('productUrl', productData.product.link);
   };
   useEffect(() => {
