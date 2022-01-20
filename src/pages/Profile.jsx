@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Header from '../components/common/Header';
 import ProfileCard from '../components/profile/ProfileCard';
 import SellingContainer from '../components/profile/SellingContainer';
 import FeedContainer from '../components/profile/FeedContainer';
@@ -22,17 +23,23 @@ function Profile(defaultProfile) {
   }, [accountname]);
 
   return (
-    <YourProfile>
+    <>
       <PageTitle title="Profile" />
-      <ProfileCard loginUser={loginUser} />
-      <SellingContainer sellingState={sellingStatement} whichUser={loginUser} />
-      <FeedContainer
-        feedHeaderMarginTop={feedHeaderMarginTop}
-        feedState={feedStatement}
-        whichUser={loginUser}
-      />
+      <Header />
+      <YourProfile>
+        <ProfileCard loginUser={loginUser} />
+        <SellingContainer
+          sellingState={sellingStatement}
+          whichUser={loginUser}
+        />
+        <FeedContainer
+          feedHeaderMarginTop={feedHeaderMarginTop}
+          feedState={feedStatement}
+          whichUser={loginUser}
+        />
+      </YourProfile>
       <Navbar />
-    </YourProfile>
+    </>
   );
 }
 

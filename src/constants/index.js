@@ -14,5 +14,6 @@ export const routes = {
   following: '/follow/:accountname/following',
   follower: '/follow/:accountname/follower',
   product: '/product',
+  productEdit: '/product/:productid',
   edit: '/account/edit',
 };

@@ -168,7 +168,7 @@ const ProfileContainer = styled.div`
   align-items: center;
   position: fixed;
   width: 100%;
-  margin-bottom: 6px;
+  margin: 48px 0 6px;
   background-color: white;
   top: 0px;
   z-index: 10;

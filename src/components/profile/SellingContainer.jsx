@@ -33,9 +33,11 @@ function SellingContainer({ sellingState, whichUser }) {
             {sellingList.map((selling) => (
               <SellingCard
                 key={selling.id}
+                productid={selling.id}
                 img={selling.itemImage}
                 title={selling.itemName}
                 price={selling.price}
+                link={selling.link}
               />
             ))}
           </ScrolledBox>
@@ -55,7 +57,7 @@ export default SellingContainer;
 const CardContainer = styled.div`
   padding: 20px 21px;
   margin-bottom: 6px;
-  margin-top: 316px;
+  margin-top: 364px;
   background-color: white;
 `;
 

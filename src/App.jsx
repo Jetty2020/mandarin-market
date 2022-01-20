@@ -19,6 +19,7 @@ import UploadEdit from './pages/UploadEdit';
 import Following from './pages/Following';
 import Follower from './pages/Follower';
 import Product from './pages/Product';
+import ProductEdit from './pages/ProductEdit';
 import Edit from './pages/Edit';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
               <Route path={routes.upload} element={<Upload />} />
               <Route path={routes.uploadEdit} element={<UploadEdit />} />
               <Route path={routes.product} element={<Product />} />
+              <Route path={routes.productEdit} element={<ProductEdit />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
