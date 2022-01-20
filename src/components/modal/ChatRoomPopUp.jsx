@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-export default function FeedPopUp({ visible, onClose, postid }) {
+export default function ChatRoomPopUp({ visible, onClose }) {
   const navigate = useNavigate();
   const close = (e) => {
     if (onClose) {
@@ -27,12 +27,11 @@ export default function FeedPopUp({ visible, onClose, postid }) {
   );
 }
 
-FeedPopUp.propTypes = {
+ChatRoomPopUp.propTypes = {
   visible: PropTypes.bool,
   onClose: PropTypes.func,
-  postid: PropTypes.string.isRequired,
 };
-FeedPopUp.defaultProps = {
+ChatRoomPopUp.defaultProps = {
   visible: false,
   onClose: true,
 };

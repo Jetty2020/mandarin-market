@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ChatRoomPopUp from './ChatRoomPopUp';
 
-export default function ProductModal({ list, showing, showModal }) {
+export default function ChatRoomModal({ list, showing, showModal }) {
   const [visiblePop, setVisiblePop] = useState(false);
   const openPopUp = () => {
     setVisiblePop(true);
@@ -38,12 +38,12 @@ export default function ProductModal({ list, showing, showModal }) {
   );
 }
 
-ProductModal.propTypes = {
+ChatRoomModal.propTypes = {
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
   showing: PropTypes.string,
   showModal: PropTypes.func.isRequired,
 };
-ProductModal.defaultProps = {
+ChatRoomModal.defaultProps = {
   showing: null,
 };
 
