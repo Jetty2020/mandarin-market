@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { SERVER_BASE_URL } from '../../constants';
 
-export default function ProductEditPage() {
+export default function ProductEditPage({ productid }) {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const {
@@ -28,6 +29,23 @@ export default function ProductEditPage() {
     return value.toString().replace(regexp, ',');
   };
 
+  const getProduct = async () => {
+    const productData = await (
+      await axios.get(`${SERVER_BASE_URL}/product/detail/${productid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      })
+    ).data;
+    setValue('productName', productData.product.itemName);
+    setValue('productPrice', productData.product.price);
+    setValue('productUrl', productData.product.link);
+  };
+  useEffect(() => {
+    getProduct();
+  }, []);
+
   const addProduct = async (data) => {
     const str = await getValues('productPrice');
     setValue('productPrice', parseInt(str.replace(/[^0-9]/g, ''), 10));
@@ -39,21 +57,13 @@ export default function ProductEditPage() {
       const productData = {
         product: { itemName, price, link, itemImage },
       };
-      try {
-        const res = await axios.post(
-          `${SERVER_BASE_URL}/product`,
-          productData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-type': 'application/json',
-            },
-          },
-        );
-        navigate('/profile');
-      } catch (err) {
-        console.log(err);
-      }
+      await axios.put(`${SERVER_BASE_URL}/product/${productid}`, productData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      });
+      navigate('/profile');
     };
     uploadProduct();
   };
@@ -82,7 +92,7 @@ export default function ProductEditPage() {
           )}
         </InputWrapper>
         <InputWrapper>
-          <Label htmlFor="price">가격</Label>
+          <Label htmlFor="productPrice">가격</Label>
           <Input
             type="text"
             spellCheck="false"
@@ -127,6 +137,10 @@ export default function ProductEditPage() {
     </ProductContainer>
   );
 }
+
+ProductEditPage.propTypes = {
+  productid: PropTypes.string.isRequired,
+};
 
 const ProductContainer = styled.main`
   padding: 30px 34px;
