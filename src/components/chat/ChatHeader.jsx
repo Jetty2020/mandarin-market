@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import chatSummary from './chatData.json';
+import ChatRoomModal from '../modal/ChatRoomModal';
 
 export default function ChatHeader({ id }) {
   const navigate = useNavigate();
+  const [showing, setShowing] = useState(false);
+  const showModal = () => {
+    setShowing(!showing);
+  };
   const chatRoomName = chatSummary.data.filter((chat) => chat.id === +id);
   return (
     <ChatHeaderContainer>
@@ -15,9 +20,14 @@ export default function ChatHeader({ id }) {
         </PrevBtn>
         <RoomName>{id ? chatRoomName[0].name : null}</RoomName>
       </ChatRoomTitle>
-      <MoreBtn type="button">
+      <MoreBtn type="button" onClick={showModal}>
         <img src="/img/icon/icon- more-vertical.svg" alt="더보기 버튼" />
       </MoreBtn>
+      <ChatRoomModal
+        showing={showing ? 'active' : null}
+        showModal={showModal}
+        list={['채팅방 나가기']}
+      />
     </ChatHeaderContainer>
   );
 }
