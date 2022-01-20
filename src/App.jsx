@@ -19,6 +19,7 @@ import UploadEdit from './pages/UploadEdit';
 import Following from './pages/Following';
 import Follower from './pages/Follower';
 import Product from './pages/Product';
+import Edit from './pages/Edit';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <GlobalStyles />
           <BrowserRouter>
             <Routes>
+              <Route path={routes.edit} element={<Edit />} />
               <Route path={routes.following} element={<Following />} />
               <Route path={routes.follower} element={<Follower />} />
               <Route path={routes.ownProfile} element={<Profile />} />

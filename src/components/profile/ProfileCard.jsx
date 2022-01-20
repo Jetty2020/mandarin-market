@@ -113,7 +113,7 @@ function ProfileCard({ loginUser }) {
       <Info>{info}</Info>
       {loginUser === myAccount ? (
         <MyAction>
-          <EditProfile>프로필 수정</EditProfile>
+          <EditProfile to="/account/edit">프로필 수정</EditProfile>
           <AddSelling onClick={addProduct}>상품 등록</AddSelling>
         </MyAction>
       ) : (
@@ -291,9 +291,8 @@ const MyAction = styled.div`
   margin-bottom: 26px;
 `;
 
-const EditProfile = styled.button`
-  width: 120px;
-  height: 34px;
+const EditProfile = styled(Link)`
+  padding: 8px 26px;
   margin-right: 12px;
   border: 1px solid #dbdbdb;
   border-radius: 30px;
