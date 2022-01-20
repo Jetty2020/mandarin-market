@@ -324,6 +324,7 @@ const Contents = styled.div`
 const LinkWrapper = styled.img`
   width: 42px;
   height: 42px;
+  border-radius: 21px;
 `;
 
 const GotoProfile = styled(Link)`
