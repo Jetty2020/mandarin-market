@@ -71,22 +71,13 @@ export default function EditPage({ postid }) {
         image: imageUrls,
       },
     };
-    try {
-      const res = await axios.put(
-        `${SERVER_BASE_URL}/post/${postid}`,
-        updateData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-type': 'application/json',
-          },
-        },
-      );
-      console.log(res);
-      navigate('/profile');
-    } catch (err) {
-      console.log(err);
-    }
+    await axios.put(`${SERVER_BASE_URL}/post/${postid}`, updateData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    navigate('/profile');
   };
   const onClickUpload = (event) => {
     event.preventDefault();
