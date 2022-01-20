@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SERVER_BASE_URL } from '../../constants';
 
-export default function ProductPage() {
+export default function ProductEditPage() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const {
