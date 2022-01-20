@@ -37,6 +37,7 @@ function SellingContainer({ sellingState, whichUser }) {
                 img={selling.itemImage}
                 title={selling.itemName}
                 price={selling.price}
+                link={selling.link}
               />
             ))}
           </ScrolledBox>

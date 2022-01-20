@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ProductPopUp from './ProductPopUp';
 
-export default function ProductModal({ list, showing, showModal, productid }) {
+export default function ProductModal({
+  list,
+  showing,
+  showModal,
+  productid,
+  link,
+}) {
   const navigate = useNavigate();
   const [visiblePop, setVisiblePop] = useState(false);
   const openPopUp = () => {
@@ -21,7 +27,10 @@ export default function ProductModal({ list, showing, showModal, productid }) {
   const showUpdate = () => {
     navigate(`/product/${productid}`);
   };
-  const menuAction = [openPopUp, showUpdate];
+  const showProduct = () => {
+    window.open(link, '_blank');
+  };
+  const menuAction = [openPopUp, showUpdate, showProduct];
 
   return (
     <>
@@ -52,6 +61,7 @@ ProductModal.propTypes = {
   showing: PropTypes.string,
   showModal: PropTypes.func.isRequired,
   productid: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
 ProductModal.defaultProps = {
   showing: null,
