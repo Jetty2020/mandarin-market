@@ -58,9 +58,11 @@ function FollowerCard({ profileImage, userName, accountName }) {
     getOwnFollowing();
   }, []);
   return (
-    <CardContainer to={`/profile/${accountName}`}>
-      <ProfileImg src={profileImage} alt="" />
-      <NameContainer>
+    <CardContainer>
+      <ProfileLink to={`/profile/${accountName}`}>
+        <ProfileImg src={profileImage} alt="" />
+      </ProfileLink>
+      <NameContainer to={`/profile/${accountName}`}>
         <User>{userName}</User>
         <Account>{accountName}</Account>
       </NameContainer>
@@ -93,7 +95,7 @@ FollowerCard.propTypes = {
   accountName: PropTypes.string.isRequired,
 };
 
-const CardContainer = styled(Link)`
+const CardContainer = styled.div`
   display: flex;
   position: relative;
   height: 50px;
@@ -104,6 +106,8 @@ const CardContainer = styled(Link)`
   }
 `;
 
+const ProfileLink = styled(Link)``;
+
 const ProfileImg = styled.img`
   width: 50px;
   height: 50px;
@@ -113,7 +117,7 @@ const ProfileImg = styled.img`
   box-sizing: border-box;
 `;
 
-const NameContainer = styled.div``;
+const NameContainer = styled(Link)``;
 
 const User = styled.p`
   margin-top: 5px;
