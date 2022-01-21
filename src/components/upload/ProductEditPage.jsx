@@ -13,10 +13,11 @@ export default function ProductEditPage({ productid }) {
     register,
     getValues,
     setValue,
+    setFocus,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    mode: 'onTouched',
+    mode: 'all',
   });
 
   const regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -43,11 +44,16 @@ export default function ProductEditPage({ productid }) {
     setValue('productName', productData.product.itemName);
     setValue('productPrice', toString(productData.product.price));
     setValue('productUrl', productData.product.link);
+    setValue('productImg', productData.product.itemImage);
     setProductImgUrl(productData.product.itemImage);
   };
+
   useEffect(() => {
     getProduct();
   }, []);
+  useEffect(() => {
+    setFocus('productName');
+  }, [setFocus]);
 
   const imageUpload = async (files) => {
     const formData = new FormData();
@@ -101,7 +107,6 @@ export default function ProductEditPage({ productid }) {
               type="file"
               accept="image/*"
               {...register('productImg', {
-                required: true,
                 onChange: (e) => {
                   setValue('productImg', addImage(e));
                 },
