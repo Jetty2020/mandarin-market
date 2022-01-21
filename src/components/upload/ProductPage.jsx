@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -28,32 +28,44 @@ export default function ProductPage() {
     return value.toString().replace(regexp, ',');
   };
 
+  const [productImgUrl, setProductImgUrl] = useState('');
+  const imageUpload = async (files) => {
+    const formData = new FormData();
+    formData.append('image', files[0]);
+    const uploadedImg = await (
+      await axios.post(`${SERVER_BASE_URL}/image/uploadfile`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      })
+    ).data;
+    const imgName = uploadedImg.filename;
+    setProductImgUrl(`${SERVER_BASE_URL}/${imgName}`);
+  };
+  const addImage = (event) => {
+    const files = [...event.target.files];
+    imageUpload(files);
+  };
+
   const addProduct = async (data) => {
     const str = await getValues('productPrice');
     setValue('productPrice', parseInt(str.replace(/[^0-9]/g, ''), 10));
     const itemName = data.productName;
     const price = getValues('productPrice');
     const link = data.productUrl;
-    const itemImage = 'https://url.kr/2vheyq';
+    const itemImage = productImgUrl;
     const uploadProduct = async () => {
       const productData = {
         product: { itemName, price, link, itemImage },
       };
-      try {
-        const res = await axios.post(
-          `${SERVER_BASE_URL}/product`,
-          productData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-type': 'application/json',
-            },
-          },
-        );
-        navigate('/profile');
-      } catch (err) {
-        console.log(err);
-      }
+      await axios.post(`${SERVER_BASE_URL}/product`, productData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      });
+      navigate('/profile');
     };
     uploadProduct();
   };
@@ -61,6 +73,22 @@ export default function ProductPage() {
   return (
     <ProductContainer>
       <form onSubmit={handleSubmit(addProduct)}>
+        <ImgInputWrapper>
+          <ImgTitle htmlFor="productImg">이미지 등록</ImgTitle>
+          <ImgLabel>
+            {productImgUrl && <img src={productImgUrl} alt="" />}
+            <input
+              type="file"
+              accept="image/*"
+              {...register('productImg', {
+                required: true,
+                onChange: (e) => {
+                  setValue('productImg', addImage(e));
+                },
+              })}
+            />
+          </ImgLabel>
+        </ImgInputWrapper>
         <InputWrapper>
           <Label htmlFor="productName">상품명</Label>
           <Input
@@ -129,8 +157,10 @@ export default function ProductPage() {
 }
 
 const ProductContainer = styled.main`
+  height: 100vh;
   padding: 30px 34px;
   margin-top: 48px;
+  background-color: #fff;
 `;
 
 const UploadBtn = styled.button`
@@ -150,8 +180,57 @@ const UploadBtn = styled.button`
   cursor: ${(props) => (props.disabled === true ? 'default' : 'pointer')};
 `;
 
+const ImgInputWrapper = styled.div`
+  margin-bottom: 30px;
+`;
+
 const InputWrapper = styled.div`
   margin-top: 16px;
+`;
+
+const ImgLabel = styled.label`
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 204px;
+  border: 1px solid rgba(219, 219, 219, 0.5);
+  border-radius: 10px;
+  background: #f2f2f2;
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 36px;
+    height: 36px;
+    background: url(img/img-button.png);
+  }
+  & input[type='file'] {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+  }
+`;
+
+const ImgTitle = styled.p`
+  display: block;
+  margin-bottom: 18px;
+  color: ${(props) => props.theme.gray};
+  font-size: 12px;
+  font-weight: 500;
 `;
 
 const Label = styled.label`
