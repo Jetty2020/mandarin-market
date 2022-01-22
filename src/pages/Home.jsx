@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Navbar from '../components/common/Navbar';
 import PageTitle from '../components/common/PageTitle';
 import FeedContainer from '../components/profile/FeedContainer';
+import HomeHeader from '../components/header/HomeHeader';
 
 function Home() {
   const navigate = useNavigate();
@@ -14,7 +15,8 @@ function Home() {
   }, []);
   const [haveFollowing, setHaveFollowing] = useState(true);
   return (
-    <div>
+    <>
+      <HomeHeader />
       {haveFollowing ? (
         <div>
           <FeedContainer feedHeaderMarginTop feedState />
@@ -33,7 +35,7 @@ function Home() {
           <Navbar />
         </div>
       )}
-    </div>
+    </>
   );
 }
 
@@ -60,6 +62,6 @@ const HomeBtn = styled(Link)`
   padding: 10px 20px;
   border: none;
   border-radius: 20px;
-  background: ${(props) => props.theme.red};
+  background: ${(props) => props.theme.accent};
   color: #fff;
 `;
