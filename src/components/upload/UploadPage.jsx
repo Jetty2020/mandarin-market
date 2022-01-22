@@ -47,7 +47,7 @@ export default function UploadPage() {
 
   const [addedImgUrl, setAddedImgUrl] = useState('');
   const [imageArr, setImageArr] = useState([]);
-  const [imageUrls, setImageUrls] = useState([]);
+  const [imageUrls, setImageUrls] = useState('');
 
   const imageUpload = async (files) => {
     const formData = new FormData();
@@ -152,7 +152,10 @@ export default function UploadPage() {
               <PhotoItem key={photo}>
                 <img src={photo} alt="" />
                 <DeleteBtn type="button" onClick={() => onRemove(index)}>
-                  <BtnText>이미지 삭제</BtnText>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/img/icon/icon-delete.svg`}
+                    alt="이미지 삭제"
+                  />
                 </DeleteBtn>
               </PhotoItem>
             ))}
@@ -281,22 +284,14 @@ const PhotoItem = styled.li`
 
 const DeleteBtn = styled.button`
   position: absolute;
-  top: 11px;
-  right: 11px;
-  width: 11px;
-  height: 11px;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
   border: none;
-  background: url(img/icon/icon-delete.svg) center no-repeat;
+  background: none;
   cursor: pointer;
-`;
-
-const BtnText = styled.span`
-  overflow: hidden;
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  border: 0;
-  clip: rect(0, 0, 0, 0);
+  img {
+    width: 50%;
+  }
 `;
