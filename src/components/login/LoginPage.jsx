@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { routes } from '../../constants';
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (window.localStorage.getItem('token')) {
+      navigate('/');
+    }
+  }, []);
   return (
     <div>
       <Container>
