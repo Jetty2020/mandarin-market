@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import FeedPopUp from './FeedPopUp';
+import ReportPopUp from './ReportPopUp';
 
 export default function FeedModal({ list, showing, showModal, postid }) {
   const navigate = useNavigate();
   const [visiblePop, setVisiblePop] = useState(false);
+  const [visibleReport, setVisibleReport] = useState(false);
+
   const openPopUp = () => {
     setVisiblePop(true);
   };
   const closePopUp = () => {
     setVisiblePop(false);
+  };
+  const openReport = () => {
+    setVisibleReport(true);
+  };
+  const closeReport = () => {
+    setVisibleReport(false);
   };
   const onDimedClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -29,7 +38,10 @@ export default function FeedModal({ list, showing, showModal, postid }) {
         <CloseBar onClick={showModal} />
         <ul>
           {list.map((item, index) => (
-            <MenuItem key={item} onClick={menuAction[index]}>
+            <MenuItem
+              key={item}
+              onClick={item === '신고하기' ? openReport : menuAction[index]}
+            >
               {item}
             </MenuItem>
           ))}
@@ -40,6 +52,9 @@ export default function FeedModal({ list, showing, showModal, postid }) {
             onClose={closePopUp}
             postid={postid}
           />
+        )}
+        {visibleReport && (
+          <ReportPopUp visible={visibleReport} onClose={closeReport} />
         )}
       </ModalContainer>
       <Dimed className={showing} onClick={onDimedClick} />
