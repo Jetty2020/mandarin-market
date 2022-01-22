@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -25,6 +25,7 @@ function FeedCard({
   const [imageNum, setImageNum] = useState(0);
   const [carouselMove, setCarouselMove] = useState(0);
   const [activedImg, setActivedImg] = useState([true, false, false]);
+  const loginUser = localStorage.getItem('account');
 
   const activeImg = (which) => {
     const tempArr = activedImg;
@@ -203,7 +204,7 @@ function FeedCard({
           <FeedModal
             showing={showing ? 'active' : null}
             showModal={showModal}
-            list={['삭제', '수정']}
+            list={accountName === loginUser ? ['삭제', '수정'] : ['신고하기']}
             postid={postid}
           />
         </FeedMenu>
