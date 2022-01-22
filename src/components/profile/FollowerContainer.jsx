@@ -48,5 +48,5 @@ FollowerContainer.propTypes = {
 };
 
 const FollowerWrapper = styled.div`
-  margin-bottom: 59px;
+  margin-bottom: 67px;
 `;
