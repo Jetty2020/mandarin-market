@@ -77,6 +77,18 @@ export default function UploadPage() {
     }
   }, [addedImgUrl]);
 
+  const onRemove = async (index) => {
+    const newArr = imageArr.filter((_, filterindex) => filterindex !== index);
+    const imgLength = newArr.length;
+    if (imgLength === 0) {
+      setImageArr([]);
+      setImageUrls('');
+    } else {
+      setImageArr(newArr);
+      setImageUrls(newArr.toString());
+    }
+  };
+
   const uploadPost = async () => {
     const postData = {
       post: {
@@ -84,19 +96,15 @@ export default function UploadPage() {
         image: imageUrls,
       },
     };
-    try {
-      const res = await axios.post(`${SERVER_BASE_URL}/post`, postData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
-      });
-      console.log(res);
-      navigate('/profile');
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await axios.post(`${SERVER_BASE_URL}/post`, postData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    navigate('/profile');
   };
+
   const onClickUpload = (event) => {
     event.preventDefault();
     uploadPost();
@@ -140,10 +148,10 @@ export default function UploadPage() {
         <PhotoContainer>
           <SectionTitle>첨부한 이미지 목록</SectionTitle>
           <PhotoList>
-            {imageArr.map((photo) => (
+            {imageArr.map((photo, index) => (
               <PhotoItem key={photo}>
                 <img src={photo} alt="" />
-                <DeleteBtn type="button">
+                <DeleteBtn type="button" onClick={() => onRemove(index)}>
                   <BtnText>이미지 삭제</BtnText>
                 </DeleteBtn>
               </PhotoItem>
