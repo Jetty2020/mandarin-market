@@ -19,10 +19,25 @@ function FollowerContainer({ whichUser }) {
       },
     });
     setFollowerList(response.data);
+    console.log(response.data);
+  }
+
+  async function getProfileInfo() {
+    const token = localStorage.getItem('token');
+    const url = SERVER_BASE_URL;
+    const response = await axios(`${url}/profile/${whichUser}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    console.log(response.data.profile);
   }
 
   useEffect(() => {
     getFollower();
+    getProfileInfo();
   }, []);
   return (
     <FollowerWrapper>

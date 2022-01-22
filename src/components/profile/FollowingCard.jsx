@@ -59,9 +59,11 @@ function FollowingCard({ profileImage, userName, accountName }) {
   }, []);
 
   return (
-    <CardContainer to={`/profile/${accountName}`}>
-      <ProfileImg src={profileImage} alt="" />
-      <NameContainer>
+    <CardContainer>
+      <ProfileLink to={`/profile/${accountName}`}>
+        <ProfileImg src={profileImage} alt="" />
+      </ProfileLink>
+      <NameContainer to={`/profile/${accountName}`}>
         <User>{userName}</User>
         <Account>{accountName}</Account>
       </NameContainer>
@@ -94,16 +96,18 @@ FollowingCard.propTypes = {
   accountName: PropTypes.string.isRequired,
 };
 
-const CardContainer = styled(Link)`
+const CardContainer = styled.div`
   display: flex;
   position: relative;
   height: 50px;
-  margin: 8px 16px;
+  margin: 4px 16px;
 
   &:first-child {
     margin-top: 24px;
   }
 `;
+
+const ProfileLink = styled(Link)``;
 
 const ProfileImg = styled.img`
   width: 50px;
@@ -114,7 +118,7 @@ const ProfileImg = styled.img`
   box-sizing: border-box;
 `;
 
-const NameContainer = styled.div``;
+const NameContainer = styled(Link)``;
 
 const User = styled.p`
   margin-top: 5px;
