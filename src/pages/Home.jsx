@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from '../components/common/Navbar';
@@ -7,14 +6,14 @@ import PageTitle from '../components/common/PageTitle';
 import FeedContainer from '../components/profile/FeedContainer';
 
 function Home() {
-  const [haveFollowing, setHaveFollowing] = useState(true);
+  const [haveFollowing, setHaveFollowing] = useState(false);
   return (
     <div>
       {haveFollowing ? (
         <div>
-          <FeedContainer />
-          <FeedContainer />
-          <FeedContainer />
+          <FeedContainer feedHeaderMarginTop feedState />
+          <FeedContainer feedHeaderMarginTop feedState />
+          <FeedContainer feedHeaderMarginTop feedState />
           <Navbar />
         </div>
       ) : (
@@ -29,9 +28,8 @@ function Home() {
         </div>
       )}
     </div>
-  )
+  );
 }
-
 
 export default Home;
 
@@ -59,4 +57,3 @@ const HomeBtn = styled(Link)`
   background: ${(props) => props.theme.red};
   color: #fff;
 `;
-
