@@ -1,12 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 export default function PopUpModal({ visible, onClose }) {
+  const navigate = useNavigate();
   const close = (e) => {
     if (onClose) {
       onClose(e);
     }
+  };
+  const logout = () => {
+    window.localStorage.removeItem('account');
+    window.localStorage.removeItem('token');
+    navigate('/login');
   };
 
   return (
@@ -16,7 +23,9 @@ export default function PopUpModal({ visible, onClose }) {
         <Button type="button" onClick={close}>
           취소
         </Button>
-        <Button type="button">로그아웃</Button>
+        <Button type="button" onClick={logout}>
+          로그아웃
+        </Button>
       </PopUpModalContainer>
       <Dimed visible={visible} />
     </>

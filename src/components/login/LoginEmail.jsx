@@ -55,7 +55,6 @@ export default function LoginEmail() {
             {...register('email', {
               required: true,
               pattern: /^\S+@\S+$/i,
-              maxLength: 20,
             })}
           />
           {errors.email && errors.email.type === 'required' && (

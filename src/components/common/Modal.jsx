@@ -16,16 +16,17 @@ export default function Modal({ list, showing, showModal }) {
       showModal();
     }
   };
+  const showProfile = () => {
+    window.open('/profile', '_self');
+  };
+  const menuAction = [showProfile, openPopUp];
   return (
     <>
       <ModalContainer className={showing}>
         <CloseBar onClick={showModal} />
         <ul>
-          {list.map((item) => (
-            <MenuItem
-              key={item}
-              onClick={item === '로그아웃' ? openPopUp : null}
-            >
+          {list.map((item, index) => (
+            <MenuItem key={item} onClick={menuAction[index]}>
               {item}
             </MenuItem>
           ))}
