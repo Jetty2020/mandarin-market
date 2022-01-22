@@ -41,6 +41,7 @@ const Lists = styled.ul`
   padding: 0 7vw;
   border-top: 1px solid #dbdbdb;
   background-color: #fff;
+  z-index: 20;
 `;
 
 const List = styled.li`
