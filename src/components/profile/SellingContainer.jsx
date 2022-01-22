@@ -38,6 +38,7 @@ function SellingContainer({ sellingState, whichUser }) {
                 title={selling.itemName}
                 price={selling.price}
                 link={selling.link}
+                author={selling.author.accountname}
               />
             ))}
           </ScrolledBox>

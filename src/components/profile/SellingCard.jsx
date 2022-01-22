@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ProductModal from '../modal/ProductModal';
 
-function SellingCard({ productid, img, title, price, link }) {
+function SellingCard({ productid, img, title, price, link, author }) {
+  const loginUser = localStorage.getItem('account');
   const [showing, setShowing] = useState(false);
   const tempArr = String(price).split('').reverse();
   const commaArr = [];
@@ -21,7 +22,9 @@ function SellingCard({ productid, img, title, price, link }) {
 
   return (
     <>
-      <ProductCard onClick={showModal}>
+      <ProductCard
+        onClick={author === loginUser ? showModal : () => window.open(link)}
+      >
         <Img src={`${img}`} />
         <Title>{title}</Title>
         <Price>{`${commaPrice}원`}</Price>
@@ -45,6 +48,7 @@ SellingCard.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   link: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
 };
 
 const ProductCard = styled.div`
