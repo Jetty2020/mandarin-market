@@ -16,8 +16,8 @@ function Navbar() {
             <Menu>채팅</Menu>
           </List>
         </StyledNavLink>
-        <StyledNavLink to="/edit">
-          <List className="edit">
+        <StyledNavLink to="/upload">
+          <List className="upload">
             <Menu>게시물 작성</Menu>
           </List>
         </StyledNavLink>
@@ -40,6 +40,7 @@ const Lists = styled.ul`
   right: 0;
   padding: 0 7vw;
   border-top: 1px solid #dbdbdb;
+  background-color: #fff;
 `;
 
 const List = styled.li`
@@ -47,8 +48,8 @@ const List = styled.li`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 84px;
   height: 59px;
+  max-width: 84px;
 `;
 
 const Menu = styled.span`
@@ -67,28 +68,28 @@ const StyledNavLink = styled(NavLink)`
       background-repeat: no-repeat;
     }
     &.home::before {
-      background-image: url('img/icon/icon-home.svg');
+      background-image: url('/img/icon/icon-home.svg');
     }
     &.chat::before {
-      background-image: url('img/icon/icon-message-circle.svg');
+      background-image: url('/img/icon/icon-message-circle.svg');
     }
-    &.edit::before {
-      background-image: url('img/icon/icon-edit.svg');
+    &.upload::before {
+      background-image: url('/img/icon/icon-edit.svg');
     }
     &.profile::before {
-      background-image: url('img/icon/icon-user.svg');
+      background-image: url('/img/icon/icon-user.svg');
     }
   }
   &.active {
     & li {
       &.home::before {
-        background-image: url('img/icon/icon-home-fill.svg');
+        background-image: url('/img/icon/icon-home-fill.svg');
       }
       &.chat::before {
-        background-image: url('img/icon/icon-message-circle-fill.svg');
+        background-image: url('/img/icon/icon-message-circle-fill.svg');
       }
       &.profile::before {
-        background-image: url('img/icon/icon-user-fill.svg');
+        background-image: url('/img/icon/icon-user-fill.svg');
       }
     }
     & span {

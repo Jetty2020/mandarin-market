@@ -1,38 +1,212 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import FeedModal from '../modal/FeedModal';
+import { SERVER_BASE_URL } from '../../constants';
 
-function FeedCard(img = '') {
-  const imgExist = 'img/post-img-example.png';
-  // imgExist = img;
+function FeedCard({
+  authorImage,
+  userName,
+  accountName,
+  content,
+  contentimage,
+  heartCount,
+  comment,
+  updatedAt,
+  postid,
+  hearted,
+}) {
+  const [sepImage, setSepImage] = useState([]);
+  const [heartedState, setHeartedState] = useState(false);
+  const [heartedCount, setHeartedCount] = useState(0);
+  const [showing, setShowing] = useState(false);
+  const [imageNum, setImageNum] = useState(0);
+  const [carouselMove, setCarouselMove] = useState(0);
+  const [activedImg, setActivedImg] = useState([true, false, false]);
+
+  const activeImg = (which) => {
+    const tempArr = activedImg;
+    for (let i = 0; i < activedImg.length; i += 1) {
+      tempArr[i] = false;
+      if (i === which) {
+        tempArr[i] = true;
+      }
+    }
+    setActivedImg(tempArr);
+  };
+  const showModal = () => {
+    setShowing(!showing);
+  };
+  const countImageNum = () => {
+    setImageNum(sepImage.length);
+  };
+  const moveCarousel = (move) => {
+    setCarouselMove(move);
+  };
+  const updatedDate = `${updatedAt.slice(0, 4)}년 ${updatedAt.slice(
+    5,
+    7,
+  )}월 ${updatedAt.slice(8, 10)}일`;
+
+  async function addHeart() {
+    const token = localStorage.getItem('token');
+    const url = SERVER_BASE_URL;
+    const response = await axios(`${url}/post/${postid}/heart`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setHeartedState(true);
+    setHeartedCount((current) => current + 1);
+  }
+
+  async function removeHeart() {
+    const token = localStorage.getItem('token');
+    const url = SERVER_BASE_URL;
+    const response = await axios(`${url}/post/${postid}/unheart`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    setHeartedState(false);
+    setHeartedCount((current) => current - 1);
+  }
+
+  useEffect(() => {
+    if (typeof contentimage !== 'undefined') {
+      setSepImage(contentimage.split(','));
+    }
+    setHeartedState(hearted);
+    setHeartedCount(heartCount);
+  }, []);
+
+  useEffect(() => {
+    countImageNum();
+  }, [sepImage]);
+
   return (
     <Contents>
       <GotoProfile to="/none">
-        <LinkWrapper> </LinkWrapper>
+        <LinkWrapper src={`${authorImage}`} />
       </GotoProfile>
       <FeedContents>
-        <FeedMenu>
-          <ImgMore src="img/icon/icon-more-vertical.png" alt="" />
-        </FeedMenu>
-        <FeedTitle>애월읍 위니브 감귤농장</FeedTitle>
-        <FeedId>@chango.kr</FeedId>
-        <FeedContent>
-          오늘 하루는 일어나면서부터 그리고 잠자리에 들기까지 하루종일 힘이
-          없었다. 무슨 이유에서인지는 알 수 없었다. 예전에는 왜 그럴까 무슨
-          이유에서 이럴까 원인을 파악하고 해결하려는 직업병아닌 직업병이
-          있었는데 세월이 흐르고 이런 시간들이 잦다보니 그냥 인생을 살다보면
-          그런 날도 있기마련인가보다 생각한다. 그래서 이제는 그런 날을 마주할
-          때면 내가 그동안 고생 많이했구나 하며 휴식을 취한다.
-        </FeedContent>
-        {imgExist !== '' ? <ImgPost src={imgExist} alt="" /> : null}
+        <FeedTitle>{userName}</FeedTitle>
+        <FeedId>{`@ ${accountName}`}</FeedId>
+        <FeedContent>{content}</FeedContent>
+        {contentimage !== '' ? (
+          <SliderContainer>
+            {imageNum === 2 ? (
+              <CarouselWrapper>
+                <CarouselBtn1
+                  onClick={() => {
+                    moveCarousel(0);
+                    activeImg(0);
+                  }}
+                  type="button"
+                  active={activedImg[0]}
+                  anime="ImgSlide1 1s linear"
+                >
+                  {' '}
+                </CarouselBtn1>
+                <CarouselBtn2
+                  onClick={() => {
+                    moveCarousel(-294);
+                    activeImg(1);
+                  }}
+                  type="button"
+                  active={activedImg[1]}
+                  anime="ImgSlide2 1s linear"
+                >
+                  {' '}
+                </CarouselBtn2>
+              </CarouselWrapper>
+            ) : null}
+            {imageNum === 3 ? (
+              <CarouselWrapper>
+                <CarouselBtn1
+                  onClick={() => {
+                    moveCarousel(0);
+                    activeImg(0);
+                  }}
+                  type="button"
+                  active={activedImg[0]}
+                >
+                  {' '}
+                </CarouselBtn1>
+                <CarouselBtn2
+                  onClick={() => {
+                    moveCarousel(-294);
+                    activeImg(1);
+                  }}
+                  type="button"
+                  active={activedImg[1]}
+                >
+                  {' '}
+                </CarouselBtn2>
+                <CarouselBtn3
+                  onClick={() => {
+                    moveCarousel(-588);
+                    activeImg(2);
+                  }}
+                  type="button"
+                  active={activedImg[2]}
+                >
+                  {' '}
+                </CarouselBtn3>
+              </CarouselWrapper>
+            ) : null}
+            <ImgContainer moveImage={carouselMove}>
+              {sepImage.map((image) => (
+                <ImgWrapper key={Math.random() * 100}>
+                  <ImgPost src={image} alt="" />
+                </ImgWrapper>
+              ))}
+            </ImgContainer>
+          </SliderContainer>
+        ) : null}
+
         <FeedIcon>
-          <ImgHeart src="img/icon/icon-heart.png" alt="" />
-          <NumOf>58</NumOf>
-          <ImgMessage src="img/icon/icon-message-circle.png" alt="" />
-          <NumOf>12</NumOf>
+          {heartedState ? (
+            <HeartBtn
+              onClick={() => {
+                removeHeart();
+              }}
+            />
+          ) : (
+            <NoHeartBtn
+              onClick={() => {
+                addHeart();
+              }}
+            />
+          )}
+          <NumOf>{heartedCount}</NumOf>
+          <ImgMessage
+            src={`${process.env.PUBLIC_URL}/img/icon/icon-message-circle.svg`}
+            alt="댓글 보기"
+          />
+          <NumOf>{comment.length}</NumOf>
         </FeedIcon>
-        <FeedDate>2020년 10월 21일</FeedDate>
+        <FeedDate>{updatedDate}</FeedDate>
+        <FeedMenu>
+          <MoreBtn onClick={showModal}>
+            <img
+              src={`${process.env.PUBLIC_URL}/img/icon/s-icon-more-vertical.png`}
+              alt="게시물 수정/삭제 버튼"
+            />
+          </MoreBtn>
+          <FeedModal
+            showing={showing ? 'active' : null}
+            showModal={showModal}
+            list={['삭제', '수정']}
+            postid={postid}
+          />
+        </FeedMenu>
       </FeedContents>
     </Contents>
   );
@@ -40,18 +214,117 @@ function FeedCard(img = '') {
 
 export default FeedCard;
 
-const Contents = styled.div`
-  background-color: white;
+FeedCard.propTypes = {
+  authorImage: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
+  accountName: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  contentimage: PropTypes.string.isRequired,
+  heartCount: PropTypes.number.isRequired,
+  comment: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updatedAt: PropTypes.string.isRequired,
+  postid: PropTypes.string.isRequired,
+  hearted: PropTypes.bool.isRequired,
+};
+
+const SliderContainer = styled.div`
   display: flex;
-  padding: 16px 21px;
-  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  width: 296px;
+  height: 228px;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 10px;
 `;
 
-const LinkWrapper = styled.div`
-  background-image: url('img/basic-profile-img.png');
-  background-size: cover;
+const CarouselWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 10px;
+  left: calc(50%);
+  width: 62px;
+  z-index: 5;
+  transform: translateX(-50%);
+`;
+
+const CarouselBtn1 = styled.button`
+  width: 6px;
+  height: 6px;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 3px;
+  background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+`;
+
+const CarouselBtn2 = styled.button`
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 3px;
+  background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+`;
+
+const CarouselBtn3 = styled.button`
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 10px;
+  background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+`;
+
+const ImgSlide1 = keyframes`
+  100%{
+    transform: translateX(0px);
+  }
+`;
+
+const ImgSlide2 = keyframes`
+  100%{
+    transform: translateX(-294px);
+  }
+`;
+
+const ImgSlide3 = keyframes`
+  100%{
+    transform: translateX(-588px);
+  }
+`;
+
+const ImgContainer = styled.div`
+  display: flex;
+  transition: all 0.3s linear;
+  transform: ${(props) =>
+    `translateX(${props.moveImage}px)` || 'translateX(0px)'};
+`;
+
+const ImgWrapper = styled.div``;
+
+const ImgPost = styled.img`
+  display: block;
+  width: 294px;
+  height: 226px;
+  object-fit: cover;
+  transition: all 1s ease-in-out;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  position: relative;
+  padding: 16px 21px;
+  margin-bottom: 6px;
+  background-color: white;
+
+  &:last-child {
+    margin-bottom: 65px;
+  }
+`;
+
+const LinkWrapper = styled.img`
   width: 42px;
   height: 42px;
+  border-radius: 21px;
 `;
 
 const GotoProfile = styled(Link)`
@@ -61,7 +334,6 @@ const GotoProfile = styled(Link)`
 const FeedContents = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
   max-width: 389px;
 `;
 
@@ -70,13 +342,14 @@ const FeedTitle = styled.p`
   font-weight: 500;
 `;
 const FeedId = styled.p`
+  margin-top: 2px;
+  margin-bottom: 16px;
   font-size: 12px;
   font-weight: 400;
   color: #767676;
-  margin-top: 2px;
-  margin-bottom: 16px;
 `;
 const FeedContent = styled.p`
+  margin-bottom: 16px;
   font-size: 14px;
   font-weight: 400;
 `;
@@ -94,10 +367,20 @@ const FeedDate = styled.p`
   color: #767676;
 `;
 
-const ImgHeart = styled.img`
+const NoHeartBtn = styled.button`
   width: 20px;
   height: 20px;
   margin-right: 6px;
+  border: none;
+  background: url('/img/icon/icon-heart.png') no-repeat center;
+`;
+
+const HeartBtn = styled.button`
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  border: none;
+  background: url('/img/icon/icon-heart-active.png') no-repeat center;
 `;
 
 const ImgMessage = styled.img`
@@ -107,28 +390,22 @@ const ImgMessage = styled.img`
 `;
 
 const NumOf = styled.p`
+  margin-right: 16px;
   font-size: 12px;
   font-weight: 400;
   color: #767676;
-  margin-right: 16px;
 `;
 
 const FeedMenu = styled.div`
   position: absolute;
-  top: 4px;
-  right: 0px;
+  top: 16px;
+  right: 20px;
 `;
 
-const ImgMore = styled.img`
+const MoreBtn = styled.button`
   width: 18px;
   height: 18px;
-`;
-
-const ImgPost = styled.img`
-  min-width: 304px;
-  max-width: 389px;
-  min-height: 228px;
-  max-height: 291px;
-  border-radius: 10px;
-  margin-top: 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
 `;

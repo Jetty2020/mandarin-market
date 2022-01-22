@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from '../components/common/Navbar';
@@ -28,8 +29,9 @@ function Home() {
         </div>
       )}
     </div>
-  );
+  )
 }
+
 
 export default Home;
 
@@ -57,3 +59,4 @@ const HomeBtn = styled(Link)`
   background: ${(props) => props.theme.red};
   color: #fff;
 `;
+
