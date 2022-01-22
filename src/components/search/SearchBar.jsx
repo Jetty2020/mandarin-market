@@ -1,22 +1,53 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { SERVER_BASE_URL } from '../../constants';
 
-function SearchBar() {
+function SearchBar({ setSearchDatas }) {
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!searchQuery) return;
+    const response = await axios(
+      `${SERVER_BASE_URL}/user/searchuser/?keyword=${searchQuery}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      },
+    );
+    setSearchDatas(response.data);
+    setSearchQuery('');
+  };
   return (
     <Container>
       <SearchImg
-        src="img/icon/iconb  -arrow-left.png"
+        src="img/icon/icon-arrow-left.png"
         alt="뒤로가기"
         onClick={() => navigate(-1)}
       />
-      <SearchInput placeholder="계정 검색" />
+      <form onSubmit={handleSubmit}>
+        <SearchInput
+          placeholder="계정 검색"
+          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchQuery}
+        />
+      </form>
     </Container>
   );
 }
 
 export default SearchBar;
+
+SearchBar.propTypes = {
+  setSearchDatas: PropTypes.func.isRequired,
+};
 
 const SearchInput = styled.input`
   background: #f2f2f2;

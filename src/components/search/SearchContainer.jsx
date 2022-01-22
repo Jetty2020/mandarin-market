@@ -1,56 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-export default function SearchBar() {
+export default function SearchContainer({ datas }) {
   return (
-    <SearchContainer>
-      <SearchContainer1>
-        <SearchContainerPicture
-          src="img/basic-profile-img.png"
-          alt="프로필 사진"
-        />
-        <SearchContainerProfile>
-          <SearchContainProfileNickName>애월읍</SearchContainProfileNickName>
-          <SearchContainProfileId> @ weniv_Mandarin</SearchContainProfileId>
-        </SearchContainerProfile>
-      </SearchContainer1>
-
-      <SearchContainer2>
-        <SearchContainerPicture
-          src="img/basic-profile-img.png"
-          alt="프로필 사진"
-        />
-        <SearchContainerProfile>
-          <SearchContainProfileNickName>애월읍</SearchContainProfileNickName>
-          <SearchContainProfileId> @ weniv_Mandarin</SearchContainProfileId>
-        </SearchContainerProfile>
-      </SearchContainer2>
-
-      <SearchContainer3>
-        <SearchContainerPicture
-          src="img/basic-profile-img.png"
-          alt="프로필 사진"
-        />
-        <SearchContainerProfile>
-          <SearchContainProfileNickName>애월읍</SearchContainProfileNickName>
-          <SearchContainProfileId> @ weniv_Mandarin</SearchContainProfileId>
-        </SearchContainerProfile>
-      </SearchContainer3>
-    </SearchContainer>
+    <SearchCon>
+      {datas.map((data) => {
+        const { accountname, username, image } = data;
+        return (
+          <Link to={`/profile/${accountname}`}>
+            <SearchItem>
+              <SearchConPicture src={image} alt="프로필 사진" />
+              <SearchConProfile>
+                <SearchContainProfileNickName>
+                  {username}
+                </SearchContainProfileNickName>
+                <SearchContainProfileId>{`@${accountname}`}</SearchContainProfileId>
+              </SearchConProfile>
+            </SearchItem>
+          </Link>
+        );
+      })}
+    </SearchCon>
   );
 }
 
-const SearchContainer = styled.div`
+SearchContainer.propTypes = {
+  datas: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+const SearchCon = styled.div`
   padding: 20px;
   margin-top: 60px;
 `;
 
-const SearchContainerPicture = styled.img`
+const SearchConPicture = styled.img`
   flex-direction: column;
   width: 50px;
 `;
 
-const SearchContainerProfile = styled.p`
+const SearchConProfile = styled.p`
   padding-left: 15px;
 `;
 
@@ -65,16 +55,7 @@ const SearchContainProfileId = styled.div`
   font-size: 12px;
 `;
 
-const SearchContainer1 = styled.div`
+const SearchItem = styled.div`
   display: flex;
-`;
-
-const SearchContainer2 = styled.div`
-  display: flex;
-  padding-top: 20px;
-  padding-bottom: 20px;
-`;
-
-const SearchContainer3 = styled.div`
-  display: flex;
+  padding: 10px 0;
 `;
