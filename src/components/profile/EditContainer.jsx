@@ -76,6 +76,7 @@ function EditContainer() {
         },
       }),
     });
+    localStorage.setItem('account', accountName);
     const data = await res2.json();
   }
 
@@ -131,7 +132,7 @@ function EditContainer() {
         </Link>
         {userName.length > 1 ? (
           <SaveLink
-            to="/profile"
+            to={`/profile/${accountName}`}
             onClick={() => {
               SaveInfo();
             }}
