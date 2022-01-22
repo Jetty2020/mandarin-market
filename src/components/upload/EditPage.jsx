@@ -31,8 +31,9 @@ export default function EditPage({ postid }) {
   }, []);
 
   const [profileImg, setProfileImg] = useState('/img/Ellipse 6.png');
+  const [addedImgUrl, setAddedImgUrl] = useState('');
   const [imageArr, setImageArr] = useState([]);
-  const imageUrls = imageArr.toString();
+  const [imageUrls, setImageUrls] = useState([]);
 
   const getProfile = async () => {
     const data = await (
@@ -59,10 +60,54 @@ export default function EditPage({ postid }) {
       })
     ).data;
     setTyped(feedData.post.content);
+    const imgStr = feedData.post.image;
+    setImageUrls(imgStr);
+    const newArr = imgStr.split(',');
+    setImageArr(newArr);
   };
   useEffect(() => {
     getFeed();
   }, []);
+
+  const imageUpload = async (files) => {
+    const formData = new FormData();
+    formData.append('image', files[0]);
+    const uploadedImg = await (
+      await axios.post(`${SERVER_BASE_URL}/image/uploadfile`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      })
+    ).data;
+    const imgName = uploadedImg.filename;
+    setAddedImgUrl(`${SERVER_BASE_URL}/${imgName}`);
+  };
+  const addImage = (event) => {
+    const files = [...event.target.files];
+    imageUpload(files);
+  };
+
+  useEffect(() => {
+    if (addedImgUrl !== '') {
+      setImageArr((currentArr) => [...currentArr, addedImgUrl]);
+      setAddedImgUrl('');
+    } else if (addedImgUrl === '') {
+      setImageUrls(imageArr.toString());
+    }
+  }, [addedImgUrl]);
+
+  const onRemove = async (index) => {
+    const newArr = imageArr.filter((_, filterindex) => filterindex !== index);
+    const imgLength = newArr.length;
+    if (imgLength === 0) {
+      setImageArr([]);
+      setImageUrls('');
+    } else {
+      setImageArr(newArr);
+      setImageUrls(newArr.toString());
+    }
+  };
 
   const editPost = async () => {
     const updateData = {
@@ -89,37 +134,55 @@ export default function EditPage({ postid }) {
   };
 
   return (
-    <UploadContainer>
-      <ProfileImage src={profileImg} alt="프로필 사진" />
-      <PostForm>
-        <PostTextArea
-          ref={ref}
-          onChange={onChange}
-          onInput={resizeHeight}
-          value={typed}
-          placeholder="게시글 입력하기..."
-          spellCheck="false"
-        />
-        <UploadBtn
-          type="submit"
-          onClick={onClickUpload}
-          color={typed ? '#F26E22' : '#FFC7A7'}
-          disabled={!typed}
-        >
-          수정
-        </UploadBtn>
-        <UploadImgBtn htmlFor="uploadImage">
-          <img src="../img/upload-file.png" alt="이미지 첨부" />
-          <input
-            type="file"
-            title=" "
-            accept="image/*"
-            id="uploadImage"
-            multiple
+    <>
+      <UploadContainer>
+        <PageTitle>게시글 수정 페이지</PageTitle>
+        <ProfileImage src={profileImg} alt="프로필 사진" />
+        <PostForm>
+          <PostTextArea
+            ref={ref}
+            onChange={onChange}
+            onInput={resizeHeight}
+            value={typed}
+            placeholder="게시글 입력하기..."
+            spellCheck="false"
           />
-        </UploadImgBtn>
-      </PostForm>
-    </UploadContainer>
+          <UploadBtn
+            type="submit"
+            onClick={onClickUpload}
+            color={typed ? '#F26E22' : '#FFC7A7'}
+            disabled={!typed}
+          >
+            수정
+          </UploadBtn>
+          <UploadImgBtn htmlFor="uploadImage">
+            <img src="../img/upload-file.png" alt="이미지 첨부" />
+            <input
+              type="file"
+              title=" "
+              accept="image/*"
+              id="uploadImage"
+              onChange={addImage}
+            />
+          </UploadImgBtn>
+        </PostForm>
+      </UploadContainer>
+      {imageArr && (
+        <PhotoContainer>
+          <SectionTitle>첨부한 이미지 목록</SectionTitle>
+          <PhotoList>
+            {imageArr.map((photo, index) => (
+              <PhotoItem key={photo}>
+                <img src={photo} alt="" />
+                <DeleteBtn type="button" onClick={() => onRemove(index)}>
+                  <BtnText>이미지 삭제</BtnText>
+                </DeleteBtn>
+              </PhotoItem>
+            ))}
+          </PhotoList>
+        </PhotoContainer>
+      )}
+    </>
   );
 }
 
@@ -127,6 +190,17 @@ const UploadContainer = styled.main`
   display: flex;
   margin-top: 48px;
   padding: 20px 16px;
+`;
+
+const PageTitle = styled.h2`
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
 `;
 
 const ProfileImage = styled.img`
@@ -190,4 +264,63 @@ const UploadImgBtn = styled.label`
     border: 0;
     clip: rect(0, 0, 0, 0);
   }
+`;
+
+const PhotoContainer = styled.section`
+  display: flex;
+  overflow-x: scroll;
+  width: calc(100% - 70px);
+  margin-left: 70px;
+`;
+
+const SectionTitle = styled.h3`
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+`;
+
+const PhotoList = styled.ul`
+  display: flex;
+  gap: 8px;
+`;
+
+const PhotoItem = styled.li`
+  overflow: hidden;
+  position: relative;
+  width: 168px;
+  height: 126px;
+  border-radius: 10px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const DeleteBtn = styled.button`
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  width: 11px;
+  height: 11px;
+  border: none;
+  background: url(img/icon/icon-delete.svg) center no-repeat;
+  z-index: 100;
+  cursor: pointer;
+`;
+
+const BtnText = styled.span`
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
 `;

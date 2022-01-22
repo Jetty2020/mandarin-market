@@ -96,7 +96,7 @@ export default function UploadPage() {
         image: imageUrls,
       },
     };
-    const res = await axios.post(`${SERVER_BASE_URL}/post`, postData, {
+    await axios.post(`${SERVER_BASE_URL}/post`, postData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-type': 'application/json',
