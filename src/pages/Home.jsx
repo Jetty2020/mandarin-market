@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from '../components/common/Navbar';
 import PageTitle from '../components/common/PageTitle';
 import FeedContainer from '../components/profile/FeedContainer';
 
 function Home() {
-  const [haveFollowing, setHaveFollowing] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!window.localStorage.getItem('token')) {
+      navigate('/login');
+    }
+  }, []);
+  const [haveFollowing, setHaveFollowing] = useState(true);
   return (
     <div>
       {haveFollowing ? (
