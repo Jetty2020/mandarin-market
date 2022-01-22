@@ -11,13 +11,16 @@ function FollowingContainer({ loginUser }) {
   async function getFollowing() {
     const token = localStorage.getItem('token');
     const url = SERVER_BASE_URL;
-    const response = await axios(`${url}/profile/${loginUser}/following`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
+    const response = await axios(
+      `${url}/profile/${loginUser}/following/?limit=10000`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
       },
-    });
+    );
     setFollowingList(response.data);
   }
 

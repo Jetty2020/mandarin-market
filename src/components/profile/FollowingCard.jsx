@@ -13,13 +13,16 @@ function FollowingCard({ profileImage, userName, accountName }) {
   async function getOwnFollowing() {
     const token = localStorage.getItem('token');
     const url = SERVER_BASE_URL;
-    const response = await axios(`${url}/profile/${account}/following`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
+    const response = await axios(
+      `${url}/profile/${account}/following/?limit=10000`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
       },
-    });
+    );
     setOwnFollowingList(response.data);
     response.data.forEach((follow) => {
       if (follow.accountname === accountName) {
