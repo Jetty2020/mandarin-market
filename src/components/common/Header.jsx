@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, Fragment } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Modal from './Modal';
 
-export default function Header() {
+export default function Header({ postDetail, forLink }) {
   const navigate = useNavigate();
   const [showing, setShowing] = useState(false);
   const showModal = () => {
@@ -12,9 +13,15 @@ export default function Header() {
 
   return (
     <HeaderContainer>
-      <PrevBtn type="button" onClick={() => navigate(-1)}>
-        <img src="/img/icon/icon-arrow-left.svg" alt="이전 페이지 버튼" />
-      </PrevBtn>
+      {postDetail ? (
+        <ProfileLink to={`/profile/${forLink}`}>
+          <img src="/img/icon/icon-arrow-left.svg" alt="이전 페이지 버튼" />
+        </ProfileLink>
+      ) : (
+        <PrevBtn type="button" onClick={() => navigate(-1)}>
+          <img src="/img/icon/icon-arrow-left.svg" alt="이전 페이지 버튼" />
+        </PrevBtn>
+      )}
       <MoreBtn type="button" onClick={showModal}>
         <img src="/img/icon/icon- more-vertical.svg" alt="더보기 버튼" />
       </MoreBtn>
@@ -26,6 +33,25 @@ export default function Header() {
     </HeaderContainer>
   );
 }
+
+Header.defaultProps = {
+  postDetail: false,
+  forLink: 'chango_kr',
+};
+
+Header.propTypes = {
+  postDetail: PropTypes.bool,
+  forLink: PropTypes.string,
+};
+
+const ProfileLink = styled(Link)`
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+`;
 
 const HeaderContainer = styled.header`
   display: flex;

@@ -18,7 +18,6 @@ function FollowerContainer({ whichUser }) {
         'Content-type': 'application/json',
       },
     });
-    console.log(response.data);
     setFollowerList(response.data);
   }
 

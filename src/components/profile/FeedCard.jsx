@@ -84,7 +84,7 @@ function FeedCard({
     }
     setHeartedState(hearted);
     setHeartedCount(heartCount);
-  }, []);
+  }, [heartCount]);
 
   useEffect(() => {
     countImageNum();
@@ -186,10 +186,12 @@ function FeedCard({
             />
           )}
           <NumOf>{heartedCount}</NumOf>
-          <ImgMessage
-            src={`${process.env.PUBLIC_URL}/img/icon/icon-message-circle.svg`}
-            alt="댓글 보기"
-          />
+          <Link to={`/postdetail/${postid}`}>
+            <ImgMessage
+              src={`${process.env.PUBLIC_URL}/img/icon/icon-message-circle.svg`}
+              alt="댓글 보기"
+            />
+          </Link>
           <NumOf>{comment.length}</NumOf>
         </FeedIcon>
         <FeedDate>{updatedDate}</FeedDate>
@@ -272,24 +274,6 @@ const CarouselBtn3 = styled.button`
   border: 0.5px solid #dbdbdb;
   border-radius: 10px;
   background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
-`;
-
-const ImgSlide1 = keyframes`
-  100%{
-    transform: translateX(0px);
-  }
-`;
-
-const ImgSlide2 = keyframes`
-  100%{
-    transform: translateX(-294px);
-  }
-`;
-
-const ImgSlide3 = keyframes`
-  100%{
-    transform: translateX(-588px);
-  }
 `;
 
 const ImgContainer = styled.div`

@@ -16,4 +16,5 @@ export const routes = {
   product: '/product',
   productEdit: '/product/:productid',
   edit: '/account/edit',
+  postDetail: '/postdetail/:postid',
 };
