@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { SERVER_BASE_URL } from '../../constants';
+import AlertPopUp from '../modal/AlertPopUp';
 
 export default function UploadPage() {
   const navigate = useNavigate();
@@ -10,6 +11,10 @@ export default function UploadPage() {
   const token = localStorage.getItem('token');
   const [typed, setTyped] = useState('');
   const ref = useRef(null);
+  const [visiblePop, setVisiblePop] = useState(false);
+  const closePopUp = () => {
+    setVisiblePop(false);
+  };
 
   const onChange = (event) => {
     setTyped(event.target.value);
@@ -63,7 +68,12 @@ export default function UploadPage() {
     const imgName = uploadedImg.filename;
     setAddedImgUrl(`${SERVER_BASE_URL}/${imgName}`);
   };
+
   const addImage = (event) => {
+    if (imageArr.length === 3) {
+      setVisiblePop(true);
+      return;
+    }
     const files = [...event.target.files];
     imageUpload(files);
   };
@@ -144,6 +154,7 @@ export default function UploadPage() {
           </UploadImgBtn>
         </PostForm>
       </UploadContainer>
+      {visiblePop && <AlertPopUp visible={visiblePop} onClose={closePopUp} />}
       {imageArr && (
         <PhotoContainer>
           <SectionTitle>첨부한 이미지 목록</SectionTitle>
