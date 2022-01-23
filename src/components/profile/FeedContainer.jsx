@@ -41,6 +41,7 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
         setNoImageFeedList((current) => [...current, post]);
       }
     });
+    console.log(noImageFeedList);
   }
 
   useEffect(() => {
