@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -76,7 +77,9 @@ function CommentCard({
   return (
     <div>
       <CommentWrapper>
-        <CommentProfileImg src={`${userImg}`} alt="" />
+        <GotoProfile to={`/profile/${accountName}`}>
+          <CommentProfileImg src={`${userImg}`} alt="" />
+        </GotoProfile>
         <CommentInfo>
           <UserInfo>
             <UserName>{userName}</UserName>
@@ -119,6 +122,7 @@ const DeleteBtn = styled.button`
   background-color: white;
   font-size: 14px;
   font-weight: 400;
+  cursor: pointer;
 `;
 
 const DORModatl = styled.div`
@@ -177,6 +181,10 @@ const CommentWrapper = styled.div`
   }
 `;
 
+const GotoProfile = styled(Link)`
+  height: 36px;
+`;
+
 const CommentProfileImg = styled.img`
   width: 36px;
   height: 36px;
@@ -222,6 +230,7 @@ const MoreBtn = styled.button`
   border: none;
   background-color: inherit;
   background-image: url('/img/icon/icon-more-vertical.png');
+  cursor: pointer;
 `;
 
 const MoreIcon = styled.img`

@@ -18,6 +18,6 @@ function PostDetail() {
 export default PostDetail;
 
 const PostDetailWrapper = styled.div`
-  height: 100vh;
+  height: 100%;
   position: relative;
 `;

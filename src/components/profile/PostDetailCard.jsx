@@ -223,6 +223,7 @@ const InputBtn = styled.button`
   color: ${(props) => (props.state ? '#f26e22' : '#c4c4c4')};
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 `;
 
 const CommentInputDiv = styled.div``;
