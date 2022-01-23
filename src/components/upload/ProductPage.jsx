@@ -211,7 +211,7 @@ const ImgLabel = styled.label`
     bottom: 12px;
     width: 36px;
     height: 36px;
-    background: url(img/img-button.png);
+    background: url(/img/img-button.png);
   }
   & input[type='file'] {
     overflow: hidden;

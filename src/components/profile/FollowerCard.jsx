@@ -66,23 +66,24 @@ function FollowerCard({ profileImage, userName, accountName }) {
         <User>{userName}</User>
         <Account>{accountName}</Account>
       </NameContainer>
-      {followed ? (
-        <UnFollowBtn
-          onClick={() => {
-            removeFollow();
-          }}
-        >
-          취소
-        </UnFollowBtn>
-      ) : (
-        <FollowBtn
-          onClick={() => {
-            addFollow();
-          }}
-        >
-          팔로우
-        </FollowBtn>
-      )}
+      {account !== accountName &&
+        (followed ? (
+          <UnFollowBtn
+            onClick={() => {
+              removeFollow();
+            }}
+          >
+            취소
+          </UnFollowBtn>
+        ) : (
+          <FollowBtn
+            onClick={() => {
+              addFollow();
+            }}
+          >
+            팔로우
+          </FollowBtn>
+        ))}
     </CardContainer>
   );
 }
