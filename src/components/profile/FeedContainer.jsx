@@ -20,7 +20,7 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
       image: '',
       heartCount: 0,
       comments: [],
-      updatedAt: '',
+      createdAt: '',
       id: '',
       hearted: false,
     },
@@ -41,7 +41,6 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
         setNoImageFeedList((current) => [...current, post]);
       }
     });
-    console.log(noImageFeedList);
   }
 
   useEffect(() => {
@@ -104,7 +103,7 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
                   contentimage={feed.image !== undefined ? feed.image : ''}
                   heartCount={feed.heartCount}
                   comment={feed.comments}
-                  updatedAt={feed.updatedAt}
+                  createdAt={feed.createdAt}
                   postid={feed.id}
                   hearted={feed.hearted}
                 />

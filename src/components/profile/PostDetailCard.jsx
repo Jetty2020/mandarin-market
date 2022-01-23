@@ -18,7 +18,7 @@ function PostDetailCard({ postid }) {
     image: '',
     heartCount: 0,
     comments: [],
-    updatedAt: '',
+    createdAt: '',
     id: '',
     hearted: false,
   });
@@ -111,7 +111,7 @@ function PostDetailCard({ postid }) {
           contentimage={postInfo.image}
           heartCount={postInfo.heartCount}
           comment={postInfo.comments}
-          updatedAt={postInfo.updatedAt}
+          createdAt={postInfo.createdAt}
           postid={postInfo.id}
           hearted={postInfo.hearted}
         />
