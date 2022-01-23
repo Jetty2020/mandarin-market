@@ -93,7 +93,7 @@ function FeedCard({
 
   return (
     <Contents>
-      <GotoProfile to="/none">
+      <GotoProfile to={`/profile/${accountName}`}>
         <LinkWrapper src={`${authorImage}`} />
       </GotoProfile>
       <FeedContents>
@@ -257,6 +257,7 @@ const CarouselBtn1 = styled.button`
   border: 0.5px solid #dbdbdb;
   border-radius: 3px;
   background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+  cursor: pointer;
 `;
 
 const CarouselBtn2 = styled.button`
@@ -266,6 +267,7 @@ const CarouselBtn2 = styled.button`
   border: 0.5px solid #dbdbdb;
   border-radius: 3px;
   background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+  cursor: pointer;
 `;
 
 const CarouselBtn3 = styled.button`
@@ -275,6 +277,7 @@ const CarouselBtn3 = styled.button`
   border: 0.5px solid #dbdbdb;
   border-radius: 10px;
   background-color: ${(props) => (props.active ? 'orange' : '#ffffff')};
+  cursor: pointer;
 `;
 
 const ImgContainer = styled.div`
@@ -314,6 +317,7 @@ const LinkWrapper = styled.img`
 
 const GotoProfile = styled(Link)`
   margin-right: 12px;
+  height: 42px;
 `;
 
 const FeedContents = styled.div`
