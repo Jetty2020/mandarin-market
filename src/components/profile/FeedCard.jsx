@@ -14,7 +14,7 @@ function FeedCard({
   contentimage,
   heartCount,
   comment,
-  updatedAt,
+  createdAt,
   postid,
   hearted,
 }) {
@@ -46,10 +46,10 @@ function FeedCard({
   const moveCarousel = (move) => {
     setCarouselMove(move);
   };
-  const updatedDate = `${updatedAt.slice(0, 4)}년 ${updatedAt.slice(
+  const updatedDate = `${createdAt.slice(0, 4)}년 ${createdAt.slice(
     5,
     7,
-  )}월 ${updatedAt.slice(8, 10)}일`;
+  )}월 ${createdAt.slice(8, 10)}일`;
 
   async function addHeart() {
     const token = localStorage.getItem('token');
@@ -62,6 +62,11 @@ function FeedCard({
       },
     });
     setHeartedState(true);
+    useEffect(() => {
+      if (typeof contentimage !== 'undefined') {
+        setSepImage(contentimage.split(','));
+      }
+    }, []);
     setHeartedCount((current) => current + 1);
   }
 
@@ -90,6 +95,12 @@ function FeedCard({
   useEffect(() => {
     countImageNum();
   }, [sepImage]);
+
+  useEffect(() => {
+    if (typeof contentimage !== 'undefined') {
+      setSepImage(contentimage.split(','));
+    }
+  }, [contentimage]);
 
   return (
     <Contents>
@@ -225,7 +236,7 @@ FeedCard.propTypes = {
   contentimage: PropTypes.string.isRequired,
   heartCount: PropTypes.number.isRequired,
   comment: PropTypes.arrayOf(PropTypes.string).isRequired,
-  updatedAt: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
   postid: PropTypes.string.isRequired,
   hearted: PropTypes.bool.isRequired,
 };
