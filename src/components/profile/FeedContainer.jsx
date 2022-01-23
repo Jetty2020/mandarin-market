@@ -38,9 +38,10 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
     setFeedList(response.data.post);
     response.data.post.forEach((post) => {
       if (post.image !== '') {
-        setNoImageFeedList((current) => [...current, post.image]);
+        setNoImageFeedList((current) => [...current, post]);
       }
     });
+    console.log(noImageFeedList);
   }
 
   useEffect(() => {
@@ -110,10 +111,11 @@ function FeedContainer({ feedHeaderMarginTop, feedState, whichUser }) {
               ))
             ) : (
               <FeedAlbumContainer>
-                {noImageFeedList.map((feedImage) => (
+                {noImageFeedList.map((feed) => (
                   <FeedAlbum
                     key={Math.random() * 100}
-                    contentimage={feedImage}
+                    contentimage={feed.image}
+                    postid={feed.id}
                   />
                 ))}
               </FeedAlbumContainer>
