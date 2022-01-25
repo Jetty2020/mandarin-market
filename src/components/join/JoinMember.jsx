@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { SERVER_BASE_URL } from '../../constants';
 
-export default function JoinMember({ setPage }) {
+export default function JoinMember({ setPage, setUserInfo }) {
+  const [joinError, setJoinError] = useState('');
+
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
   });
-  const onSubmit = (data) => console.log(data);
-
+  useEffect(() => {
+    if (joinError) setJoinError('');
+  }, [getValues().email]);
+  const onSubmit = async (data) => {
+    const response = await axios(`${SERVER_BASE_URL}/user/emailvalid`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({
+        user: {
+          email: data.email,
+        },
+      }),
+    });
+    // console.log(response);
+    if (response.data.message === '이미 가입된 이메일 주소 입니다.') {
+      setJoinError(response.data.message);
+    } else {
+      setUserInfo({ email: data.email, password: data.password });
+      setPage(false);
+    }
+  };
   return (
     <Container>
       <h1>이메일로 회원가입</h1>
@@ -32,10 +59,11 @@ export default function JoinMember({ setPage }) {
           {errors.email && errors.email.type === 'required' && (
             <Error>* 이메일을 입력해주세요</Error>
           )}
-          {/* {errors.email && errors.email.type === 'pattern' && (
+          {errors.email && errors.email.type === 'pattern' && (
             <Error>* 잘못된 이메일 형식입니다.</Error>
-          )} */}
+          )}
           {/* 이미 가입된 이메일 입니다. */}
+          {joinError && <Error> * {joinError}</Error>}
         </InputWrapper>
 
         <InputWrapper>
@@ -53,17 +81,13 @@ export default function JoinMember({ setPage }) {
           {errors.password && errors.password.type === 'required' && (
             <Error>*비밀번호를 입력해주세요.</Error>
           )}
-          {/* {errors.password && errors.password.type === 'minLength' && (
+          {errors.password && errors.password.type === 'minLength' && (
             <Error>* 비밀번호는 6자 이상이어야 합니다.</Error>
-          )} */}
+          )}
         </InputWrapper>
-        <LoginBtn
-          type="submit"
-          disabled={!isValid}
-          onClick={() => setPage((page) => !page)}
-        >
+        <NextBtn type="submit" disabled={!isValid}>
           다음
-        </LoginBtn>
+        </NextBtn>
       </Form>
     </Container>
   );
@@ -71,6 +95,7 @@ export default function JoinMember({ setPage }) {
 
 JoinMember.propTypes = {
   setPage: propTypes.func.isRequired,
+  setUserInfo: propTypes.func.isRequired,
 };
 
 const Container = styled.div`
@@ -120,7 +145,7 @@ const Input = styled.input`
   }
 `;
 
-const LoginBtn = styled.button`
+const NextBtn = styled.button`
   width: calc(100% - 64px);
   height: 44px;
   margin-left: 32px;
