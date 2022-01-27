@@ -29,9 +29,26 @@ function PostDetailCard({ postid }) {
   const [alive, setAlive] = useState(true);
   const [header, setHeader] = useState(true);
   const [moreBtnList, setMoreBtnList] = useState([]);
+  const loginUser = localStorage.getItem('account');
+  const token = localStorage.getItem('token');
+  const [profileImg, setProfileImg] = useState('/img/Ellipse 6.png');
+
+  const getProfile = async () => {
+    const data = await (
+      await axios.get(`${SERVER_BASE_URL}/profile/${loginUser}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      })
+    ).data;
+    setProfileImg(data.profile.image);
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   async function getCommentList() {
-    const token = localStorage.getItem('token');
     const url = SERVER_BASE_URL;
     const response = await axios(`${url}/post/${postid}/comments`, {
       method: 'GET',
@@ -44,7 +61,6 @@ function PostDetailCard({ postid }) {
   }
 
   async function addComment(value) {
-    const token = localStorage.getItem('token');
     const url = SERVER_BASE_URL;
     const response = await fetch(`${url}/post/${postid}/comments`, {
       method: 'POST',
@@ -71,7 +87,6 @@ function PostDetailCard({ postid }) {
   }, []);
 
   async function getPostDetail() {
-    const token = localStorage.getItem('token');
     const url = SERVER_BASE_URL;
     const response = await axios(`${url}/post/${postid}`, {
       method: 'GET',
@@ -133,7 +148,7 @@ function PostDetailCard({ postid }) {
         ))}
       </CommentList>
       <CommentForm>
-        <InputImg src={postInfo.author.image} alt="프로필" />
+        <InputImg src={profileImg} alt="프로필" />
         <CommentInputDiv>
           <CommentLabel htmlFor="comment">
             <CommentInput
