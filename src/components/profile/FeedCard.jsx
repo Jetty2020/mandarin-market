@@ -19,8 +19,8 @@ function FeedCard({
   hearted,
 }) {
   const [sepImage, setSepImage] = useState([]);
-  const [heartedState, setHeartedState] = useState(false);
-  const [heartedCount, setHeartedCount] = useState(0);
+  const [heartedState, setHeartedState] = useState(hearted);
+  const [heartedCount, setHeartedCount] = useState(heartCount);
   const [showing, setShowing] = useState(false);
   const [imageNum, setImageNum] = useState(0);
   const [carouselMove, setCarouselMove] = useState(0);
@@ -62,11 +62,6 @@ function FeedCard({
       },
     });
     setHeartedState(true);
-    useEffect(() => {
-      if (typeof contentimage !== 'undefined') {
-        setSepImage(contentimage.split(','));
-      }
-    }, []);
     setHeartedCount((current) => current + 1);
   }
 
@@ -88,9 +83,7 @@ function FeedCard({
     if (typeof contentimage !== 'undefined') {
       setSepImage(contentimage.split(','));
     }
-    setHeartedState(hearted);
-    setHeartedCount(heartCount);
-  }, [heartCount]);
+  }, []);
 
   useEffect(() => {
     countImageNum();
