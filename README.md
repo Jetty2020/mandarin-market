@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+## **🌏 목적**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+- 중고 상품 판매 및 소셜미디어 웹사이트 제작
 
-In the project directory, you can run:
+## **⚙️ 역할**
 
-### `yarn start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 프로필 파트 구현
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## **⚡️ 기능**
 
-### `yarn test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 소셜미디어 기능 - 피드 목록, 프로필, 팔로우 및 팔로잉, 채팅 등
+- 상품판매 게시 기능 - 개인 피드에 판매 상품 등록(사진, 가격 및 링크)
 
-### `yarn build`
+## **🛠 기술**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React, 최소의 렌더링을 위해 선택
+- Styled Component, CSS in JS를 통한 컴포넌트 별 관리
+- ESLint, 협업을 위한 최소 컨벤션
+- Husky, git 명령어 전 ESLint 스크립트를 통한 검사
+- Prettier, 협업을 위한 최소 컨벤션
+- Vercel, 배포
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## **🐛 사건사고 & 회고**
 
-### `yarn eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### **Git, Cherry-Pick**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+처음 git을 통한 협업은 아니였지만 이전보다 규모가 큰 프로젝트였다. 기능 별 branch를 습관하 하는 것과 팀원 분들의 기능을 pull하는 것을 많이 사용했다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+cherry-pick의 아주 유용한 기능을 맛 봤다. push 및 pr 이후 추가 개발에 있어 branch를 새로 파지않고 한참 구현을 하다 commit을 했는데 이걸 어떡하나 싶던 고뇌에 빠졌고, cherry-pick이라는 것을 알게되어 간단히 해결할 수 있었다. → **branch, pull, pull-request, cherry-pick**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **React**
 
-## Learn More
+이번 프로젝트를 시작하기에 앞서 어떤 스택을 사용할까에 대하여 토의 하던 중 React를 사용하기로 했다. 사실 대부분의 팀원분들이 React를 맛만 봤거나 혹은 맛도 못본 상황이였다. 나 또한 마찬가지였다. 그래도 우리 프로젝트의 목표에는 성장이라는 키워드가 포함되어 있어 과감하게 React를 사용해봤다. 처음에는 컴포넌트화, CSS in JS, 코드의 가시성, SPA 등의 장점들이 너무 마음에 들었다. 그런데 하나 하나 개발되어가고 규모가 조금 커지니 복잡성을 관리하는데에는 많은 수련이 필요하리라 느꼈다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+→ 좋은 것을 잘 쓰기 위해서는 그 만큼의 수련이 필요하다. 어쨌든 좋다
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### **ESLint**
 
-### Code Splitting
+에어비앤비의 ESLint를 사용하였다. 이전까지는 직접 일일히 맞는지 확인해야했지만 ESLint를 통해 그 작업이 자동화된 느낌이였다. 그리고 Husky를 통해서 Git 명령어 이전에도 더블체크를 해서 더욱 깔끔하게 개발을 할 수 있었다. 그리고 내가 지금까지 혼자 개발하였을 때 작성하던 습관은 협업에 좋지 않다는 것을 느꼈다ㅋ(뭔가 툭하면 ESLint한테 걸리는 느낌..)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+→ Do 협업? Do ESLint!
 
-### Analyzing the Bundle Size
+### **API**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+실제 백엔드 단의 API를 통해 개발을 한 것은 처음이였다. 그 동안은 OpenAPI를 통해 데이터를 불러오기만 했었는데 이번에는 POST, GET, PUT, DELETE 를 다양하게 사용하여 활용할 수 있었다.
 
-### Making a Progressive Web App
+'프로필수정'부분을 구현할 때 난관이 있었는데 바로 사진업로드를 하는 부분이다. 기존에 FormData를 사용해본 경험이 없었는데 React와 API를 처음 다루며 사용하다보니 다소 막히는 부분이 많았다. 그래도 결국 해내고 기분이 좋았다ㅋ
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+그리고 한참 GET을 사용하며 headers만 사용했었는데 PUT을 사용할 때 body를 보내며 JSON.stringfy()가 습관이 안된 상태여서 헤매곤 했다. 이는 객체를 문자열로 보내기 위함이다.
 
-### Advanced Configuration
+→ FormData, async&await, body:JSON.stringfy()
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+// FormData()
+const formData = new FormData();
+formData.append('image', files[0]);
+const res = await axios.post(`${url}/image/uploadfile`, formData, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
 
-### Deployment
+// JSON.stringfy()
+body: JSON.stringify({
+  user: {
+    username: userName,
+    accountname: accountName,
+    intro: introInfo,
+    image: `${url}/${imagePARAM}`,
+  },
+}),
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### **Fetch & Axios**
 
-### `yarn build` fails to minify
+어떤 이유에서 인지 fetch 보다 axios를 처음 접하게 되었고, API를 연동할 때 항상 axios를 사용해왔다. 그렇게 한참 axios를 사용하며 코드를 짜고있었는데 body를 동봉하여 보낼 때 생각대로 작동을 하지 않았다. 그래서 이것 저것 axios의 다양한 포맷으로 데이터를 보내봤지만 여전했다. 그러다가 혹시 fetch를 사용해볼까 했는데 해결이 되었다. 계속해서 영문을 파악해봤지만 원인은 찾지 못했다. 😑  시간을 내서 fetch와 axios를 다시 공부해봐야겠다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+→ 제대로 공부하고 사용하자 axios!
+
+## **♻️ 회고**
+
+---
+
+이번 프로젝트를 하며 ESLint, Husky 등의 기본 환경 세팅을 팀원 분이 해주셔서 나는 즐겁게 코드만 만질 수 있었다. 실시간으로 환경 세팅하시는 것을 보며 이것 저것 아주 약간의 감은 잡았지만 그래도 다음 프로젝트에서는 내가 직접 해보는 것이 좋을 것 같다.
+
+그리고 이 프로젝트를 하기 전에 이론 공부만 주구장창 했는데 역시 코드르 짜고 다듬는 일은 즐거운 일이였다. 물론 그 과정 속에 고배를 마시는 경험을 하지만 그 끝에는 그 것들을 전부 씼어내는 뭐랄까 고압세척을 하는 쾌감을 느낄 수 있다ㅋ
+
+뭔가 항상 프로젝트를 하며 느끼는 것이지만 처음에는 최소한의 변수 최소한의 로직을 생각하며 코드를 짜지만 가다보면 넘쳐있는 느낌이 든다. 과거의 기억들을 떠올리며 이전보다 **나아졌다는 생각은 들지만 프로젝트의 끝을 향하면서 아직 갈 길이 한참 멀구나라는 생각이 동시에 드는 경험**을 매번 하는 것 같다. 그래도 재밌다.
+
+어떤 일을 할 때 발전해나가는 과정 속에서 고배를 마시는 것은 피할 수 없지만 후에 **그 것들이 해소되는 쾌감을 가져다 주느냐**가 스스로가 그 일을 업으로 삼을 수 있느냐에 대해서 중요한 지표가 되는데, 이번 프로젝트를 하며 충분히 차고 넘친다는 생각을 많이 한 좋은 경험이였다.
