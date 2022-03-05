@@ -45,8 +45,6 @@ function CommentCard({
     setDORState((current) => !current);
   };
 
-  const closeModal = () => {};
-
   useEffect(() => {
     const ownUser = localStorage.getItem('account');
     if (ownUser === accountName) {
@@ -60,14 +58,6 @@ function CommentCard({
       10,
     )}일`;
     return commentTime;
-    // const tempTime = new Date(
-    //   parseInt(createdTime.slice(0, 4), 10),
-    //   parseInt(createdTime.slice(5, 7), 10),
-    //   parseInt(createdTime.slice(8, 10), 10),
-    //   parseInt(createdTime.slice(11, 13), 10),
-    //   parseInt(createdTime.slice(14, 16), 10),
-    //   parseInt(createdTime.slice(17, 19), 10),
-    // );
   };
 
   useEffect(() => {
@@ -141,19 +131,6 @@ const DORModatl = styled.div`
 `;
 
 const DeleteOrReport = styled.div`
-  /* position: fixed;
-  z-index: 500;
-  bottom: -100px;
-  width: 100vw;
-  height: 102px;
-  border: 2px solid blue;
-  background-color: white;
-  transition: bottom 1s linear;
-
-  &.true {
-    bottom: 0px;
-  } */
-
   position: fixed;
   bottom: -102px;
   left: 0;
@@ -166,7 +143,6 @@ const DeleteOrReport = styled.div`
   background: #fff;
   z-index: 500;
   transition: 0.5s all ease;
-
   transform: ${(props) => (props.d ? 'translateY(-102px)' : 'translateY(0px)')};
 `;
 

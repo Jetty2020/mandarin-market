@@ -28,7 +28,6 @@ function PostDetailCard({ postid }) {
   const [inputState, setInputState] = useState(false);
   const [alive, setAlive] = useState(true);
   const [header, setHeader] = useState(true);
-  const [moreBtnList, setMoreBtnList] = useState([]);
   const loginUser = localStorage.getItem('account');
   const token = localStorage.getItem('token');
   const [profileImg, setProfileImg] = useState('/img/Ellipse 6.png');
