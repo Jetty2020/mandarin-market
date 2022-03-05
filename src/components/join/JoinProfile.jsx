@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { routes, SERVER_BASE_URL } from '../../constants';
+import { SERVER_BASE_URL } from '../../constants';
 
 export default function JoinProfile({ userInfo }) {
   const [profileImg, setProfileImg] = useState('/img/basic-profile-img.png');
@@ -19,7 +19,6 @@ export default function JoinProfile({ userInfo }) {
     mode: 'onChange',
   });
   const [accountError, setAccountError] = useState('');
-  // image 파일 선택 및 업로드
   const onUploadImage = async (e) => {
     const imageData = new FormData();
     imageData.append('image', e.target.files[0]);
@@ -247,6 +246,7 @@ const LoginBtn = styled.button`
   border: none;
   border-radius: 44px;
   color: #fff;
+  cursor: pointer;
   :disabled {
     background: #ffc7a7;
   }

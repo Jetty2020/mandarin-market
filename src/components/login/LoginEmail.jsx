@@ -137,6 +137,7 @@ const LoginBtn = styled.button`
   border: none;
   border-radius: 44px;
   color: #fff;
+  cursor: pointer;
   :disabled {
     background: #ffc7a7;
   }
