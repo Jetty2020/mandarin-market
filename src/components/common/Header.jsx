@@ -13,15 +13,9 @@ export default function Header({ postDetail, forLink }) {
 
   return (
     <HeaderContainer>
-      {postDetail ? (
-        <ProfileLink to={`/profile/${forLink}`}>
-          <img src="/img/icon/icon-arrow-left.svg" alt="이전 페이지 버튼" />
-        </ProfileLink>
-      ) : (
-        <PrevBtn type="button" onClick={() => navigate(-1)}>
-          <img src="/img/icon/icon-arrow-left.svg" alt="이전 페이지 버튼" />
-        </PrevBtn>
-      )}
+      <PrevBtn type="button" onClick={() => navigate(-1)}>
+        <img src="/img/icon/icon-arrow-left.svg" alt="이전 페이지 버튼" />
+      </PrevBtn>
       <MoreBtn type="button" onClick={showModal}>
         <img src="/img/icon/icon- more-vertical.svg" alt="더보기 버튼" />
       </MoreBtn>

@@ -3,27 +3,60 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from '../components/common/Navbar';
 import PageTitle from '../components/common/PageTitle';
-import FeedContainer from '../components/profile/FeedContainer';
 import HomeHeader from '../components/header/HomeHeader';
+import { SERVER_BASE_URL } from '../constants';
+import FeedCard from '../components/profile/FeedCard';
 
 function Home() {
   const navigate = useNavigate();
+  const [haveFollowing, setHaveFollowing] = useState(true);
+  const [followingFeedList, setFollowingFeedList] = useState([]);
+
+  async function getFollowerFeed() {
+    const token = localStorage.getItem('token');
+    const url = SERVER_BASE_URL;
+    const response = await fetch(`${url}/post/feed`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    }).then((res) => res.json());
+
+    response.posts.forEach((ele) => {
+      setFollowingFeedList((current) => [...current, ele]);
+    });
+  }
+
   useEffect(() => {
     if (!window.localStorage.getItem('token')) {
       navigate('/login');
     }
+    getFollowerFeed();
   }, []);
-  const [haveFollowing, setHaveFollowing] = useState(true);
+
   return (
     <>
       <HomeHeader />
       {haveFollowing ? (
-        <div>
-          <FeedContainer feedHeaderMarginTop feedState />
-          <FeedContainer feedHeaderMarginTop feedState />
-          <FeedContainer feedHeaderMarginTop feedState />
+        <FeedWrapper>
+          {followingFeedList.map((feed) => (
+            <FeedCard
+              key={`${feed.id}`}
+              authorImage={feed.author.image}
+              userName={feed.author.username}
+              accountName={feed.author.accountname}
+              content={feed.content}
+              contentimage={feed.image !== undefined ? feed.image : ''}
+              heartCount={feed.heartCount}
+              comment={feed.comments}
+              createdAt={feed.createdAt}
+              postid={feed.id}
+              hearted={feed.hearted}
+            />
+          ))}
           <Navbar />
-        </div>
+        </FeedWrapper>
       ) : (
         <div>
           <PageTitle title="Home" />
@@ -64,4 +97,8 @@ const HomeBtn = styled(Link)`
   border-radius: 20px;
   background: ${(props) => props.theme.accent};
   color: #fff;
+`;
+
+const FeedWrapper = styled.div`
+  padding-bottom: 59px;
 `;
