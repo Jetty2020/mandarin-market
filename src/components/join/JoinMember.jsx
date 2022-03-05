@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
@@ -8,7 +7,6 @@ import { SERVER_BASE_URL } from '../../constants';
 
 export default function JoinMember({ setPage, setUserInfo }) {
   const [joinError, setJoinError] = useState('');
-
   const {
     register,
     handleSubmit,
@@ -32,7 +30,6 @@ export default function JoinMember({ setPage, setUserInfo }) {
         },
       }),
     });
-    // console.log(response);
     if (response.data.message === '이미 가입된 이메일 주소 입니다.') {
       setJoinError(response.data.message);
     } else {
@@ -62,7 +59,6 @@ export default function JoinMember({ setPage, setUserInfo }) {
           {errors.email && errors.email.type === 'pattern' && (
             <Error>* 잘못된 이메일 형식입니다.</Error>
           )}
-          {/* 이미 가입된 이메일 입니다. */}
           {joinError && <Error> * {joinError}</Error>}
         </InputWrapper>
 
@@ -144,7 +140,6 @@ const Input = styled.input`
     vertical-align: super;
   }
 `;
-
 const NextBtn = styled.button`
   width: calc(100% - 64px);
   height: 44px;
@@ -159,7 +154,6 @@ const NextBtn = styled.button`
     background: #ffc7a7;
   }
 `;
-
 const Error = styled.p`
   margin: 6px 0 16px;
   font-size: 12px;
