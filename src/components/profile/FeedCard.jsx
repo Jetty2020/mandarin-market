@@ -86,6 +86,11 @@ function FeedCard({
   }, []);
 
   useEffect(() => {
+    setHeartedCount(heartCount);
+    setHeartedState(hearted);
+  }, [hearted, heartCount]);
+
+  useEffect(() => {
     countImageNum();
   }, [sepImage]);
 
@@ -190,7 +195,7 @@ function FeedCard({
               }}
             />
           )}
-          <NumOf>{heartCount}</NumOf>
+          <NumOf>{heartedCount}</NumOf>
           <Link to={`/postdetail/${postid}`}>
             <ImgMessage
               src={`${process.env.PUBLIC_URL}/img/icon/icon-message-circle.svg`}
@@ -366,6 +371,7 @@ const NoHeartBtn = styled.button`
   margin-right: 6px;
   border: none;
   background: url('/img/icon/icon-heart.png') no-repeat center;
+  cursor: pointer;
 `;
 
 const HeartBtn = styled.button`
@@ -374,6 +380,7 @@ const HeartBtn = styled.button`
   margin-right: 6px;
   border: none;
   background: url('/img/icon/icon-heart-active.png') no-repeat center;
+  cursor: pointer;
 `;
 
 const ImgMessage = styled.img`

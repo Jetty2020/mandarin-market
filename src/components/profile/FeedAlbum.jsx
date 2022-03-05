@@ -21,9 +21,9 @@ FeedAlbum.propTypes = {
 
 const Img = styled.img`
   width: 100%;
-  max-width: 146px;
+  min-width: 146px;
   height: 100%;
-  max-height: 146px;
+  min-height: 146px;
   border: 0.5px solid #dbdbdb;
   object-fit: cover;
 `;
