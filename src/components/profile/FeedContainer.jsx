@@ -136,8 +136,7 @@ FeedContainer.propTypes = {
 
 const FeedAlbumContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(114px, 146px));
-  grid-auto-rows: minmax(114px, 30vw);
+  grid-template-columns: repeat(3, minmax(auto, auto));
   gap: 8px;
   padding: 16px;
   margin-bottom: 59px;
@@ -157,11 +156,13 @@ const FeedHeader = styled.div`
 const ImgList = styled.img`
   width: 26px;
   height: 26px;
+  cursor: pointer;
 `;
 
 const ImgAlbum = styled.img`
   width: 26px;
   height: 26px;
+  cursor: pointer;
 `;
 
 const ButtonCard = styled.button`
