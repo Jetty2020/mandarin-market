@@ -190,7 +190,7 @@ function FeedCard({
               }}
             />
           )}
-          <NumOf>{heartedCount}</NumOf>
+          <NumOf>{heartCount}</NumOf>
           <Link to={`/postdetail/${postid}`}>
             <ImgMessage
               src={`${process.env.PUBLIC_URL}/img/icon/icon-message-circle.svg`}
