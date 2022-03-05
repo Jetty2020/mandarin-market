@@ -1,14 +1,15 @@
 import React from 'react';
 import PageTitle from '../components/common/PageTitle';
-// import LoginEmail from '../components/login/LoginEmail';
 import LoginPage from '../components/login/LoginPage';
+import SplashScreen from '../components/home/SplashScreen';
 
 function Login() {
   return (
-    <div>
+    <>
       <PageTitle title="Login" />
       <LoginPage />
-    </div>
+      <SplashScreen />
+    </>
   );
 }
 
