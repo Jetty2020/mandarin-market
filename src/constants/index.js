@@ -1,4 +1,4 @@
-export const SERVER_BASE_URL = 'https://api.mandarin.cf';
+export const SERVER_BASE_URL = 'https://mandarin.api.weniv.co.kr';
 
 export const routes = {
   home: '/',
